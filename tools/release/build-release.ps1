@@ -1,11 +1,17 @@
-# Builds a signed Salat Desk release APK.
+# Builds a signed Salat Desk release.
 #
-#   powershell -ExecutionPolicy Bypass -File tools\release\build-release.ps1
+#   powershell -ExecutionPolicy Bypass -File tools\release\build-release.ps1              # APK (GitHub, sideloading)
+#   powershell -ExecutionPolicy Bypass -File tools\release\build-release.ps1 -Format aab  # App Bundle (Google Play)
 #
 # First run: creates the signing key at %USERPROFILE%\.salatdesk\salatdesk.keystore (keytool asks
 # for a password and your name). Keep that file and password safe: every future update, including
 # Google Play, must be signed with the same key. The password is only typed into this window; it is
 # not stored anywhere.
+
+param(
+    [ValidateSet('apk', 'aab')]
+    [string]$Format = 'apk'
+)
 
 $ErrorActionPreference = 'Stop'
 $root = Resolve-Path (Join-Path $PSScriptRoot '..\..')
@@ -30,10 +36,11 @@ $secure = Read-Host 'Signing key password' -AsSecureString
 $env:SALATDESK_KEY_PASS = [Runtime.InteropServices.Marshal]::PtrToStringBSTR(
     [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure))
 
+$started = Get-Date
 try {
-    Write-Host "Building Salat Desk $version (Release)..." -ForegroundColor Cyan
+    Write-Host "Building Salat Desk $version ($Format, Release)..." -ForegroundColor Cyan
     dotnet publish $project -f net10.0-android -c Release `
-        -p:AndroidPackageFormats=apk -p:AndroidKeyStore=true `
+        "-p:AndroidPackageFormats=$Format" -p:AndroidKeyStore=true `
         "-p:AndroidSigningKeyStore=$keystore" -p:AndroidSigningKeyAlias=salatdesk `
         -p:AndroidSigningKeyPass=env:SALATDESK_KEY_PASS -p:AndroidSigningStorePass=env:SALATDESK_KEY_PASS
     if ($LASTEXITCODE -ne 0) { throw 'The build failed. Check the password and the messages above.' }
@@ -42,10 +49,14 @@ finally {
     Remove-Item Env:SALATDESK_KEY_PASS -ErrorAction SilentlyContinue
 }
 
-$apk = Get-ChildItem (Join-Path $root 'src\DeskDashboard.App\bin\Release') -Recurse -Filter '*-Signed.apk' |
+$pattern = if ($Format -eq 'aab') { '*-Signed.aab' } else { '*-Signed.apk' }
+$built = Get-ChildItem (Join-Path $root 'src\DeskDashboard.App\bin\Release') -Recurse -Filter $pattern |
+    Where-Object { $_.LastWriteTime -ge $started.AddMinutes(-1) } |
     Sort-Object LastWriteTime -Descending | Select-Object -First 1
+if (-not $built) { throw "No new $pattern was produced." }
+
 $dist = Join-Path $root 'dist'
 New-Item -ItemType Directory -Force $dist | Out-Null
-$out = Join-Path $dist "SalatDesk-$version.apk"
-Copy-Item $apk.FullName $out -Force
+$out = Join-Path $dist "SalatDesk-$version.$Format"
+Copy-Item $built.FullName $out -Force
 Write-Host "Done: $out" -ForegroundColor Green

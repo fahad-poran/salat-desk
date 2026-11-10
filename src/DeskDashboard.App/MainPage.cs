@@ -47,10 +47,6 @@ public sealed class MainPage : ContentPage
         }
 
         /// <summary>
-        /// Sets this app window's brightness: 0.0–1.0, or a negative value to follow the system
-        /// setting. Only affects the app while it is in front; no system setting is changed.
-        /// </summary>
-        /// <summary>
         /// Schedules the Jamaat warning notifications (replacing earlier ones). JSON array from
         /// jamaat-state.js alertSchedule. Returns how many were scheduled.
         /// </summary>
@@ -76,6 +72,10 @@ public sealed class MainPage : ContentPage
 #endif
         }
 
+        /// <summary>
+        /// Sets this app window's brightness: 0.0–1.0, or a negative value to follow the system
+        /// setting. Only affects the app while it is in front; no system setting is changed.
+        /// </summary>
         public bool SetBrightness(double level)
         {
             var value = level < 0 ? -1f : (float)Math.Clamp(level, 0.01, 1.0);

@@ -251,8 +251,12 @@ dotnet publish src/DeskDashboard.App -f net10.0-android -c Release `
   -p:AndroidSigningKeyPass=env:SALATDESK_KEY_PASS -p:AndroidSigningStorePass=env:SALATDESK_KEY_PASS
 ```
 
-The APK is in `src/DeskDashboard.App/bin/Release/net10.0-android/publish/com.salatdesk.app-Signed.apk`. For Google
-Play, build an `.aab` instead (`-p:AndroidPackageFormats=aab`).
+The APK is in `src/DeskDashboard.App/bin/Release/net10.0-android/publish/com.salatdesk.app-Signed.apk`.
+
+`tools\release\build-release.ps1` does all of this and copies the result to `dist\`. Its `-Format aab` option builds
+the App Bundle for Google Play. The Play checklist, listing text, Data safety answers and store graphics are in
+[docs/google-play](google-play/README.md); `tools\play\make-graphics.ps1` regenerates the graphics. The privacy
+policy is [PRIVACY.md](../PRIVACY.md).
 
 Before each release: bump `ApplicationDisplayVersion` and `ApplicationVersion` in `DeskDashboard.App.csproj`, run
 both test suites, and install the Release build on a phone (trimming is `partial`; EF Core, Core and Adhan are kept
@@ -260,7 +264,15 @@ as trimmer roots).
 
 ## Roadmap
 
-- Google Play: privacy policy, data safety form, target API level, closed testing.
-- GPS location, Hijri date, Qibla, Adhan/Jamaat notifications.
+- Google Play: account, closed test with 12 testers for 14 days, production (see [docs/google-play](google-play/README.md)).
+- On-screen alert dot during a Jamaat warning (plan in `.claude/skills/salat-desk/references/notification-dot.md`).
+- GPS location, Hijri date, Qibla, Adhan notifications.
 - Bangla and Arabic interface (right-to-left).
-- iOS and iPadOS: add `net10.0-ios` to the app project; the dashboard, Core and the bridge are shared.
+- iOS and iPadOS: step-by-step guide in `.claude/skills/salat-desk/references/ios-on-mac.md`. The dashboard, Core
+  and the bridge are shared.
+
+## Claude Code skill
+
+`.claude/skills/salat-desk/` is a project skill for Claude Code. Opening this repo in Claude Code (on Windows or a
+Mac) makes it available automatically. It summarises the architecture, the always-on design rules, the build and
+release steps, the iOS port and Google Play publishing.

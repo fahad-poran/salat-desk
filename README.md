@@ -101,6 +101,8 @@ Then leave the phone on its charger. The screen stays on while Salat Desk is ope
 - The app connects to the internet only to search for a city (Open-Meteo) and for the weekly Ayat/Hadith download
   (AlQuran.cloud and the hadith-api on jsDelivr). Prayer times are calculated offline.
 
+Full privacy policy: [PRIVACY.md](PRIVACY.md).
+
 ## Credits
 
 - Quran Arabic text: [Tanzil.net](https://tanzil.net) (Uthmani). English: Sahih International. Both via
