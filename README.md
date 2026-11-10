@@ -19,8 +19,11 @@ offline.
   Moonsighting Committee, or your own angles), Hanafi or Standard Asr, and per-prayer minute adjustments.
 - **Your mosque's Jamaat times.** Enter the timetable once (it can change from a chosen date). Salat Desk checks that
   each Jamaat falls inside its prayer window and shows the difference from the calculated start.
-- **Countdown and 10-minute warning.** Counts down to the next Waqt or Jamaat; in the last 10 minutes before Jamaat
-  the panel turns red and gently pulses.
+- **Countdown and Jamaat warning.** Counts down to the next Waqt or Jamaat. Before each Jamaat (10 minutes by default,
+  your choice for each prayer) a red frame blinks around the screen, also in the always-on view, with the time left to
+  the second.
+- **Notifications.** For each prayer you choose, the phone shows a notification when its warning starts, with
+  vibration and the notification light where the phone has one, even while Salat Desk is in the background.
 - **Always-on display, made for old phones.** Between prayers the screen dims to a grey clock on pure black that
   moves to a new spot every minute, so no pixel stays lit. The full dashboard returns 15 minutes before each Jamaat.
   From 23:00 until Fajr a smaller, dimmer night clock is shown.
@@ -59,7 +62,10 @@ Tap **Settings** (gear icon):
 2. **Calculation**: choose the method and Asr juristic method your mosque follows. Use **Manual adjustments** to
    match its printed timetable.
 3. **Mosque Jamaat timetable**: enter the Jamaat times and the date they start. Each field shows the allowed range.
-4. **Display & ambient mode**: adjust when the full view appears around Jamaat, the night start time, brightness, and
+4. **Jamaat alerts**: for each prayer, turn the notification on or off and set how many minutes before the Jamaat the
+   warning starts (up to the time between the Waqt and the Jamaat). On Android 13 and newer the phone asks once
+   whether Salat Desk may show notifications.
+5. **Display & ambient mode**: adjust when the full view appears around Jamaat, the night start time, brightness, and
    whether to show Quran, Hadith or both.
 
 Then leave the phone on its charger. The screen stays on while Salat Desk is open.
@@ -84,11 +90,14 @@ Then leave the phone on its charger. The screen stays on while Salat Desk is ope
 - If your phone or custom ROM supports a **charge limit** (for example 85 %), turn it on: a phone that stays on its
   charger all the time ages its battery faster.
 - Salat Desk only changes the brightness of its own window; your phone's brightness setting is untouched.
+- Most phones blink the notification light only while the screen is off. After a restart, open Salat Desk once so it
+  can schedule the Jamaat notifications again.
 
 ## Privacy
 
 - No account, no analytics, no ads.
-- Your location, settings and timetable stay on the phone.
+- Your location, settings and timetable stay on the phone. Jamaat notifications are created by the phone itself; no
+  push service is involved.
 - The app connects to the internet only to search for a city (Open-Meteo) and for the weekly Ayat/Hadith download
   (AlQuran.cloud and the hadith-api on jsDelivr). Prayer times are calculated offline.
 

@@ -248,3 +248,48 @@ test('splitDuration formats countdown values', () => {
     { hours: 1, minutes: 1, seconds: 1, totalMinutes: 62, clock: '01:01:01' }
   );
 });
+
+test('warning minutes are per prayer and limited to the Waqt-to-Jamaat time', () => {
+  const entries = todayEntries();
+  const at = (h, m) => Date.parse(iso(0, h, m));
+  // Asr Waqt 15:41, Jamaat 16:10 (29 minutes apart).
+  assert.equal(JamaatState.evaluate(entries, at(15, 55)).phase, 'waiting');
+  const custom = { warningMinutes: { asr: 20 } };
+  const early = JamaatState.evaluate(entries, at(15, 55), custom);
+  assert.equal(early.phase, 'approaching');
+  assert.equal(early.warningMs, 20 * MINUTE);
+  assert.equal(JamaatState.evaluate(entries, at(15, 49), custom).phase, 'waiting');
+  // 90 minutes asked, only 29 available: the whole Waqt-to-Jamaat time is the warning.
+  const long = JamaatState.evaluate(entries, at(15, 42), { warningMinutes: { asr: 90 } });
+  assert.equal(long.phase, 'approaching');
+  assert.equal(long.warningMs, 29 * MINUTE);
+  // Other prayers keep the default.
+  assert.equal(JamaatState.evaluate(entries, at(19, 30), custom).warningMs, 10 * MINUTE);
+});
+
+test('alert preferences are normalised for all five prayers', () => {
+  const prefs = JamaatState.normalizeAlertPrefs({ asr: { notify: false, minutes: 25 }, isha: { minutes: 999 }, fajr: { minutes: 'x' } });
+  assert.deepEqual(Object.keys(prefs), ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha']);
+  assert.deepEqual(prefs.asr, { notify: false, minutes: 25 });
+  assert.equal(prefs.isha.minutes, 120);
+  assert.equal(prefs.fajr.minutes, 10);
+  assert.equal(prefs.dhuhr.notify, true);
+  assert.deepEqual(JamaatState.warningMinutesOf(prefs).asr, 25);
+});
+
+test('alert schedule lists upcoming warnings for prayers with Notify on', () => {
+  const entries = [...todayEntries(), tomorrowFajr()];
+  const prefs = JamaatState.normalizeAlertPrefs({ maghrib: { notify: false }, asr: { minutes: 15 } });
+  const now = Date.parse(iso(0, 15, 0));
+  const schedule = JamaatState.alertSchedule(entries, prefs, now);
+  assert.deepEqual(schedule.map((s) => s.key), ['asr', 'isha', 'fajr']);
+  const asr = schedule[0];
+  assert.equal(asr.warnAt, Date.parse(iso(0, 16, 10)) - 15 * MINUTE);
+  assert.equal(asr.minutes, 15);
+  assert.equal(asr.id, `asr|${Date.parse(iso(0, 16, 10))}`);
+  // Once a warning time has passed it is no longer scheduled.
+  assert.deepEqual(JamaatState.alertSchedule(entries, prefs, Date.parse(iso(0, 15, 56))).map((s) => s.key), ['isha', 'fajr']);
+  // Prayers without a Jamaat are skipped.
+  const noDhuhr = JamaatState.alertSchedule(todayEntries({ dhuhrJamaat: null }), prefs, Date.parse(iso(0, 8, 0)));
+  assert.ok(!noDhuhr.some((s) => s.key === 'dhuhr'));
+});

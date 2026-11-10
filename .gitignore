@@ -22,6 +22,9 @@ tools/content/.cache/
 docs/phase2/
 docs/content-review.html
 
+# Release output (uploaded to GitHub Releases, not committed)
+dist/
+
 # Signing keys and secrets: never commit
 *.keystore
 *.jks

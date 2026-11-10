@@ -294,13 +294,15 @@ select:focus-visible {
   display: none;
 }
 
+/* Jamaat warning: a clear blink (about once a second) that is easy to see on a dim phone. */
 .next-panel.is-warning {
-  border-color: rgba(248, 113, 113, 0.82);
-  animation: jamaat-warning-pulse 1.9s ease-in-out infinite alternate;
+  border-color: var(--danger);
+  animation: jamaat-warning-pulse 0.9s ease-in-out infinite alternate;
 }
 
 .next-panel.is-warning .countdown {
   color: var(--danger);
+  animation: jamaat-warning-text 0.9s ease-in-out infinite alternate;
 }
 
 .next-panel.is-warning .next-name {
@@ -324,17 +326,56 @@ select:focus-visible {
   color: #fca5a5;
 }
 
-body.no-warning-flash .next-panel.is-warning {
+body.no-warning-flash .next-panel.is-warning,
+body.no-warning-flash .next-panel.is-warning .countdown {
   animation: none;
-  box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.16);
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.45);
 }
 
 @keyframes jamaat-warning-pulse {
   from {
-    box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.02);
+    border-color: rgba(248, 113, 113, 1);
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.55);
   }
   to {
-    box-shadow: 0 0 0 7px rgba(248, 113, 113, 0.08);
+    border-color: rgba(248, 113, 113, 0.25);
+    box-shadow: 0 0 0 0 rgba(248, 113, 113, 0);
+  }
+}
+
+@keyframes jamaat-warning-text {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.35;
+  }
+}
+
+/* Full-screen red frame during the warning, above the dashboard and the ambient view. */
+.warning-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  border: 4px solid var(--danger);
+  pointer-events: none;
+  animation: jamaat-warning-frame 0.9s ease-in-out infinite alternate;
+}
+
+.warning-frame[hidden] {
+  display: none;
+}
+
+body.no-warning-flash .warning-frame {
+  animation: none;
+}
+
+@keyframes jamaat-warning-frame {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.15;
   }
 }
 
@@ -1539,4 +1580,81 @@ body.mode-night .ambient-block.has-content {
 
 .library-more {
   align-self: center;
+}
+
+/* Always-on view during a Jamaat warning: red border round the block, red countdown. */
+.ambient-block.is-warning {
+  padding: 12px 16px;
+  border: 2px solid var(--danger);
+  border-radius: 18px;
+  animation: jamaat-warning-pulse 0.9s ease-in-out infinite alternate;
+}
+
+.ambient-block.is-warning .ambient-next,
+.ambient-block.is-warning .ambient-next strong,
+body.mode-night .ambient-block.is-warning .ambient-next,
+body.mode-night .ambient-block.is-warning .ambient-next strong {
+  color: var(--danger);
+  font-variant-numeric: tabular-nums;
+}
+
+body.no-warning-flash .ambient-block.is-warning {
+  animation: none;
+}
+
+/* Jamaat alerts table (Settings) */
+.alert-table {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alert-row {
+  display: grid;
+  grid-template-columns: minmax(70px, 1fr) 80px minmax(0, 2fr);
+  align-items: start;
+  gap: 8px 14px;
+}
+
+.alert-head {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.alert-name {
+  padding-top: 10px;
+  font-weight: 600;
+}
+
+.alert-notify {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--muted);
+}
+
+.alert-notify input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent);
+}
+
+.alert-minutes input {
+  width: 100%;
+  max-width: 120px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+}
+
+.alert-minutes .field-hint {
+  display: block;
+  margin-top: 4px;
 }

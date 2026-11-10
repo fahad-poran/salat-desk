@@ -116,6 +116,9 @@
     </footer>
   </div>
 
+  <!-- Red frame around the whole screen while a Jamaat warning is active (every mode). -->
+  <div class="warning-frame" id="warningFrame" hidden aria-hidden="true"></div>
+
   <!-- Ambient / night view: shown between prayers. Tap to show the full dashboard. -->
   <div class="ambient" id="ambient" hidden>
     <div class="ambient-block" id="ambientBlock">
@@ -337,14 +340,30 @@
       </section>
 
       <section class="form-section">
-        <h3>Jamaat warning</h3>
+        <h3>Jamaat alerts</h3>
+        <p class="section-hint">
+          Before each Jamaat the screen shows a red, blinking warning with the time left. Choose how many minutes before
+          the Jamaat it starts (at most the time between the Waqt start and the Jamaat) and whether the phone also shows
+          a notification, with the notification light where the phone has one.
+        </p>
+        <div class="alert-table" id="alertTable" role="table" aria-label="Jamaat alerts per prayer">
+          <div class="alert-row alert-head" role="row">
+            <span role="columnheader">Prayer</span>
+            <span role="columnheader">Notify</span>
+            <span role="columnheader">Minutes before Jamaat</span>
+          </div>
+          <!-- Rows are built by app.js for Fajr, Dhuhr, Asr, Maghrib and Isha. -->
+        </div>
+        <p class="section-hint native-only">
+          Notifications are created on this phone only. The notification light usually blinks while the screen is off.
+        </p>
         <label class="toggle-field">
           <input id="flashWarningInput" type="checkbox" />
-          <span>Flash the final 10-minute warning border</span>
+          <span>Blink the warning</span>
         </label>
         <p class="section-hint">
-          When flashing is off, the warning stays red but does not pulse. A reduced-motion system setting always
-          disables flashing. This preference is stored only in this browser.
+          When blinking is off, the warning stays red but does not blink. A reduced-motion system setting always
+          turns blinking off. These preferences are stored only on this device.
         </p>
       </section>
 

@@ -5,4 +5,8 @@
        weekly Ayat/Hadith update; network state is used to wait for Wi-Fi before that update. -->
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <!-- Jamaat alerts: notifications (asked at runtime on Android 13+), on-time alarms, vibration. -->
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+  <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>

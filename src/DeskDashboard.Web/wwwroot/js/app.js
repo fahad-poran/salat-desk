@@ -81,6 +81,8 @@
     conflictPanel: $('conflictPanel'),
     conflictList: $('conflictList'),
     flashWarningInput: $('flashWarningInput'),
+    alertTable: $('alertTable'),
+    warningFrame: $('warningFrame'),
     dialogDisclaimer: $('dialogDisclaimer'),
     footerNote: document.querySelector('.footer-note'),
     ambient: $('ambient'),
@@ -152,6 +154,8 @@
     ambientPosition: null,
     aod: null,
     aodPressedAt: 0,
+    alertPrefs: null,
+    alertScheduleKey: '',
     contentRefreshRequested: false,
     library: { type: 'quran', hidden: false, items: [], shown: 0, token: 0 },
     contentStatusTimer: 0
@@ -165,6 +169,7 @@
   const FLASH_STORAGE_KEY = 'deskDashboard.flashWarning';
   const ALERTS_STORAGE_KEY = 'deskDashboard.jamaatAlerts';
   const AMBIENT_STORAGE_KEY = 'deskDashboard.ambient';
+  const ALERT_PREFS_KEY = 'deskDashboard.jamaatAlertPrefs';
   const AMBIENT_MARGIN = 16;
   const LIBRARY_PAGE = 40;
 
@@ -176,6 +181,7 @@
       elements.footerNote.textContent = 'Runs on this device';
     }
     loadFlashPreference();
+    loadAlertPrefs();
     loadAmbientPrefs();
     bindEvents();
     applyBurnInDrift();
@@ -214,6 +220,7 @@
     elements.saveSettingsButton.addEventListener('click', saveSettings);
     elements.saveTimetableButton.addEventListener('click', saveTimetable);
     elements.flashWarningInput.addEventListener('change', handleFlashChange);
+    elements.alertTable.addEventListener('change', handleAlertInput);
     elements.timetableEffectiveFrom.addEventListener('change', () => refreshTimetableLimits());
     for (const input of jamaatInputs()) {
       input.addEventListener('input', () => input.classList.remove('is-invalid'));
@@ -299,6 +306,7 @@
 
     const synced = formatClockTime(new Date(Date.parse(data.serverNowUtc)), data.timeZoneId);
     elements.lastUpdated.textContent = `Synced ${synced.time} ${synced.meridiem}`;
+    scheduleNativeAlerts();
   }
 
   function renderClock() {
@@ -341,7 +349,9 @@
     }
 
     const now = Date.now() + state.serverOffsetMs;
-    const view = window.JamaatState.evaluate(entriesFor(data), now);
+    const view = window.JamaatState.evaluate(entriesFor(data), now, {
+      warningMinutes: window.JamaatState.warningMinutesOf(state.alertPrefs || {})
+    });
     state.view = view;
 
     const prayer = view.prayer;
@@ -351,6 +361,9 @@
     elements.nextPanel.classList.toggle('is-passed', view.phase === 'passed');
     elements.warningChip.hidden = !isWarning;
     elements.warningNote.hidden = !isWarning;
+    // Full-screen red frame and the red ambient block, in every display mode.
+    elements.warningFrame.hidden = !isWarning;
+    elements.ambientBlock.classList.toggle('is-warning', isWarning);
 
     if (!prayer) {
       elements.nextLabel.textContent = 'Prayer schedule';
@@ -648,6 +661,7 @@
     elements.searchResults.replaceChildren();
     elements.dialogDisclaimer.textContent = data.disclaimer;
     elements.flashWarningInput.checked = state.flashWarning;
+    renderAlertRows();
     renderConflictPanel(data.conflicts || []);
 
     if (!elements.settingsDialog.open) {
@@ -1263,13 +1277,154 @@
     }
     applyFlashPreference();
     showToast(state.flashWarning
-      ? 'Warning flashing on.'
-      : 'Warning flashing off. The static red warning remains.');
+      ? 'Warning blinking on.'
+      : 'Warning blinking off. The red warning stays without blinking.');
   }
 
   function applyFlashPreference() {
     document.body.classList.toggle('no-warning-flash', !state.flashWarning);
   }
+
+  // ---------------------------------------------------------------------------------------------
+  // Jamaat alerts: warning minutes and notifications per prayer
+  // ---------------------------------------------------------------------------------------------
+
+  function loadAlertPrefs() {
+    let raw = null;
+    try {
+      raw = JSON.parse(window.localStorage.getItem(ALERT_PREFS_KEY) || 'null');
+    } catch {
+      raw = null;
+    }
+    state.alertPrefs = window.JamaatState.normalizeAlertPrefs(raw);
+  }
+
+  function saveAlertPrefs() {
+    try {
+      window.localStorage.setItem(ALERT_PREFS_KEY, JSON.stringify(state.alertPrefs));
+    } catch {
+      // Applies for this session even when storage is blocked.
+    }
+  }
+
+  // Today's Waqt-to-Jamaat time for a prayer, in whole minutes, or null without a valid Jamaat.
+  function jamaatGapMinutes(key) {
+    const time = state.data && state.data.times.find((item) => item.key === key);
+    if (!time || !time.jamaatAt || time.jamaatWithinWindow === false) {
+      return null;
+    }
+    const gap = Math.floor((Date.parse(time.jamaatAt) - Date.parse(time.at)) / MINUTE);
+    return gap > 0 ? gap : null;
+  }
+
+  function renderAlertRows() {
+    const table = elements.alertTable;
+    for (const row of table.querySelectorAll('.alert-entry')) {
+      row.remove();
+    }
+    const timeZone = (state.data && state.data.timeZoneId) || Intl.DateTimeFormat().resolvedOptions().timeZone;
+    for (const key of window.JamaatState.PRAYER_KEYS) {
+      const prefs = state.alertPrefs[key];
+      const time = state.data && state.data.times.find((item) => item.key === key);
+      const name = (time && time.name) || key.charAt(0).toUpperCase() + key.slice(1);
+      const gap = jamaatGapMinutes(key);
+
+      const row = document.createElement('div');
+      row.className = 'alert-row alert-entry';
+      row.setAttribute('role', 'row');
+      row.dataset.prayerKey = key;
+
+      const label = document.createElement('span');
+      label.className = 'alert-name';
+      label.setAttribute('role', 'cell');
+      label.textContent = name;
+
+      const notifyCell = document.createElement('label');
+      notifyCell.className = 'alert-notify';
+      notifyCell.setAttribute('role', 'cell');
+      const notify = document.createElement('input');
+      notify.type = 'checkbox';
+      notify.dataset.field = 'notify';
+      notify.checked = prefs.notify;
+      notify.setAttribute('aria-label', `${name} notification`);
+      const notifyText = document.createElement('span');
+      notifyText.textContent = 'On';
+      notifyCell.append(notify, notifyText);
+
+      const minutesCell = document.createElement('div');
+      minutesCell.className = 'alert-minutes';
+      minutesCell.setAttribute('role', 'cell');
+      const minutes = document.createElement('input');
+      minutes.type = 'number';
+      minutes.min = '1';
+      minutes.max = String(Math.min(120, gap || 120));
+      minutes.step = '1';
+      minutes.inputMode = 'numeric';
+      minutes.dataset.field = 'minutes';
+      minutes.value = String(prefs.minutes);
+      minutes.setAttribute('aria-label', `${name}: minutes before Jamaat`);
+      const hint = document.createElement('small');
+      hint.className = 'field-hint';
+      if (gap && time) {
+        const waqt = formatClockTime(new Date(time.at), timeZone);
+        const jamaat = formatClockTime(new Date(time.jamaatAt), timeZone);
+        hint.textContent = `Up to ${Math.min(gap, 120)} min today (Waqt ${waqt.time} → Jamaat ${jamaat.time})`;
+        if (prefs.minutes > gap) {
+          hint.textContent += `. The warning starts at the Waqt, ${gap} min before.`;
+        }
+      } else {
+        hint.textContent = 'No Jamaat time set';
+      }
+      minutesCell.append(minutes, hint);
+
+      row.append(label, notifyCell, minutesCell);
+      table.appendChild(row);
+    }
+  }
+
+  function handleAlertInput(event) {
+    const row = event.target.closest('.alert-entry');
+    if (!row) {
+      return;
+    }
+    const key = row.dataset.prayerKey;
+    const next = { ...state.alertPrefs };
+    next[key] = {
+      notify: row.querySelector('[data-field="notify"]').checked,
+      minutes: Number(row.querySelector('[data-field="minutes"]').value)
+    };
+    state.alertPrefs = window.JamaatState.normalizeAlertPrefs(next);
+    saveAlertPrefs();
+    renderAlertRows();
+    applyCountdownView();
+    scheduleNativeAlerts();
+  }
+
+  // Phone notifications (and the notification light) for the upcoming Jamaat warnings. Android
+  // schedules them, so they also arrive while the app is in the background.
+  function scheduleNativeAlerts() {
+    if (!isNativeHost || !state.data || !state.alertPrefs) {
+      return;
+    }
+    const timeZone = state.data.timeZoneId;
+    const schedule = window.JamaatState.alertSchedule(entriesFor(state.data), state.alertPrefs, nowMs())
+      .map((item) => {
+        const jamaat = formatClockTime(new Date(item.jamaatAt), timeZone);
+        return { ...item, jamaatLabel: `${jamaat.time} ${jamaat.meridiem}` };
+      });
+    const key = JSON.stringify(schedule);
+    if (key === state.alertScheduleKey) {
+      return;
+    }
+    state.alertScheduleKey = key;
+    loadNativeBridge()
+      .then((bridge) => bridge.InvokeDotNet('ScheduleJamaatAlerts', [key]))
+      .catch((error) => {
+        state.alertScheduleKey = '';
+        console.warn('Scheduling Jamaat notifications failed.', error);
+      });
+  }
+
 
   function showToast(message) {
     elements.toast.textContent = message;
@@ -1787,10 +1942,19 @@
           detail = ` ${waqt.time} ${waqt.meridiem}${remaining ? ` · in ${remaining}` : ''}`;
           break;
         case 'waiting':
-        case 'approaching':
           title = `${prayer.name} Jamaat`;
           detail = ` ${jamaat.time} ${jamaat.meridiem}${remaining ? ` · in ${remaining}` : ''}`;
           break;
+        case 'approaching': {
+          // The warning: time left to the second, in red (see .ambient-block.is-warning).
+          const left = window.JamaatState.splitDuration(view.remainingMs || 0);
+          const clock = left.hours > 0
+            ? left.clock
+            : `${String(left.minutes).padStart(2, '0')}:${String(left.seconds).padStart(2, '0')}`;
+          title = `${prayer.name} Jamaat in ${clock}`;
+          detail = ` · ${jamaat.time} ${jamaat.meridiem}`;
+          break;
+        }
         case 'reached':
           title = `${prayer.name} Jamaat`;
           detail = ' now';

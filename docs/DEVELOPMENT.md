@@ -83,6 +83,25 @@ Brightness per mode is set for the app window only (`WindowBrightness`, no permi
 - `placeAmbient()` fits and positions the block inside the screen; a `ResizeObserver` and `document.fonts.ready`
   re-fit and re-place it if its size changes after placement (for example when the Arabic font finishes loading).
 
+## Jamaat alerts
+
+- **Warning length** is per prayer (`deskDashboard.jamaatAlertPrefs` in localStorage:
+  `{ fajr: { notify, minutes }, … }`, normalised by `JamaatState.normalizeAlertPrefs`). `JamaatState.evaluate(entries,
+  now, { warningMinutes })` starts the `approaching` phase at `jamaatAt − min(minutes, jamaatAt − waqtAt)`, so the
+  warning never starts before the Waqt. Default 10 minutes.
+- **On screen** while `approaching`: the next-prayer panel and its countdown blink (`jamaat-warning-pulse`), a fixed
+  full-screen red frame (`#warningFrame`) blinks above every mode, and in ambient/night the block gets `is-warning`
+  with a red `Asr Jamaat in mm:ss` line. "Blink the warning" off keeps everything red but still; reduced motion
+  disables the animation.
+- **Notifications (Android)**: `scheduleNativeAlerts()` sends `JamaatState.alertSchedule()` (upcoming warnings for
+  prayers with Notify on: today and tomorrow's Fajr) to `MainPage.Bridge.ScheduleJamaatAlerts(json)` after each data
+  load and Settings change. `Platforms/Android/JamaatAlerts.cs` cancels the previous alarms and sets
+  `AlarmManager.SetExactAndAllowWhileIdle` per warning (inexact `SetAndAllowWhileIdle` on Android 12+ without the
+  exact-alarm permission). `JamaatAlertReceiver` posts the notification on channel `jamaat_alerts` (high importance,
+  red light, vibration). Android 13+ asks for `POST_NOTIFICATIONS` the first time alerts are scheduled. Alarms do not
+  survive a reboot; the app reschedules them when it opens.
+- Check on a device: `adb shell dumpsys alarm | grep -A3 salatdesk` and `adb shell dumpsys notification --noredact`.
+
 ## Content (Ayat and Hadith)
 
 ### Data model (SQLite)
