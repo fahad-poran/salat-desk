@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Android first. Add net10.0-ios here when the iOS phase starts. -->
+    <TargetFrameworks>net10.0-android</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>DeskDashboard.App</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <ApplicationTitle>Salat Desk</ApplicationTitle>
+    <ApplicationId>com.salatdesk.app</ApplicationId>
+    <ApplicationDisplayVersion>0.1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+
+    <SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
+
+    <!-- EF Core and the Adhan library use reflection; keep their code intact in Release builds. -->
+    <TrimMode>partial</TrimMode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#000000" />
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#000000" BaseSize="128,128" />
+
+    <!--
+      The dashboard UI is shared with the PC web host: the same wwwroot files are packaged
+      into the app as raw assets and served by HybridWebView. Edit them in DeskDashboard.Web.
+    -->
+    <MauiAsset Include="..\DeskDashboard.Web\wwwroot\**\*" LogicalName="wwwroot\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeskDashboard.Core\DeskDashboard.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TrimmerRootAssembly Include="DeskDashboard.Core" />
+    <TrimmerRootAssembly Include="Adhan" />
+  </ItemGroup>
+
+</Project>

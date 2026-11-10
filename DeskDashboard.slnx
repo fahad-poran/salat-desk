@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DeskDashboard.App/DeskDashboard.App.csproj" />
+    <Project Path="src/DeskDashboard.Core/DeskDashboard.Core.csproj" />
+    <Project Path="src/DeskDashboard.Web/DeskDashboard.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DeskDashboard.Tests/DeskDashboard.Tests.csproj" />
+  </Folder>
+</Solution>

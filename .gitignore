@@ -1,0 +1,38 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+*.user
+*.suo
+
+# Local database and logs
+src/DeskDashboard.Web/App_Data/
+*.db
+*.db-shm
+*.db-wal
+*.log
+
+# Downloaded source data for tools/content/build-content.mjs
+tools/content/.cache/
+
+# Generated or internal QA files (regenerate locally)
+docs/phase2/
+docs/content-review.html
+
+# Signing keys and secrets: never commit
+*.keystore
+*.jks
+*.pfx
+*.p12
+.env
+.env.*
+
+# Local tool settings
+.claude/settings.local.json
+
+# OS noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,23 @@
+Salat Desk: third-party content and components
+
+Quran
+  Arabic text: Tanzil.net, Uthmani script (https://tanzil.net), via AlQuran.cloud
+  (https://alquran.cloud). Used unaltered, with attribution, as their terms require.
+  English translation: Sahih International, via AlQuran.cloud.
+  The starter set in src/DeskDashboard.Core/Content/seed-content.json and the text the app
+  downloads weekly come from https://api.alquran.cloud.
+
+Hadith
+  Arabic and English text: fawazahmed0/hadith-api (https://github.com/fawazahmed0/hadith-api),
+  released under the Unlicense, served by jsDelivr. Collections used: Sahih al-Bukhari,
+  Sahih Muslim, An-Nawawi's Forty Hadith, Forty Hadith Qudsi.
+
+Prayer time calculation
+  NuGet package "Adhan" 0.9.0 (https://github.com/stankovski/adhan-csharp), a .NET port of the
+  Adhan prayer-times library by Batoul Apps. See its repository for its license terms.
+
+City search
+  Open-Meteo Geocoding API (https://open-meteo.com), CC BY 4.0.
+
+Calculated prayer times are astronomical estimates, not a religious authority. Verify them
+against your local mosque.

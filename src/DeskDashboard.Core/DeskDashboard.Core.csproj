@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Shared prayer logic used by both the PC web host (DeskDashboard.Web) and the
+    standalone Android app (DeskDashboard.App). Keep this project free of ASP.NET Core
+    and MAUI dependencies so it runs unchanged on Windows, Android and (later) iOS.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsTrimmable>false</IsTrimmable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Adhan" Version="0.9.0" />
+    <!-- EF Core also brings Microsoft.Extensions.Logging, used by PrayerService. -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.Extensions.Logging" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Curated Quran references and the bundled starter Ayat/Hadith (tools/content/build-content.mjs). -->
+    <EmbeddedResource Include="Content\quran-pool.txt" />
+    <EmbeddedResource Include="Content\seed-content.json" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "salat-desk-web",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "src/DeskDashboard.Web", "--urls", "http://localhost:5080"],
+      "port": 5080
+    }
+  ]
+}

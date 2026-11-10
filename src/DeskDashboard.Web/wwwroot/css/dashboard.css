@@ -1,0 +1,1542 @@
+:root {
+  --bg: #000000;
+  --panel: #070707;
+  --panel-raised: #0b0b0b;
+  --border: #171717;
+  --border-strong: #242424;
+  --text: #edf2f7;
+  --muted: #8b949e;
+  --faint: #5b636b;
+  --accent: #5eead4;
+  --accent-soft: rgba(94, 234, 212, 0.12);
+  --warn: #fbbf24;
+  --warn-soft: rgba(251, 191, 36, 0.12);
+  --danger: #f87171;
+  --radius: 22px;
+  --font: "Segoe UI Variable Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.app {
+  min-height: 100dvh;
+  max-width: 1680px;
+  margin: 0 auto;
+  padding-top: max(20px, env(safe-area-inset-top));
+  padding-right: max(clamp(16px, 3vw, 44px), env(safe-area-inset-right));
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
+  padding-left: max(clamp(16px, 3vw, 44px), env(safe-area-inset-left));
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vw, 24px);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 2px 4px;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.brand {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.location {
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 22px);
+}
+
+.connection {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--warn);
+  box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.3);
+}
+
+.connection.is-online .status-dot {
+  background: var(--accent);
+}
+
+.connection.is-offline .status-dot {
+  background: var(--danger);
+}
+
+.ghost-button,
+.secondary-button,
+.primary-button,
+.icon-button {
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text);
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.ghost-button:hover,
+.secondary-button:hover,
+.icon-button:hover {
+  border-color: #3a3a3a;
+  background: #101010;
+}
+
+.primary-button {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #04231d;
+  font-weight: 600;
+}
+
+.primary-button:hover {
+  background: #7ff0dd;
+  border-color: #7ff0dd;
+}
+
+.icon-button {
+  padding: 6px 12px;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.85fr);
+  gap: clamp(14px, 1.8vw, 24px);
+  flex: 1;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(18px, 3vw, 36px);
+  min-width: 0;
+}
+
+.panel-label {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* Clock */
+
+.clock-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  overflow: hidden;
+}
+
+.clock-inner {
+  transform: translate(var(--drift-x, 0), var(--drift-y, 0));
+  transition: transform 1200ms ease;
+  width: 100%;
+}
+
+.clock {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(6px, 1.2vw, 16px);
+  font-variant-numeric: tabular-nums;
+  line-height: 0.86;
+}
+
+.clock-main {
+  font-size: clamp(5rem, 13.5vw, 13rem);
+  font-weight: 300;
+  letter-spacing: -0.055em;
+}
+
+.clock-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: clamp(8px, 1.4vw, 20px);
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.clock-seconds {
+  font-size: clamp(1.3rem, 2.6vw, 2.4rem);
+  font-weight: 300;
+  color: var(--muted);
+}
+
+.clock-meridiem {
+  font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+.clock-date {
+  margin: clamp(18px, 3vw, 32px) 0 0;
+  text-align: center;
+  font-size: clamp(1rem, 1.9vw, 1.6rem);
+  color: #ced6de;
+}
+
+.clock-zone {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--faint);
+}
+
+/* Next prayer */
+
+.next-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  background: linear-gradient(180deg, #080808 0%, #050505 100%);
+  transition: border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.next-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.warning-chip {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fecaca;
+  background: rgba(248, 113, 113, 0.14);
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  border-radius: 999px;
+  padding: 4px 9px;
+  white-space: nowrap;
+}
+
+.warning-chip[hidden],
+.warning-note[hidden] {
+  display: none;
+}
+
+.next-panel.is-warning {
+  border-color: rgba(248, 113, 113, 0.82);
+  animation: jamaat-warning-pulse 1.9s ease-in-out infinite alternate;
+}
+
+.next-panel.is-warning .countdown {
+  color: var(--danger);
+}
+
+.next-panel.is-warning .next-name {
+  color: #fecaca;
+}
+
+.next-panel.is-reached {
+  border-color: rgba(94, 234, 212, 0.38);
+}
+
+.next-panel.is-passed {
+  border-color: var(--border-strong);
+}
+
+.warning-note {
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(248, 113, 113, 0.22);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: #fca5a5;
+}
+
+body.no-warning-flash .next-panel.is-warning {
+  animation: none;
+  box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.16);
+}
+
+@keyframes jamaat-warning-pulse {
+  from {
+    box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.02);
+  }
+  to {
+    box-shadow: 0 0 0 7px rgba(248, 113, 113, 0.08);
+  }
+}
+
+.next-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.next-name {
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  font-weight: 500;
+}
+
+.next-badge {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--warn);
+  background: var(--warn-soft);
+  border: 1px solid rgba(251, 191, 36, 0.28);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.next-badge[hidden] {
+  display: none;
+}
+
+.next-time-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.next-time {
+  font-size: clamp(3rem, 7vw, 5.6rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.next-meridiem {
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.next-caption {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.countdown-block {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.countdown-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.countdown {
+  font-size: clamp(1.35rem, 2.6vw, 2.1rem);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+/* Prayer table */
+
+.prayer-panel {
+  grid-column: 1 / -1;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: clamp(14px, 2vw, 22px);
+}
+
+.panel-title {
+  margin: 6px 0 0;
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  font-weight: 500;
+}
+
+.method-chip {
+  font-size: 0.72rem;
+  color: var(--muted);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 6px 12px;
+  text-align: right;
+}
+
+.prayer-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.prayer-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr) minmax(0, 0.8fr) minmax(0, 0.75fr);
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.prayer-row > span:nth-child(2),
+.prayer-row > span:nth-child(3),
+.prayer-row > span:nth-child(4) {
+  text-align: right;
+}
+
+.prayer-head {
+  padding-top: 0;
+  padding-bottom: 10px;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+}
+
+.prayer-entry + .prayer-entry {
+  margin-top: 2px;
+}
+
+.prayer-entry {
+  border: 1px solid transparent;
+  font-size: clamp(1rem, 1.6vw, 1.22rem);
+}
+
+.prayer-entry.is-next {
+  background: var(--accent-soft);
+  border-color: rgba(94, 234, 212, 0.22);
+}
+
+.prayer-entry.is-warning {
+  background: rgba(248, 113, 113, 0.07);
+  border-color: rgba(248, 113, 113, 0.55);
+}
+
+.prayer-entry.is-invalid {
+  border-color: rgba(248, 113, 113, 0.3);
+}
+
+.prayer-entry.is-sunrise {
+  color: var(--faint);
+}
+
+.prayer-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.prayer-name small {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.calc-time {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.prayer-entry.is-sunrise .calc-time {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.jamaat-time {
+  color: #c9d1d9;
+}
+
+.jamaat-time.is-empty {
+  color: var(--faint);
+}
+
+.jamaat-time.is-invalid {
+  color: var(--danger);
+}
+
+.jamaat-flag {
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fca5a5;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  border-radius: 999px;
+  padding: 1px 5px;
+}
+
+.diff {
+  justify-self: end;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  border: 1px solid transparent;
+}
+
+.diff small {
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
+.diff-same {
+  color: var(--muted);
+  background: #101010;
+  border-color: var(--border-strong);
+}
+
+.diff-later {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: rgba(94, 234, 212, 0.24);
+}
+
+.diff-earlier {
+  color: var(--warn);
+  background: var(--warn-soft);
+  border-color: rgba(251, 191, 36, 0.26);
+}
+
+.diff-none {
+  color: var(--faint);
+  border: none;
+  padding: 0;
+}
+
+.diff-invalid {
+  color: #fca5a5;
+  background: rgba(248, 113, 113, 0.1);
+  border-color: rgba(248, 113, 113, 0.32);
+}
+
+.disclaimer {
+  margin: clamp(16px, 2vw, 22px) 4px 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--faint);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 6px;
+  font-size: 0.72rem;
+  color: var(--faint);
+}
+
+.footer-note {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Banner and toast */
+
+.banner {
+  position: fixed;
+  left: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  max-width: min(92vw, 560px);
+  background: #1a0d0d;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  color: #fecaca;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.82rem;
+  z-index: 20;
+}
+
+.banner.is-warning {
+  background: #1a1208;
+  border-color: rgba(251, 191, 36, 0.42);
+  color: #fde68a;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  background: #0b1f1a;
+  border: 1px solid rgba(94, 234, 212, 0.35);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-size: 0.8rem;
+  z-index: 30;
+}
+
+/* Settings dialog */
+
+.settings-dialog {
+  width: min(760px, 94vw);
+  max-height: min(900px, 90vh);
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  background: #050505;
+  color: var(--text);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.settings-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(3px);
+}
+
+.settings-form {
+  padding: clamp(18px, 3vw, 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.dialog-header h2 {
+  margin: 6px 0 0;
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+  font-weight: 500;
+}
+
+.form-section {
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-section h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.section-hint {
+  margin: -6px 0 0;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field.grow {
+  flex: 1;
+}
+
+.field.span-two {
+  grid-column: 1 / -1;
+}
+
+.field > span {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.field input,
+.field select {
+  width: 100%;
+  background: #0a0a0a;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
+.field input:hover,
+.field select:hover {
+  border-color: #343434;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.field input:disabled {
+  color: var(--faint);
+}
+
+.field input.is-invalid {
+  border-color: rgba(248, 113, 113, 0.75);
+  background: rgba(248, 113, 113, 0.05);
+}
+
+.field-hint {
+  display: block;
+  font-size: 0.66rem;
+  line-height: 1.45;
+  color: var(--faint);
+}
+
+.toggle-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: #c9d1d9;
+  cursor: pointer;
+}
+
+.toggle-field input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  accent-color: var(--accent);
+}
+
+.search-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.search-row .secondary-button {
+  padding: 10px 18px;
+  white-space: nowrap;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+  background: var(--panel-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-size: 0.86rem;
+}
+
+.search-result:hover {
+  border-color: var(--accent);
+}
+
+.search-result small {
+  display: block;
+  color: var(--faint);
+  font-size: 0.7rem;
+  margin-top: 2px;
+}
+
+.inline-status {
+  margin: 0;
+  min-height: 1.2em;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.inline-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.form-errors {
+  background: #1a0d0d;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  color: #fecaca;
+}
+
+.form-errors ul {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.conflict-panel {
+  background: #1a1208;
+  border: 1px solid rgba(251, 191, 36, 0.38);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: #fde68a;
+  font-size: 0.8rem;
+}
+
+.conflict-panel strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.84rem;
+}
+
+.conflict-panel .section-hint {
+  color: #e7c97a;
+}
+
+.conflict-panel ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  line-height: 1.5;
+}
+
+.dialog-disclaimer {
+  margin: 0;
+  padding: 14px 16px;
+  background: #080808;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--faint);
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0.6), #050505 40%);
+  padding: 8px 0 0;
+}
+
+/* Responsive */
+
+@media (max-width: 760px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .clock-panel {
+    min-height: clamp(220px, 28vh, 340px);
+  }
+
+  .clock-main {
+    font-size: clamp(4.5rem, 20vw, 8rem);
+  }
+
+  .prayer-panel {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .app {
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+
+  .topbar {
+    align-items: flex-start;
+  }
+
+  .connection span:last-child {
+    display: none;
+  }
+
+  .ghost-button span {
+    display: none;
+  }
+
+  .ghost-button {
+    padding: 10px 12px;
+  }
+
+  .panel {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .clock-main {
+    font-size: clamp(4rem, 22vw, 7rem);
+  }
+
+  .warning-note {
+    font-size: 0.72rem;
+  }
+
+  .prayer-row {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.75fr) minmax(0, 0.75fr) auto;
+    gap: 6px;
+    padding: 12px 10px;
+  }
+
+  .prayer-name small {
+    display: none;
+  }
+
+  .field-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .field.span-two {
+    grid-column: auto;
+  }
+
+  .settings-dialog {
+    width: 100vw;
+    max-width: 100vw;
+    max-height: 100dvh;
+    height: 100dvh;
+    border-radius: 0;
+    border: none;
+  }
+
+  .settings-form {
+    min-height: 100%;
+  }
+
+  .footer-note {
+    display: none;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 760px) {
+  .app {
+    gap: 10px;
+    padding-top: max(10px, env(safe-area-inset-top));
+  }
+
+  .clock-panel {
+    min-height: 170px;
+    padding: 18px 24px;
+  }
+
+  .clock-main {
+    font-size: clamp(3.6rem, 8vw, 6.5rem);
+  }
+
+  .clock-date {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+
+  .clock-zone {
+    margin-top: 4px;
+  }
+
+  .next-panel {
+    gap: 6px;
+    padding: 18px 24px;
+  }
+
+  .next-time {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+  }
+
+  .next-caption {
+    font-size: 0.78rem;
+  }
+
+  .warning-chip {
+    font-size: 0.56rem;
+    padding: 3px 7px;
+  }
+
+  .warning-note {
+    padding-top: 6px;
+    font-size: 0.68rem;
+    line-height: 1.4;
+  }
+
+  .countdown-block {
+    padding-top: 8px;
+  }
+
+  .countdown {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+  }
+
+  .prayer-panel {
+    padding: 18px 24px;
+  }
+
+  .panel-heading {
+    margin-bottom: 8px;
+  }
+
+  .panel-title {
+    margin-top: 2px;
+    font-size: 1.1rem;
+  }
+
+  .prayer-row {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 0.95rem;
+  }
+
+  .prayer-head {
+    padding-bottom: 6px;
+  }
+
+  .disclaimer {
+    margin-top: 10px;
+    padding-top: 8px;
+    font-size: 0.66rem;
+    line-height: 1.4;
+  }
+
+  .footer {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------
+   Ambient and night modes (burn-in protection)
+   Only grey text on pure black: AMOLED pixels that show black are switched off. The block moves
+   to a new position every minute, and nothing else stays lit.
+   --------------------------------------------------------------------------------------------- */
+
+:root {
+  --ambient-ink: #9aa0a6;
+  --ambient-dim: #5f6368;
+  --ambient-accent: #4fbfae;
+  --night-ink: #6b7075;
+}
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: #000;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ambient[hidden] {
+  display: none;
+}
+
+.ambient-block {
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: calc(100vw - 32px);
+  color: var(--ambient-ink);
+  transition: opacity 1.2s ease;
+  will-change: transform;
+}
+
+.ambient.is-moving .ambient-block {
+  opacity: 0;
+}
+
+.ambient-clock {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-weight: 200;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.ambient-time {
+  font-size: clamp(64px, 20vw, 132px);
+  letter-spacing: -0.02em;
+}
+
+.ambient-meridiem {
+  font-size: clamp(18px, 4.5vw, 28px);
+  color: var(--ambient-dim);
+}
+
+.ambient-date {
+  margin: 10px 0 0;
+  font-size: clamp(15px, 3.8vw, 20px);
+  color: var(--ambient-dim);
+}
+
+.ambient-next {
+  margin: 18px 0 0;
+  font-size: clamp(17px, 4.4vw, 24px);
+  color: var(--ambient-ink);
+}
+
+.ambient-next strong {
+  font-weight: 500;
+  color: var(--ambient-accent);
+}
+
+.ambient-times {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  gap: 4px 18px;
+  margin-top: 18px;
+  font-size: clamp(12px, 3.2vw, 15px);
+  color: var(--ambient-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.ambient-times span {
+  white-space: nowrap;
+}
+
+.ambient-times .is-active {
+  color: var(--ambient-ink);
+}
+
+body.mode-night .ambient-block {
+  color: var(--night-ink);
+}
+
+body.mode-night .ambient-time {
+  font-size: clamp(40px, 12vw, 72px);
+}
+
+body.mode-night .ambient-meridiem,
+body.mode-night .ambient-next {
+  color: var(--night-ink);
+}
+
+body.mode-night .ambient-next strong {
+  color: var(--night-ink);
+  font-weight: 400;
+}
+
+body.mode-night .ambient-date,
+body.mode-night .ambient-times {
+  display: none;
+}
+
+/* While ambient covers the screen, the dashboard underneath does not need to repaint. */
+body.mode-ambient .app,
+body.mode-night .app {
+  visibility: hidden;
+}
+
+/* Small whole-page drift in the full view too, so its borders never sit on the same pixels. */
+.app {
+  transform: translate(var(--page-drift-x, 0), var(--page-drift-y, 0));
+}
+
+body:not(.is-native) .native-only {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-block {
+    transition: none;
+  }
+}
+
+/* Ayah / Hadith in the ambient view ----------------------------------------------------------- */
+
+.ambient-block.has-content {
+  width: min(88vw, 640px);
+}
+
+.ambient-block.has-content .ambient-time {
+  font-size: clamp(56px, 16vw, 104px);
+}
+
+.ambient-content {
+  margin: 22px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid #1c1c1c;
+}
+
+.ambient-content[hidden] {
+  display: none;
+}
+
+.ambient-arabic {
+  margin: 0;
+  font-family: "Noto Naskh Arabic", "Amiri", "Scheherazade New", "Traditional Arabic", serif;
+  font-size: clamp(20px, 5.6vw, 28px);
+  line-height: 1.9;
+  color: var(--ambient-ink);
+  text-align: right;
+}
+
+.ambient-english {
+  margin: 12px 0 0;
+  font-size: clamp(14px, 3.8vw, 17px);
+  line-height: 1.5;
+  color: var(--ambient-dim);
+}
+
+.ambient-ref {
+  margin-top: 10px;
+  font-size: clamp(12px, 3.2vw, 14px);
+  letter-spacing: 0.04em;
+  color: var(--ambient-accent);
+  opacity: 0.8;
+}
+
+.ambient-content.is-long .ambient-arabic {
+  font-size: clamp(17px, 4.6vw, 23px);
+  line-height: 1.8;
+}
+
+.ambient-content.is-long .ambient-english {
+  font-size: clamp(13px, 3.4vw, 15px);
+}
+
+body.mode-night .ambient-content {
+  display: none;
+}
+
+body.mode-night .ambient-block.has-content {
+  width: auto;
+}
+
+/* Landscape: clock on the left, Ayah/Hadith on the right. */
+@media (orientation: landscape) {
+  .ambient-block.has-content {
+    width: min(94vw, 980px);
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    column-gap: 28px;
+    align-items: start;
+  }
+
+  .ambient-block.has-content .ambient-date {
+    font-size: clamp(13px, 1.8vw, 18px);
+  }
+
+  .ambient-block.has-content .ambient-next {
+    margin-top: 12px;
+    font-size: clamp(14px, 2vw, 20px);
+  }
+
+  .ambient-block.has-content > :not(.ambient-content) {
+    grid-column: 1;
+  }
+
+  .ambient-block.has-content .ambient-time {
+    font-size: clamp(44px, 8vw, 88px);
+  }
+
+  .ambient-block.has-content .ambient-times {
+    gap: 2px 10px;
+    margin-top: 12px;
+    font-size: clamp(11px, 1.5vw, 14px);
+  }
+
+  .ambient-content {
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    margin: 0;
+    padding: 0 0 0 28px;
+    border-top: 0;
+    border-left: 1px solid #1c1c1c;
+  }
+
+  .ambient-arabic {
+    font-size: clamp(18px, 2.6vw, 26px);
+  }
+
+  .ambient-english {
+    font-size: clamp(13px, 1.7vw, 16px);
+  }
+}
+
+/* Fit steps for long content on short screens (set by fitAmbientBlock). */
+.ambient-block.fit-1 .ambient-date,
+.ambient-block.fit-1 .ambient-times {
+  display: none;
+}
+
+.ambient-block.fit-1 .ambient-time {
+  font-size: clamp(40px, 11vw, 64px);
+}
+
+.ambient-block.fit-1 .ambient-next {
+  margin-top: 8px;
+}
+
+.ambient-block.fit-1 .ambient-content {
+  margin-top: 12px;
+  padding-top: 10px;
+}
+
+.ambient-block.fit-2 .ambient-arabic {
+  font-size: clamp(15px, 4.2vw, 19px);
+  line-height: 1.7;
+}
+
+.ambient-block.fit-2 .ambient-english {
+  font-size: clamp(12px, 3.3vw, 14px);
+  line-height: 1.4;
+}
+
+@media (orientation: landscape) {
+  .ambient-block.fit-1 .ambient-content {
+    margin: 0;
+    padding-top: 0;
+  }
+}
+
+/* Toolbar: Quran, Hadith and AOD buttons ------------------------------------------------------ */
+
+.tool-button {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.tool-button[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (max-width: 560px) {
+  .topbar-actions {
+    gap: 6px;
+  }
+
+  .topbar-actions .ghost-button {
+    padding: 10px;
+  }
+}
+
+/* Weekly content status (Settings) ------------------------------------------------------------ */
+
+.content-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+
+.content-status .section-hint {
+  flex: 1 1 260px;
+  margin: 0;
+}
+
+/* Library ------------------------------------------------------------------------------------- */
+
+.library {
+  padding: clamp(18px, 3vw, 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.library-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.segmented button {
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.segmented button[aria-selected="true"] {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.library-toggle {
+  margin: 0;
+}
+
+.library-search {
+  flex: 1 1 200px;
+  min-width: 0;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+}
+
+.library-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.library-card {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--panel);
+}
+
+.library-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  font-size: 0.85rem;
+}
+
+.library-ref {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.library-meta {
+  color: var(--faint);
+}
+
+.library-arabic {
+  margin: 12px 0 0;
+  font-family: "Noto Naskh Arabic", "Amiri", "Scheherazade New", "Traditional Arabic", serif;
+  font-size: clamp(19px, 5vw, 24px);
+  line-height: 1.9;
+  text-align: right;
+}
+
+.library-english {
+  margin: 8px 0 12px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.library-remove {
+  color: var(--muted);
+}
+
+.library-more {
+  align-self: center;
+}

@@ -1,0 +1,3 @@
+# References left out of the ambient content bundle. One per line; text after # is a note.
+# Copy the list from docs/content-review.html ("Copy exclusion list"), then run:
+#   node tools/content/build-content.mjs

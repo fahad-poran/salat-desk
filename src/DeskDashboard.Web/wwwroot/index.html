@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Salat Desk</title>
+  <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="identity">
+        <span class="brand">Salat Desk</span>
+        <span class="location" id="locationLabel">Loading location</span>
+      </div>
+      <div class="topbar-actions">
+        <span class="connection" id="connection" aria-live="polite">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Connecting</span>
+        </span>
+        <button class="ghost-button tool-button" id="quranButton" type="button" aria-label="Quran verses library" title="Quran verses">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M12 6.2C10.3 4.9 8 4.2 5.5 4.2c-1 0-2 .1-3 .4a.7.7 0 0 0-.5.7v12.6c0 .5.5.8.9.7 .8-.2 1.7-.3 2.6-.3 2.3 0 4.4.7 6 1.9a.8.8 0 0 0 1 0c1.6-1.2 3.7-1.9 6-1.9.9 0 1.8.1 2.6.3.4.1.9-.2.9-.7V5.3a.7.7 0 0 0-.5-.7c-1-.3-2-.4-3-.4-2.5 0-4.8.7-6.5 2Zm-1 11.1c-1.6-.8-3.5-1.3-5.5-1.3-.8 0-1.6.1-2.3.2V6c.7-.2 1.5-.3 2.3-.3 2.1 0 4.1.6 5.5 1.7v9.9Zm9.8-1.1c-.7-.1-1.5-.2-2.3-.2-2 0-3.9.5-5.5 1.3V7.4c1.4-1.1 3.4-1.7 5.5-1.7.8 0 1.6.1 2.3.3v10.2Z"/>
+          </svg>
+          <span>Quran</span>
+        </button>
+        <button class="ghost-button tool-button" id="hadithButton" type="button" aria-label="Hadith library" title="Hadith">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M6 3h11a3 3 0 0 1 3 3v1h-3v11a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-1h3V6a3 3 0 0 1 1-3Zm1.4 1.6A1.5 1.5 0 0 0 6.5 6v12H3.6A1.5 1.5 0 0 0 5 19.5h9a1.5 1.5 0 0 0 1.5-1.5V6c0-.5.1-1 .3-1.4H7.4ZM17 5.5V5.5h1.5V6A1.5 1.5 0 0 0 17 4.5V5.5ZM8.5 8h5v1.5h-5V8Zm0 3h5v1.5h-5V11Zm0 3h3.5v1.5H8.5V14Z"/>
+          </svg>
+          <span>Hadith</span>
+        </button>
+        <button class="ghost-button tool-button" id="aodButton" type="button" aria-label="Turn on AOD mode now" aria-pressed="false" title="AOD mode now">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M20.7 14.6A8.6 8.6 0 0 1 9.4 3.3a.7.7 0 0 0-.9-.9 10 10 0 1 0 13.1 13.1.7.7 0 0 0-.9-.9Zm-8.4 5.9A8.5 8.5 0 0 1 7.5 4.6a10.1 10.1 0 0 0 11.9 11.9 8.4 8.4 0 0 1-7.1 4Z"/>
+          </svg>
+          <span>AOD</span>
+        </button>
+        <button class="ghost-button" id="settingsButton" type="button">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M19.14 12.94a7.6 7.6 0 0 0 .05-.94 7.6 7.6 0 0 0-.05-.94l2.03-1.58a.5.5 0 0 0 .12-.62l-1.92-3.32a.5.5 0 0 0-.59-.22l-2.39.96a7.1 7.1 0 0 0-1.62-.94l-.36-2.54a.5.5 0 0 0-.49-.42h-3.84a.5.5 0 0 0-.49.42l-.36 2.54c-.58.24-1.12.55-1.62.94l-2.39-.96a.5.5 0 0 0-.59.22L2.71 8.86a.5.5 0 0 0 .12.62l2.03 1.58c-.03.31-.05.62-.05.94s.02.63.05.94l-2.03 1.58a.5.5 0 0 0-.12.62l1.92 3.32c.13.22.39.31.59.22l2.39-.96c.5.39 1.04.7 1.62.94l.36 2.54c.04.24.25.42.49.42h3.84c.24 0 .45-.18.49-.42l.36-2.54c.58-.24 1.12-.55 1.62-.94l2.39.96c.2.09.46 0 .59-.22l1.92-3.32a.5.5 0 0 0-.12-.62l-2.03-1.58ZM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7Z"/>
+          </svg>
+          <span>Settings</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel clock-panel" aria-label="Clock">
+        <div class="clock-inner" id="clockInner">
+          <div class="clock" role="timer" aria-live="off">
+            <span class="clock-main" id="clockMain">--:--</span>
+            <span class="clock-meta">
+              <span class="clock-seconds" id="clockSeconds">--</span>
+              <span class="clock-meridiem" id="clockMeridiem"></span>
+            </span>
+          </div>
+          <p class="clock-date" id="clockDate">&nbsp;</p>
+          <p class="clock-zone" id="clockZone">&nbsp;</p>
+        </div>
+      </section>
+
+      <section class="panel next-panel" id="nextPanel" aria-label="Next prayer">
+        <div class="next-topline">
+          <p class="panel-label" id="nextLabel">Next prayer</p>
+          <span class="warning-chip" id="warningChip" hidden>Jamaat soon</span>
+        </div>
+        <div class="next-header">
+          <span class="next-name" id="nextName">—</span>
+          <span class="next-badge" id="nextBadge" hidden>Tomorrow</span>
+        </div>
+        <div class="next-time-row">
+          <span class="next-time" id="nextTime">--:--</span>
+          <span class="next-meridiem" id="nextMeridiem"></span>
+        </div>
+        <p class="next-caption" id="nextCaption">Waiting for the server</p>
+        <div class="countdown-block">
+          <span class="countdown-label" id="countdownLabel">Starts in</span>
+          <span class="countdown" id="countdown">--:--:--</span>
+        </div>
+        <p class="warning-note" id="warningNote" role="status" hidden>
+          Jamaat is within 10 minutes. Prepare for prayer.
+        </p>
+      </section>
+
+      <section class="panel prayer-panel" aria-label="Prayer times">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-label">Prayer times</p>
+            <h2 class="panel-title" id="prayerDate">Today</h2>
+          </div>
+          <span class="method-chip" id="methodChip">—</span>
+        </div>
+
+        <div class="prayer-table" role="table" aria-label="Calculated prayer times and mosque Jamaat times">
+          <div class="prayer-row prayer-head" role="row">
+            <span role="columnheader">Prayer</span>
+            <span role="columnheader">Calculated</span>
+            <span role="columnheader">Jamaat</span>
+            <span role="columnheader">Difference</span>
+          </div>
+          <div id="prayerList" role="rowgroup"></div>
+        </div>
+
+        <p class="disclaimer" id="disclaimer">
+          Calculated times are estimates and are not a religious authority. Verify them against your local mosque.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span id="lastUpdated">Not synced yet</span>
+      <span class="footer-note">Local network only</span>
+    </footer>
+  </div>
+
+  <!-- Ambient / night view: shown between prayers. Tap to show the full dashboard. -->
+  <div class="ambient" id="ambient" hidden>
+    <div class="ambient-block" id="ambientBlock">
+      <div class="ambient-clock">
+        <span class="ambient-time" id="ambientTime">--:--</span>
+        <span class="ambient-meridiem" id="ambientMeridiem"></span>
+      </div>
+      <p class="ambient-date" id="ambientDate">&nbsp;</p>
+      <p class="ambient-next" id="ambientNext">&nbsp;</p>
+      <div class="ambient-times" id="ambientTimes"></div>
+      <figure class="ambient-content" id="ambientContent" hidden>
+        <p class="ambient-arabic" id="ambientArabic" lang="ar" dir="rtl"></p>
+        <blockquote class="ambient-english" id="ambientEnglish" lang="en"></blockquote>
+        <figcaption class="ambient-ref" id="ambientRef"></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- Library: every Ayah/Hadith, most recently shown first. Remove or restore items. -->
+  <dialog class="settings-dialog library-dialog" id="libraryDialog" aria-labelledby="libraryTitle">
+    <div class="library">
+      <header class="dialog-header">
+        <div>
+          <p class="panel-label">Library</p>
+          <h2 id="libraryTitle">Quran verses</h2>
+        </div>
+        <button class="icon-button" id="closeLibraryButton" type="button" aria-label="Close library">&#215;</button>
+      </header>
+      <div class="library-controls">
+        <div class="segmented" role="tablist" aria-label="Content type">
+          <button type="button" role="tab" data-library-type="quran" aria-selected="true">Quran</button>
+          <button type="button" role="tab" data-library-type="hadith" aria-selected="false">Hadith</button>
+        </div>
+        <label class="toggle-field library-toggle">
+          <input id="libraryHiddenInput" type="checkbox" />
+          <span>Show removed</span>
+        </label>
+        <input class="library-search" id="librarySearch" type="search" placeholder="Search text or reference" aria-label="Search the library" />
+      </div>
+      <p class="section-hint" id="libraryHint" role="status"></p>
+      <div class="library-list" id="libraryList"></div>
+      <button class="secondary-button library-more" id="libraryMore" type="button" hidden>Show more</button>
+    </div>
+  </dialog>
+
+  <div class="banner" id="banner" role="status" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <dialog class="settings-dialog" id="settingsDialog" aria-labelledby="settingsTitle">
+    <form class="settings-form" id="settingsForm" novalidate>
+      <header class="dialog-header">
+        <div>
+          <p class="panel-label">Configuration</p>
+          <h2 id="settingsTitle">Dashboard settings</h2>
+        </div>
+        <button class="icon-button" id="closeSettingsButton" type="button" aria-label="Close settings">&#215;</button>
+      </header>
+
+      <div class="form-errors" id="settingsErrors" role="alert" hidden></div>
+
+      <section class="form-section">
+        <h3>Location</h3>
+        <p class="section-hint">
+          Search for a city or enter coordinates manually. The time zone must be an IANA identifier.
+        </p>
+        <div class="search-row">
+          <label class="field grow">
+            <span>Find a city</span>
+            <input id="searchInput" type="search" placeholder="e.g. Dhaka" autocomplete="off" />
+          </label>
+          <button class="secondary-button" id="searchButton" type="button">Search</button>
+        </div>
+        <div class="search-results" id="searchResults" hidden></div>
+        <p class="inline-status" id="searchStatus" role="status"></p>
+
+        <div class="field-grid">
+          <label class="field">
+            <span>Country</span>
+            <input id="countryInput" type="text" maxlength="100" required />
+          </label>
+          <label class="field">
+            <span>City</span>
+            <input id="cityInput" type="text" maxlength="100" required />
+          </label>
+          <label class="field">
+            <span>Latitude</span>
+            <input id="latitudeInput" type="number" step="0.0001" min="-90" max="90" required />
+          </label>
+          <label class="field">
+            <span>Longitude</span>
+            <input id="longitudeInput" type="number" step="0.0001" min="-180" max="180" required />
+          </label>
+          <label class="field span-two">
+            <span>Time zone</span>
+            <input id="timeZoneInput" type="text" placeholder="Asia/Dhaka" required />
+          </label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h3>Calculation</h3>
+        <div class="field-grid">
+          <label class="field span-two">
+            <span>Calculation method</span>
+            <select id="methodSelect"></select>
+          </label>
+        </div>
+        <p class="section-hint" id="methodDescription"></p>
+        <div class="field-grid">
+          <label class="field">
+            <span>Fajr angle</span>
+            <input id="fajrAngleInput" type="number" step="0.1" min="0" max="30" required />
+          </label>
+          <label class="field">
+            <span>Isha angle</span>
+            <input id="ishaAngleInput" type="number" step="0.1" min="0" max="30" required />
+          </label>
+          <label class="field span-two">
+            <span>Asr method</span>
+            <select id="asrSelect">
+              <option value="Hanafi">Hanafi (shadow factor 2)</option>
+              <option value="Standard">Standard / Shafi (shadow factor 1)</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h3>Manual adjustments</h3>
+        <p class="section-hint">
+          Shift calculated times in minutes to match your mosque. Use 0 to keep the raw calculation.
+        </p>
+        <div class="field-grid adjustments">
+          <label class="field">
+            <span>Fajr</span>
+            <input id="adjustFajr" type="number" step="1" min="-60" max="60" inputmode="numeric" />
+          </label>
+          <label class="field">
+            <span>Sunrise</span>
+            <input id="adjustSunrise" type="number" step="1" min="-60" max="60" inputmode="numeric" />
+          </label>
+          <label class="field">
+            <span>Dhuhr</span>
+            <input id="adjustDhuhr" type="number" step="1" min="-60" max="60" inputmode="numeric" />
+          </label>
+          <label class="field">
+            <span>Asr</span>
+            <input id="adjustAsr" type="number" step="1" min="-60" max="60" inputmode="numeric" />
+          </label>
+          <label class="field">
+            <span>Maghrib</span>
+            <input id="adjustMaghrib" type="number" step="1" min="-60" max="60" inputmode="numeric" />
+          </label>
+          <label class="field">
+            <span>Isha</span>
+            <input id="adjustIsha" type="number" step="1" min="-60" max="60" inputmode="numeric" />
+          </label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h3>Mosque Jamaat timetable</h3>
+        <p class="section-hint">
+          Jamaat times are entered manually from your mosque. These are shown next to calculated start times and are
+          never treated as calculated values.
+        </p>
+        <div class="conflict-panel" id="conflictPanel" role="alert" hidden>
+          <strong>Stored Jamaat times need review</strong>
+          <p class="section-hint">
+            These Jamaat times no longer fit their prayer windows under the current settings. They were preserved and
+            were not changed. Correct the affected time below.
+          </p>
+          <ul id="conflictList"></ul>
+        </div>
+        <div class="form-errors" id="timetableErrors" role="alert" hidden></div>
+        <div class="field-grid">
+          <label class="field span-two">
+            <span>Effective from</span>
+            <input id="timetableEffectiveFrom" type="date" />
+          </label>
+          <label class="field">
+            <span>Fajr Jamaat</span>
+            <input id="jamaatFajr" type="time" step="60" />
+            <small class="field-hint" id="jamaatFajrRange">Loading window…</small>
+          </label>
+          <label class="field">
+            <span>Dhuhr Jamaat</span>
+            <input id="jamaatDhuhr" type="time" step="60" />
+            <small class="field-hint" id="jamaatDhuhrRange">Loading window…</small>
+          </label>
+          <label class="field">
+            <span>Asr Jamaat</span>
+            <input id="jamaatAsr" type="time" step="60" />
+            <small class="field-hint" id="jamaatAsrRange">Loading window…</small>
+          </label>
+          <label class="field">
+            <span>Maghrib Jamaat</span>
+            <input id="jamaatMaghrib" type="time" step="60" />
+            <small class="field-hint" id="jamaatMaghribRange">Loading window…</small>
+          </label>
+          <label class="field">
+            <span>Isha Jamaat</span>
+            <input id="jamaatIsha" type="time" step="60" />
+            <small class="field-hint" id="jamaatIshaRange">Loading window…</small>
+          </label>
+          <label class="field span-two">
+            <span>Note</span>
+            <input id="jamaatNote" type="text" maxlength="200" placeholder="Optional, e.g. winter schedule" />
+          </label>
+        </div>
+        <p class="section-hint">
+          The latest selectable time is one minute before the next boundary. Isha may continue after midnight until
+          the next day's Fajr.
+        </p>
+        <div class="inline-actions">
+          <button class="secondary-button" id="saveTimetableButton" type="button">Save Jamaat timetable</button>
+          <span class="inline-status" id="timetableStatus" role="status"></span>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h3>Jamaat warning</h3>
+        <label class="toggle-field">
+          <input id="flashWarningInput" type="checkbox" />
+          <span>Flash the final 10-minute warning border</span>
+        </label>
+        <p class="section-hint">
+          When flashing is off, the warning stays red but does not pulse. A reduced-motion system setting always
+          disables flashing. This preference is stored only in this browser.
+        </p>
+      </section>
+
+      <section class="form-section">
+        <h3>Display &amp; ambient mode</h3>
+        <p class="section-hint">
+          Between prayers the dashboard switches to a dim clock that moves every minute, which protects the screen
+          from burn-in. The full dashboard returns before each Jamaat, and for two minutes after you tap the screen.
+          These preferences apply immediately and are stored only on this device.
+        </p>
+        <label class="toggle-field">
+          <input id="ambientEnabledInput" type="checkbox" />
+          <span>Use ambient mode between prayers</span>
+        </label>
+        <div class="field-grid">
+          <label class="field">
+            <span>Full view before Jamaat (min)</span>
+            <input id="focusBeforeInput" type="number" step="1" min="0" max="60" inputmode="numeric" />
+          </label>
+          <label class="field">
+            <span>Full view after Jamaat (min)</span>
+            <input id="focusAfterInput" type="number" step="1" min="0" max="60" inputmode="numeric" />
+          </label>
+        </div>
+        <label class="toggle-field">
+          <input id="nightEnabledInput" type="checkbox" />
+          <span>Night mode: only a small, dimmer clock until Fajr</span>
+        </label>
+        <div class="field-grid">
+          <label class="field span-two">
+            <span>Show in ambient mode (changes every minute)</span>
+            <select id="ambientContentSelect">
+              <option value="both">Quran ayat and hadith, alternating</option>
+              <option value="quran">Quran ayat only</option>
+              <option value="hadith">Hadith only</option>
+              <option value="off">Clock and prayer times only</option>
+            </select>
+          </label>
+        </div>
+        <div class="content-status">
+          <p class="section-hint" id="contentStatus" role="status">Loading content status…</p>
+          <button class="secondary-button" id="contentRefreshButton" type="button">Update now</button>
+        </div>
+        <p class="section-hint">
+          About 70 new Ayat and 200 new Hadith are downloaded once a week. Use the Quran and Hadith buttons on the
+          dashboard to read everything and to remove anything you don't want shown.
+        </p>
+        <p class="section-hint">
+          Quran Arabic: Tanzil.net (Uthmani). Quran English: Sahih International. Both via AlQuran.cloud.
+          Hadith Arabic and English: fawazahmed0/hadith-api, from Sahih al-Bukhari, Sahih Muslim, An-Nawawi's Forty
+          Hadith and Forty Hadith Qudsi. Everything downloaded is stored on this device and works offline.
+        </p>
+        <div class="field-grid">
+          <label class="field">
+            <span>Night starts at</span>
+            <input id="nightStartInput" type="time" step="60" />
+          </label>
+        </div>
+        <div class="field-grid native-only" id="brightnessFields">
+          <label class="field">
+            <span>Ambient brightness <output id="ambientBrightnessValue"></output></span>
+            <input id="ambientBrightnessInput" type="range" min="1" max="40" step="1" />
+          </label>
+          <label class="field">
+            <span>Night brightness <output id="nightBrightnessValue"></output></span>
+            <input id="nightBrightnessInput" type="range" min="1" max="20" step="1" />
+          </label>
+        </div>
+        <p class="section-hint native-only">
+          Brightness applies only while this app is open; the phone's own brightness setting is not changed.
+        </p>
+        <div class="inline-actions">
+          <button class="secondary-button" id="previewAmbientButton" type="button">Preview ambient view</button>
+        </div>
+      </section>
+
+      <p class="dialog-disclaimer" id="dialogDisclaimer"></p>
+
+      <footer class="dialog-footer">
+        <button class="ghost-button" id="cancelSettingsButton" type="button">Cancel</button>
+        <button class="primary-button" id="saveSettingsButton" type="button">Save settings</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script src="/js/jamaat-state.js" defer></script>
+  <script src="/js/ambient-state.js" defer></script>
+  <script src="/js/app.js" defer></script>
+</body>
+</html>
