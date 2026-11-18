@@ -41,7 +41,7 @@ therefore only needs the MAUI shell and its platform code. Core and the UI do no
 **Native bridge methods** (`src/DeskDashboard.App/MainPage.cs`):
 - `Api(method, url, body)`;
 - `SetBrightness(level)`;
-- `ScheduleJamaatAlerts(json)`.
+- `EnsureNotificationPermission()` and `CopyText(text)`.
 
 Anything platform-specific lives behind `#if ANDROID` / `#if IOS` in the App project, or in
 `Platforms/<platform>/`.
@@ -76,8 +76,8 @@ not destroy the screen. These rules do that; each one has a reason:
    steps 0 → 1 → 2, and skips the item if it doesn't fit. Fit is re-checked after fonts load (`document.fonts.ready`)
    and on resize (`ResizeObserver`), because the Arabic font changes the size after the first layout.
 9. **Alerts must survive the app being in the background:** schedule them with the OS (Android `AlarmManager`,
-   iOS `UNUserNotificationCenter`), not with JS timers. The page computes the schedule (`JamaatState.alertSchedule`)
-   and the native side only schedules it. The schedule is replaced whenever data or settings change.
+   iOS `UNUserNotificationCenter`), not with JS timers. Plan them natively from the stored data (`JamaatAlertPlanner`, 7 days),
+   and plan again on each alarm, on boot and daily, so they keep coming without opening the app.
 
 ## Everyday commands (Windows PC)
 

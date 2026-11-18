@@ -27,6 +27,12 @@ public sealed class ContentService(DashboardDbContext db, TimeProvider? clock = 
         var state = await GetStateAsync(ct);
         if (state.SeededAtMs is not null)
         {
+            // Installs from before 0.2.0 have no hadith book numbers yet: fill them from the bundle.
+            if (await db.ContentItems.AnyAsync(x => x.Type == ContentTypes.Hadith && x.RefBook == null, ct))
+            {
+                await BackfillReferencesAsync(ReadSeedBundle(), ct);
+            }
+
             return 0;
         }
 
@@ -55,6 +61,8 @@ public sealed class ContentService(DashboardDbContext db, TimeProvider? clock = 
                 SourceKey = candidate.SourceKey,
                 Ref = candidate.Ref,
                 Source = candidate.Source,
+                RefBook = candidate.RefBook,
+                RefNumber = candidate.RefNumber,
                 Grade = candidate.Grade,
                 Arabic = candidate.Arabic,
                 English = candidate.English,
@@ -66,6 +74,38 @@ public sealed class ContentService(DashboardDbContext db, TimeProvider? clock = 
 
         await db.SaveChangesAsync(ct);
         return added;
+    }
+
+    /// <summary>Stores hadith in-book references for stored items that do not have one yet. Returns how many.</summary>
+    public async Task<int> BackfillReferencesAsync(IEnumerable<ContentCandidate> candidates, CancellationToken ct = default)
+    {
+        var known = candidates
+            .Where(c => c.RefBook is not null && c.RefNumber is not null)
+            .GroupBy(c => c.SourceKey)
+            .ToDictionary(g => g.Key, g => g.First());
+        if (known.Count == 0)
+        {
+            return 0;
+        }
+
+        var missing = await db.ContentItems.Where(x => x.RefBook == null && x.Type == ContentTypes.Hadith).ToListAsync(ct);
+        var updated = 0;
+        foreach (var item in missing)
+        {
+            if (known.TryGetValue(item.SourceKey, out var match))
+            {
+                item.RefBook = match.RefBook;
+                item.RefNumber = match.RefNumber;
+                updated += 1;
+            }
+        }
+
+        if (updated > 0)
+        {
+            await db.SaveChangesAsync(ct);
+        }
+
+        return updated;
     }
 
     public async Task<IReadOnlySet<string>> GetSourceKeysAsync(string type, CancellationToken ct = default) =>
@@ -181,7 +221,7 @@ public sealed class ContentService(DashboardDbContext db, TimeProvider? clock = 
 
     private static ContentItemDto ToDto(ContentItem x) => new(
         x.Id, x.Type, x.Ref, x.Source, x.Grade, x.Arabic, x.English, x.Batch,
-        x.AddedAtMs, x.LastShownAtMs, x.ShowCount, x.Hidden);
+        x.AddedAtMs, x.LastShownAtMs, x.ShowCount, x.Hidden, x.SourceKey, x.RefBook, x.RefNumber);
 
     /// <summary>The starter set built by tools/content/build-content.mjs, embedded in this assembly.</summary>
     public static IReadOnlyList<ContentCandidate> ReadSeedBundle()
@@ -200,7 +240,9 @@ public sealed class ContentService(DashboardDbContext db, TimeProvider? clock = 
                     item.GetProperty("source").GetString()!,
                     item.TryGetProperty("grade", out var grade) ? grade.GetString() : null,
                     item.GetProperty("ar").GetString()!,
-                    item.GetProperty("en").GetString()!));
+                    item.GetProperty("en").GetString()!,
+                    item.TryGetProperty("book", out var book) ? book.GetInt32() : null,
+                    item.TryGetProperty("num", out var num) ? num.GetInt32() : null));
             }
         }
 

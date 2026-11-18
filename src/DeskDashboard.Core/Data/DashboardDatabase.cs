@@ -35,7 +35,66 @@ public static class DashboardDatabase
             "LastAddedQuran" INTEGER NOT NULL,
             "LastAddedHadith" INTEGER NOT NULL
         );
+        CREATE TABLE IF NOT EXISTS "AlertPreferences" (
+            "Key" TEXT NOT NULL CONSTRAINT "PK_AlertPreferences" PRIMARY KEY,
+            "Notify" INTEGER NOT NULL,
+            "Minutes" INTEGER NOT NULL
+        );
         """;
+
+    // Columns added after 0.1.0, as (table, column, SQL type). Must match DashboardDbContext's model.
+    private static readonly (string Table, string Column, string Type)[] AddedColumns =
+    [
+        ("MosqueTimetables", "FajrRule", "TEXT NULL"),
+        ("MosqueTimetables", "DhuhrRule", "TEXT NULL"),
+        ("MosqueTimetables", "AsrRule", "TEXT NULL"),
+        ("MosqueTimetables", "MaghribRule", "TEXT NULL"),
+        ("MosqueTimetables", "IshaRule", "TEXT NULL"),
+        ("ContentItems", "RefBook", "INTEGER NULL"),
+        ("ContentItems", "RefNumber", "INTEGER NULL")
+    ];
+
+    /// <summary>Adds columns introduced by later versions to an existing database (SQLite ALTER TABLE).</summary>
+    public static void MigrateSchema(DashboardDbContext db)
+    {
+        var connection = db.Database.GetDbConnection();
+        var opened = connection.State != System.Data.ConnectionState.Open;
+        if (opened)
+        {
+            connection.Open();
+        }
+
+        try
+        {
+            foreach (var group in AddedColumns.GroupBy(c => c.Table))
+            {
+                var existing = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = $"PRAGMA table_info(\"{group.Key}\")";
+                    using var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        existing.Add(reader.GetString(1));
+                    }
+                }
+
+                foreach (var (table, column, type) in group.Where(c => !existing.Contains(c.Column)))
+                {
+                    using var alter = connection.CreateCommand();
+                    alter.CommandText = $"ALTER TABLE \"{table}\" ADD COLUMN \"{column}\" {type}";
+                    alter.ExecuteNonQuery();
+                }
+            }
+        }
+        finally
+        {
+            if (opened)
+            {
+                connection.Close();
+            }
+        }
+    }
 
     /// <summary>
     /// Creates the SQLite schema if needed, adds tables introduced by later versions, and seeds
@@ -45,6 +104,7 @@ public static class DashboardDatabase
     {
         db.Database.EnsureCreated();
         db.Database.ExecuteSqlRaw(ContentSchemaSql);
+        MigrateSchema(db);
 
         // The starter Ayat/Hadith are imported separately (ContentService.SeedIfNeededAsync), off the
         // startup path, so a first launch on a slow phone is not delayed.

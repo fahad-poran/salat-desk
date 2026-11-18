@@ -42,9 +42,14 @@
     closeSettingsButton: $('closeSettingsButton'),
     cancelSettingsButton: $('cancelSettingsButton'),
     saveSettingsButton: $('saveSettingsButton'),
-    saveTimetableButton: $('saveTimetableButton'),
     settingsErrors: $('settingsErrors'),
-    timetableErrors: $('timetableErrors'),
+    settingsTabs: $('settingsTabs'),
+    settingsDirty: $('settingsDirty'),
+    jamaatCards: $('jamaatCards'),
+    fontChoices: $('fontChoices'),
+    accentChoices: $('accentChoices'),
+    accentCustomInput: $('accentCustomInput'),
+    themePreview: $('themePreview'),
     searchInput: $('searchInput'),
     searchButton: $('searchButton'),
     searchResults: $('searchResults'),
@@ -66,16 +71,6 @@
     adjustMaghrib: $('adjustMaghrib'),
     adjustIsha: $('adjustIsha'),
     timetableEffectiveFrom: $('timetableEffectiveFrom'),
-    jamaatFajr: $('jamaatFajr'),
-    jamaatDhuhr: $('jamaatDhuhr'),
-    jamaatAsr: $('jamaatAsr'),
-    jamaatMaghrib: $('jamaatMaghrib'),
-    jamaatIsha: $('jamaatIsha'),
-    jamaatFajrRange: $('jamaatFajrRange'),
-    jamaatDhuhrRange: $('jamaatDhuhrRange'),
-    jamaatAsrRange: $('jamaatAsrRange'),
-    jamaatMaghribRange: $('jamaatMaghribRange'),
-    jamaatIshaRange: $('jamaatIshaRange'),
     jamaatNote: $('jamaatNote'),
     timetableStatus: $('timetableStatus'),
     conflictPanel: $('conflictPanel'),
@@ -155,7 +150,12 @@
     aod: null,
     aodPressedAt: 0,
     alertPrefs: null,
-    alertScheduleKey: '',
+    draftAlerts: null,
+    theme: null,
+    settingsDraft: null, // saved values to restore when the dialog is closed without saving
+    settingsTab: 'location',
+    timetableBaseline: '',
+    previewFromSettings: false,
     contentRefreshRequested: false,
     library: { type: 'quran', hidden: false, items: [], shown: 0, token: 0 },
     contentStatusTimer: 0
@@ -169,7 +169,12 @@
   const FLASH_STORAGE_KEY = 'deskDashboard.flashWarning';
   const ALERTS_STORAGE_KEY = 'deskDashboard.jamaatAlerts';
   const AMBIENT_STORAGE_KEY = 'deskDashboard.ambient';
-  const ALERT_PREFS_KEY = 'deskDashboard.jamaatAlertPrefs';
+  // Before 0.2.0 the alert preferences lived in the page; they now live in the database (so the phone can
+  // plan notifications without the page) and are copied there once.
+  const LEGACY_ALERT_PREFS_KEY = 'deskDashboard.jamaatAlertPrefs';
+  const THEME_STORAGE_KEY = 'deskDashboard.theme';
+  const PRAYER_KEYS = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+  const PRAYER_NAMES = { fajr: 'Fajr', dhuhr: 'Dhuhr', asr: 'Asr', maghrib: 'Maghrib', isha: 'Isha' };
   const AMBIENT_MARGIN = 16;
   const LIBRARY_PAGE = 40;
 
@@ -181,8 +186,9 @@
       elements.footerNote.textContent = 'Runs on this device';
     }
     loadFlashPreference();
-    loadAlertPrefs();
+    state.alertPrefs = window.JamaatState.normalizeAlertPrefs(null);
     loadAmbientPrefs();
+    loadTheme();
     bindEvents();
     applyBurnInDrift();
     // Start in the full view so the first load is visible; ambient takes over after WAKE_MS.
@@ -215,16 +221,31 @@
 
   function bindEvents() {
     elements.settingsButton.addEventListener('click', openSettings);
-    elements.closeSettingsButton.addEventListener('click', () => elements.settingsDialog.close());
-    elements.cancelSettingsButton.addEventListener('click', () => elements.settingsDialog.close());
+    elements.closeSettingsButton.addEventListener('click', discardSettings);
+    elements.cancelSettingsButton.addEventListener('click', discardSettings);
     elements.saveSettingsButton.addEventListener('click', saveSettings);
-    elements.saveTimetableButton.addEventListener('click', saveTimetable);
+    // Escape closes the dialog: treat it like Cancel.
+    elements.settingsDialog.addEventListener('cancel', (event) => {
+      event.preventDefault();
+      discardSettings();
+    });
+    elements.settingsTabs.addEventListener('click', (event) => {
+      const tab = event.target.closest('[data-tab]');
+      if (tab) {
+        selectSettingsTab(tab.dataset.tab);
+      }
+    });
+    elements.settingsTabs.addEventListener('keydown', handleTabKeys);
+    elements.settingsForm.addEventListener('input', markSettingsDirty);
+    elements.settingsForm.addEventListener('change', markSettingsDirty);
     elements.flashWarningInput.addEventListener('change', handleFlashChange);
     elements.alertTable.addEventListener('change', handleAlertInput);
+    elements.jamaatCards.addEventListener('change', handleJamaatCardInput);
+    elements.jamaatCards.addEventListener('input', handleJamaatCardInput);
     elements.timetableEffectiveFrom.addEventListener('change', () => refreshTimetableLimits());
-    for (const input of jamaatInputs()) {
-      input.addEventListener('input', () => input.classList.remove('is-invalid'));
-    }
+    elements.fontChoices.addEventListener('change', handleThemeInput);
+    elements.accentChoices.addEventListener('change', handleThemeInput);
+    elements.accentCustomInput.addEventListener('input', handleThemeInput);
     elements.searchButton.addEventListener('click', searchLocation);
     elements.searchInput.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
@@ -239,7 +260,7 @@
     });
     elements.settingsDialog.addEventListener('click', (event) => {
       if (event.target === elements.settingsDialog) {
-        elements.settingsDialog.close();
+        discardSettings();
       }
     });
     document.addEventListener('visibilitychange', () => {
@@ -263,6 +284,7 @@
     try {
       const data = await request('/api/prayer/today');
       state.data = data;
+      state.alertPrefs = window.JamaatState.normalizeAlertPrefs(data.alerts || null);
       state.serverOffsetMs = Date.parse(data.serverNowUtc) - Date.now();
       state.lastFetch = Date.now();
       hideBanner();
@@ -306,7 +328,7 @@
 
     const synced = formatClockTime(new Date(Date.parse(data.serverNowUtc)), data.timeZoneId);
     elements.lastUpdated.textContent = `Synced ${synced.time} ${synced.meridiem}`;
-    scheduleNativeAlerts();
+    migrateLegacyAlertPrefs(data);
   }
 
   function renderClock() {
@@ -570,6 +592,15 @@
           flag.className = 'jamaat-flag';
           flag.textContent = 'check';
           jamaatCell.append(' ', flag);
+        } else if (prayer.jamaatAdjusted) {
+          // The fixed time is outside today's window; the chosen fallback gave this time.
+          jamaatCell.title = prayer.jamaatNote || 'Adjusted for today.';
+          const flag = document.createElement('small');
+          flag.className = 'jamaat-flag is-adjusted';
+          flag.textContent = 'auto';
+          jamaatCell.append(' ', flag);
+        } else if (prayer.jamaatRuleText && prayer.jamaatMode !== 'fixed') {
+          jamaatCell.title = prayer.jamaatRuleText;
         }
       } else {
         jamaatCell.classList.add('is-empty');
@@ -642,33 +673,163 @@
     }
   }
 
+  // ---------------------------------------------------------------------------------------------
+  // Settings dialog: tabs, one Save. While it is open everything is a draft; display and theme
+  // changes preview live and are put back by Cancel.
+  // ---------------------------------------------------------------------------------------------
+
   function openSettings() {
     if (!state.data) {
       showToast('Still connecting to the server.');
       return;
     }
 
+    // Coming back from "Preview the always-on view": keep the draft as it was.
+    if (state.settingsDraft && state.previewFromSettings) {
+      state.previewFromSettings = false;
+      if (!elements.settingsDialog.open) {
+        elements.settingsDialog.showModal();
+      }
+      return;
+    }
+
     const data = state.data;
+    state.settingsDraft = {
+      ambientPrefs: { ...state.ambientPrefs },
+      flashWarning: state.flashWarning,
+      theme: { ...state.theme }
+    };
     populateMethodSelect(data.methods, data.settings.methodKey);
     fillSettingsForm(data.settings);
     state.ranges = data;
     fillTimetableForm(data.timetable, data.date);
+    state.timetableBaseline = JSON.stringify(timetablePayload());
     elements.settingsErrors.hidden = true;
-    elements.timetableErrors.hidden = true;
     elements.timetableStatus.textContent = '';
     elements.searchStatus.textContent = '';
     elements.searchResults.hidden = true;
     elements.searchResults.replaceChildren();
     elements.dialogDisclaimer.textContent = data.disclaimer;
     elements.flashWarningInput.checked = state.flashWarning;
+    state.draftAlerts = window.JamaatState.normalizeAlertPrefs(state.alertPrefs);
     renderAlertRows();
+    fillAmbientInputs();
+    renderThemeChoices();
     renderConflictPanel(data.conflicts || []);
+    clearTabErrors();
+    elements.settingsDirty.textContent = '';
+    selectSettingsTab(state.settingsTab || 'location');
 
     if (!elements.settingsDialog.open) {
       elements.settingsDialog.showModal();
     }
 
     loadSettingsConflicts();
+    loadContentStatus();
+  }
+
+  /** Cancel, ×, Escape or a tap outside: put back what was saved and close. */
+  function discardSettings() {
+    const draft = state.settingsDraft;
+    state.settingsDraft = null;
+    state.previewFromSettings = false;
+    if (draft) {
+      state.ambientPrefs = draft.ambientPrefs;
+      state.flashWarning = draft.flashWarning;
+      state.theme = draft.theme;
+      applyFlashPreference();
+      applyTheme(state.theme);
+      state.contentKey = null;
+      state.contentPick = null;
+      state.ambientSlot = null;
+      state.mode = null; // re-apply brightness
+    }
+    if (elements.settingsDialog.open) {
+      elements.settingsDialog.close();
+    }
+    updateDisplayMode();
+  }
+
+  function markSettingsDirty() {
+    if (state.settingsDraft) {
+      elements.settingsDirty.textContent = 'Unsaved changes';
+    }
+  }
+
+  function selectSettingsTab(name) {
+    const tabs = [...elements.settingsTabs.querySelectorAll('[data-tab]')];
+    if (!tabs.some((tab) => tab.dataset.tab === name)) {
+      name = 'location';
+    }
+    state.settingsTab = name;
+    for (const tab of tabs) {
+      const selected = tab.dataset.tab === name;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+    }
+    for (const panel of elements.settingsDialog.querySelectorAll('[data-panel]')) {
+      panel.hidden = panel.dataset.panel !== name;
+    }
+    const body = elements.settingsDialog.querySelector('.settings-panels');
+    if (body) {
+      body.scrollTop = 0;
+    }
+  }
+
+  function handleTabKeys(event) {
+    if (!['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+      return;
+    }
+    const tabs = [...elements.settingsTabs.querySelectorAll('[data-tab]')];
+    const index = tabs.findIndex((tab) => tab.dataset.tab === state.settingsTab);
+    let next = index;
+    if (event.key === 'Home') {
+      next = 0;
+    } else if (event.key === 'End') {
+      next = tabs.length - 1;
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+      next = (index + 1) % tabs.length;
+    } else {
+      next = (index - 1 + tabs.length) % tabs.length;
+    }
+    event.preventDefault();
+    selectSettingsTab(tabs[next].dataset.tab);
+    tabs[next].focus();
+  }
+
+  function clearTabErrors() {
+    for (const tab of elements.settingsTabs.querySelectorAll('[data-tab]')) {
+      tab.classList.remove('has-error');
+    }
+    for (const control of elements.settingsDialog.querySelectorAll('.is-invalid')) {
+      control.classList.remove('is-invalid');
+    }
+  }
+
+  // Which tab an API error key belongs to ("country", "timetable.asr", "alerts.fajr" …).
+  function tabForErrorKey(key) {
+    const lower = String(key || '').toLowerCase();
+    if (lower.startsWith('timetable.') || lower === 'timetable') {
+      return 'jamaat';
+    }
+    if (lower.startsWith('alerts.')) {
+      return 'alerts';
+    }
+    if (['country', 'city', 'latitude', 'longitude', 'timezoneid'].includes(lower)) {
+      return 'location';
+    }
+    return 'prayer';
+  }
+
+  function markTabErrors(keys) {
+    const tabs = new Set(keys.map(tabForErrorKey));
+    for (const tab of elements.settingsTabs.querySelectorAll('[data-tab]')) {
+      tab.classList.toggle('has-error', tabs.has(tab.dataset.tab));
+    }
+    const first = elements.settingsTabs.querySelector('.has-error');
+    if (first) {
+      selectSettingsTab(first.dataset.tab);
+    }
   }
 
   async function loadSettingsConflicts() {
@@ -714,63 +875,252 @@
     updateMethodDescription();
   }
 
+  // ---------------------------------------------------------------------------------------------
+  // Jamaat tab: one card per prayer with the method (fixed / after Waqt / rounded slot)
+  // ---------------------------------------------------------------------------------------------
+
   function fillTimetableForm(timetable, todayDate) {
     const reference = state.ranges || state.data;
-    const isNew = !timetable;
     elements.timetableEffectiveFrom.value = timetable?.effectiveFrom || todayDate;
-    elements.jamaatFajr.value = isNew ? suggestedStart(reference, 'fajr') : (timetable.fajr || '');
-    elements.jamaatDhuhr.value = isNew ? suggestedStart(reference, 'dhuhr') : (timetable.dhuhr || '');
-    elements.jamaatAsr.value = isNew ? suggestedStart(reference, 'asr') : (timetable.asr || '');
-    elements.jamaatMaghrib.value = isNew ? suggestedStart(reference, 'maghrib') : (timetable.maghrib || '');
-    elements.jamaatIsha.value = isNew ? suggestedStart(reference, 'isha') : (timetable.isha || '');
     elements.jamaatNote.value = timetable?.note || '';
-    for (const input of jamaatInputs()) {
-      input.classList.remove('is-invalid');
+    elements.jamaatCards.replaceChildren();
+    for (const key of PRAYER_KEYS) {
+      const rule = window.JamaatRules.normalizeRule(timetable?.rules?.[key]);
+      // A new timetable starts from the calculated Waqt, which the user then edits.
+      const time = timetable ? (timetable[key] || '') : suggestedStart(reference, key);
+      elements.jamaatCards.append(buildJamaatCard(key, rule, time));
     }
     applyTimetableLimits(reference);
+  }
+
+  function option(value, label, selected) {
+    const item = document.createElement('option');
+    item.value = value;
+    item.textContent = label;
+    item.selected = selected;
+    return item;
+  }
+
+  function numberField(labelText, field, value, min, max, hint) {
+    const label = document.createElement('label');
+    label.className = 'field';
+    const text = document.createElement('span');
+    text.textContent = labelText;
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.min = String(min);
+    input.max = String(max);
+    input.step = '1';
+    input.inputMode = 'numeric';
+    input.dataset.field = field;
+    input.value = String(value);
+    label.append(text, input);
+    if (hint) {
+      const small = document.createElement('small');
+      small.className = 'field-hint';
+      small.textContent = hint;
+      label.append(small);
+    }
+    return label;
+  }
+
+  function slotField(field, value) {
+    const label = document.createElement('label');
+    label.className = 'field';
+    const text = document.createElement('span');
+    text.textContent = 'Round to every';
+    const select = document.createElement('select');
+    select.dataset.field = field;
+    for (const size of window.JamaatRules.SLOT_SIZES) {
+      select.append(option(String(size), `${size} minutes`, size === value));
+    }
+    label.append(text, select);
+    return label;
+  }
+
+  function buildJamaatCard(key, rule, time) {
+    const card = document.createElement('div');
+    card.className = 'jamaat-card';
+    card.dataset.prayerKey = key;
+    const fallback = rule.fallback || { mode: 'offset', minutes: 10 };
+
+    const head = document.createElement('div');
+    head.className = 'jamaat-card-head';
+    const name = document.createElement('strong');
+    name.textContent = PRAYER_NAMES[key];
+    const preview = document.createElement('span');
+    preview.className = 'jamaat-preview';
+    preview.dataset.role = 'preview';
+    head.append(name, preview);
+
+    const modeLabel = document.createElement('label');
+    modeLabel.className = 'field';
+    const modeText = document.createElement('span');
+    modeText.textContent = 'Jamaat time is';
+    const mode = document.createElement('select');
+    mode.dataset.field = 'mode';
+    mode.append(
+      option('fixed', 'A fixed time', rule.mode === 'fixed'),
+      option('offset', 'Minutes after the Waqt', rule.mode === 'offset'),
+      option('slot', 'The next rounded time after the Waqt', rule.mode === 'slot'));
+    modeLabel.append(modeText, mode);
+
+    // Fixed time and what happens when the Waqt passes it.
+    const fixed = document.createElement('div');
+    fixed.className = 'jamaat-mode field-grid';
+    fixed.dataset.mode = 'fixed';
+    const timeLabel = document.createElement('label');
+    timeLabel.className = 'field';
+    const timeText = document.createElement('span');
+    timeText.textContent = 'Time';
+    const timeInput = document.createElement('input');
+    timeInput.type = 'time';
+    timeInput.step = '60';
+    timeInput.dataset.field = 'time';
+    timeInput.value = time || '';
+    const range = document.createElement('small');
+    range.className = 'field-hint';
+    range.dataset.role = 'range';
+    timeLabel.append(timeText, timeInput, range);
+
+    const fallbackLabel = document.createElement('label');
+    fallbackLabel.className = 'field';
+    const fallbackText = document.createElement('span');
+    fallbackText.textContent = 'If the Waqt moves past this time';
+    const fallbackMode = document.createElement('select');
+    fallbackMode.dataset.field = 'fallbackMode';
+    fallbackMode.append(
+      option('offset', 'Use the Waqt plus some minutes', fallback.mode === 'offset'),
+      option('slot', 'Use the next rounded time', fallback.mode === 'slot'),
+      option('warn', 'Keep my time and warn me', fallback.mode === 'warn'));
+    fallbackLabel.append(fallbackText, fallbackMode);
+
+    const fallbackOffset = document.createElement('div');
+    fallbackOffset.className = 'jamaat-sub';
+    fallbackOffset.dataset.fallback = 'offset';
+    fallbackOffset.append(numberField('Minutes after the Waqt', 'fallbackMinutes', fallback.minutes ?? 10, 0, 120));
+
+    const fallbackSlot = document.createElement('div');
+    fallbackSlot.className = 'jamaat-sub field-grid';
+    fallbackSlot.dataset.fallback = 'slot';
+    fallbackSlot.append(
+      slotField('fallbackSlot', fallback.slot ?? 15),
+      numberField('At least (min after Waqt)', 'fallbackGap', fallback.gap ?? 5, 0, 60));
+
+    fixed.append(timeLabel, fallbackLabel, fallbackOffset, fallbackSlot);
+
+    const offset = document.createElement('div');
+    offset.className = 'jamaat-mode field-grid';
+    offset.dataset.mode = 'offset';
+    offset.append(numberField('Minutes after the Waqt', 'minutes', rule.minutes ?? 5, 0, 120,
+      'The Jamaat follows the Waqt every day.'));
+
+    const slot = document.createElement('div');
+    slot.className = 'jamaat-mode field-grid';
+    slot.dataset.mode = 'slot';
+    slot.append(
+      slotField('slot', rule.slot ?? 15),
+      numberField('At least (min after Waqt)', 'gap', rule.gap ?? 5, 0, 60,
+        'For example every 15 minutes: …:00, :15, :30, :45.'));
+
+    const note = document.createElement('p');
+    note.className = 'section-hint jamaat-note';
+    note.dataset.role = 'note';
+
+    card.append(head, modeLabel, fixed, offset, slot, note);
+    syncJamaatCard(card);
+    return card;
+  }
+
+  function readJamaatCard(card) {
+    const value = (field) => card.querySelector(`[data-field="${field}"]`)?.value ?? '';
+    const mode = value('mode');
+    let rule;
+    if (mode === 'offset') {
+      rule = { mode: 'offset', minutes: Number(value('minutes')) };
+    } else if (mode === 'slot') {
+      rule = { mode: 'slot', slot: Number(value('slot')), gap: Number(value('gap')) };
+    } else {
+      const fallbackMode = value('fallbackMode');
+      const fallback = fallbackMode === 'slot'
+        ? { mode: 'slot', slot: Number(value('fallbackSlot')), gap: Number(value('fallbackGap')) }
+        : fallbackMode === 'warn'
+          ? { mode: 'warn' }
+          : { mode: 'offset', minutes: Number(value('fallbackMinutes')) };
+      rule = { mode: 'fixed', fallback };
+    }
+    return { key: card.dataset.prayerKey, time: value('time'), rule };
+  }
+
+  // Shows only the fields of the chosen method, and the preview for the reference date.
+  function syncJamaatCard(card) {
+    const entry = readJamaatCard(card);
+    for (const block of card.querySelectorAll('[data-mode]')) {
+      block.hidden = block.dataset.mode !== entry.rule.mode;
+    }
+    const fallbackMode = entry.rule.fallback ? entry.rule.fallback.mode : '';
+    for (const block of card.querySelectorAll('[data-fallback]')) {
+      block.hidden = block.dataset.fallback !== fallbackMode;
+    }
+
+    const preview = card.querySelector('[data-role="preview"]');
+    const note = card.querySelector('[data-role="note"]');
+    const reference = state.ranges || state.data;
+    const prayer = reference?.times?.find((item) => item.key === entry.key);
+    const span = prayer ? prayerWindow(prayer) : null;
+    const Rules = window.JamaatRules;
+    note.textContent = '';
+    note.classList.remove('is-warning');
+    if (!span) {
+      preview.textContent = '';
+      return;
+    }
+
+    const result = Rules.resolve(entry.rule, entry.time, span);
+    const dateLabel = reference.date === state.data?.date ? 'Today' : formatDateShort(reference.date);
+    const waqt = Rules.formatTime(span.start);
+    if (!result) {
+      preview.textContent = `${dateLabel}: no Jamaat set (Waqt ${waqt})`;
+      return;
+    }
+    preview.textContent = `${dateLabel}: ${Rules.formatTime(result.at)} (Waqt ${waqt})`;
+    if (result.adjusted) {
+      note.textContent = `Your time ${Rules.formatTime(Rules.parseTime(entry.time))} is outside the window on this date, ` +
+        `so ${Rules.formatTime(result.at)} is used (${Rules.describe(entry.rule.fallback)}).`;
+    } else if (!result.valid) {
+      note.textContent = 'This time is outside the prayer window on this date. It will be shown with a warning.';
+      note.classList.add('is-warning');
+    } else if (result.capped) {
+      note.textContent = 'That would be after the prayer window, so the last minute of the window is used.';
+    }
+  }
+
+  // The window for a prayer from the API ("HH:mm" earliest / latest), in minutes of the day.
+  function prayerWindow(prayer) {
+    return window.JamaatRules.windowFrom(prayer.jamaatEarliest, prayer.jamaatLatest);
+  }
+
+  function handleJamaatCardInput(event) {
+    const card = event.target.closest('.jamaat-card');
+    if (card) {
+      event.target.classList.remove('is-invalid');
+      syncJamaatCard(card);
+    }
   }
 
   function applyTimetableLimits(reference) {
     if (!reference?.times) {
       return;
     }
-
-    const fields = {
-      fajr: { input: elements.jamaatFajr, hint: elements.jamaatFajrRange },
-      dhuhr: { input: elements.jamaatDhuhr, hint: elements.jamaatDhuhrRange },
-      asr: { input: elements.jamaatAsr, hint: elements.jamaatAsrRange },
-      maghrib: { input: elements.jamaatMaghrib, hint: elements.jamaatMaghribRange },
-      isha: { input: elements.jamaatIsha, hint: elements.jamaatIshaRange }
-    };
-
-    for (const prayer of reference.times) {
-      const field = fields[prayer.key];
-      if (!field || !prayer.isPrayer) {
-        continue;
+    for (const card of elements.jamaatCards.querySelectorAll('.jamaat-card')) {
+      const prayer = reference.times.find((item) => item.key === card.dataset.prayerKey);
+      const hint = card.querySelector('[data-role="range"]');
+      if (hint) {
+        hint.textContent = prayer?.jamaatRange
+          ? `Allowed ${prayer.jamaatRange} · Waqt ${formatTime12(prayer.time).label}`
+          : 'Allowed window unavailable';
       }
-
-      const earliest = prayer.jamaatEarliest || '';
-      const latest = prayer.jamaatLatest || '';
-      field.input.dataset.earliest = earliest;
-      field.input.dataset.latest = latest;
-      field.input.dataset.crossesMidnight =
-        earliest && latest && latest < earliest ? 'true' : 'false';
-      field.input.dataset.prayerName = prayer.name;
-
-      if (prayer.key === 'isha') {
-        field.input.removeAttribute('min');
-        field.input.removeAttribute('max');
-      } else if (earliest && latest) {
-        field.input.min = earliest;
-        field.input.max = latest;
-      } else {
-        field.input.removeAttribute('min');
-        field.input.removeAttribute('max');
-      }
-
-      field.hint.textContent = prayer.jamaatRange
-        ? `Allowed ${prayer.jamaatRange} · Suggested ${formatTime12(prayer.time).label}`
-        : 'Allowed window unavailable';
+      syncJamaatCard(card);
     }
   }
 
@@ -791,7 +1141,7 @@
 
       state.ranges = reference;
       applyTimetableLimits(reference);
-      elements.timetableStatus.textContent = `Windows loaded for ${formatDateShort(date)}.`;
+      elements.timetableStatus.textContent = `Previews and windows for ${formatDateShort(date)}.`;
     } catch (error) {
       if (token !== state.rangeRequestToken) {
         return;
@@ -799,7 +1149,7 @@
 
       console.warn('Could not load timetable windows.', error);
       elements.timetableStatus.textContent =
-        'Could not load the windows for that date. The server will still validate on save.';
+        'Could not load the windows for that date. The times are still checked when you save.';
     }
   }
 
@@ -808,65 +1158,43 @@
     return prayer?.time || '';
   }
 
-  function jamaatInputs() {
-    return [
-      elements.jamaatFajr,
-      elements.jamaatDhuhr,
-      elements.jamaatAsr,
-      elements.jamaatMaghrib,
-      elements.jamaatIsha
-    ].filter(Boolean);
+  function timetablePayload() {
+    const payload = {
+      effectiveFrom: elements.timetableEffectiveFrom.value || null,
+      note: elements.jamaatNote.value.trim() || null,
+      rules: {}
+    };
+    for (const card of elements.jamaatCards.querySelectorAll('.jamaat-card')) {
+      const entry = readJamaatCard(card);
+      payload[entry.key] = entry.time || null;
+      payload.rules[entry.key] = window.JamaatRules.normalizeRule(entry.rule);
+    }
+    return payload;
   }
 
-  function parseTimeInput(value) {
-    const match = /^(\d{1,2}):(\d{2})/.exec(value || '');
-    if (!match) {
-      return null;
-    }
-
-    const hour = Number(match[1]);
-    const minute = Number(match[2]);
-    if (hour > 23 || minute > 59) {
-      return null;
-    }
-
-    return hour * 60 + minute;
-  }
-
-  function validateTimetableInputs() {
+  // A fixed time must fit its window on the effective date (the other methods always do).
+  function validateJamaatCards() {
     const errors = {};
-    let invalid = false;
-
-    for (const input of jamaatInputs()) {
+    const reference = state.ranges || state.data;
+    for (const card of elements.jamaatCards.querySelectorAll('.jamaat-card')) {
+      const entry = readJamaatCard(card);
+      const input = card.querySelector('[data-field="time"]');
       input.classList.remove('is-invalid');
-      if (!input.value) {
+      if (entry.rule.mode !== 'fixed' || !entry.time) {
         continue;
       }
-
-      const minutes = parseTimeInput(input.value);
-      const earliest = parseTimeInput(input.dataset.earliest);
-      const latest = parseTimeInput(input.dataset.latest);
-      if (minutes === null || earliest === null || latest === null) {
-        continue;
+      const prayer = reference?.times?.find((item) => item.key === entry.key);
+      const span = prayer ? prayerWindow(prayer) : null;
+      const result = span ? window.JamaatRules.resolve({ mode: 'fixed', fallback: { mode: 'warn' } }, entry.time, span) : null;
+      if (result && !result.valid) {
+        input.classList.add('is-invalid');
+        errors[`timetable.${entry.key}`] = [
+          `${PRAYER_NAMES[entry.key]} Jamaat is outside the prayer window on the effective date. ` +
+          `Allowed ${prayer.jamaatRange}.`
+        ];
       }
-
-      const crossesMidnight = input.dataset.crossesMidnight === 'true';
-      const inside = crossesMidnight
-        ? minutes >= earliest || minutes <= latest
-        : minutes >= earliest && minutes <= latest;
-
-      if (inside) {
-        continue;
-      }
-
-      invalid = true;
-      input.classList.add('is-invalid');
-      const name = input.dataset.prayerName || 'Jamaat';
-      const hint = input.parentElement?.querySelector('.field-hint')?.textContent || '';
-      errors[input.id] = [`${name} Jamaat is outside the allowed prayer window. ${hint}`.trim()];
     }
-
-    return invalid ? errors : {};
+    return errors;
   }
 
   function renderConflictPanel(conflicts) {
@@ -997,105 +1325,89 @@
     elements.searchResults.hidden = true;
   }
 
+  /** The one Save: prayer settings, Jamaat timetable (when changed) and alerts in one request. */
   async function saveSettings() {
+    clearTabErrors();
+    elements.settingsErrors.hidden = true;
+
     const invalid = settingsFieldControls().find((control) => !control.checkValidity());
     if (invalid) {
+      const panel = invalid.closest('[data-panel]');
+      if (panel) {
+        selectSettingsTab(panel.dataset.panel);
+      }
+      const details = invalid.closest('details');
+      if (details) {
+        details.open = true;
+      }
       invalid.reportValidity();
       return;
     }
 
+    const timetable = timetablePayload();
+    const timetableChanged = JSON.stringify(timetable) !== state.timetableBaseline;
+    const clientErrors = timetableChanged ? validateJamaatCards() : {};
+    if (timetableChanged && !timetable.effectiveFrom) {
+      clientErrors['timetable.effectiveFrom'] = ['Choose the date this Jamaat timetable becomes effective.'];
+    }
+    if (Object.keys(clientErrors).length > 0) {
+      showFormErrors(elements.settingsErrors, { payload: { errors: clientErrors } });
+      markTabErrors(Object.keys(clientErrors));
+      return;
+    }
+
     const payload = {
-      country: elements.countryInput.value.trim(),
-      city: elements.cityInput.value.trim(),
-      latitude: Number(elements.latitudeInput.value),
-      longitude: Number(elements.longitudeInput.value),
-      timeZoneId: elements.timeZoneInput.value.trim(),
-      methodKey: elements.methodSelect.value,
-      fajrAngle: Number(elements.fajrAngleInput.value),
-      ishaAngle: Number(elements.ishaAngleInput.value),
-      asrMadhab: elements.asrSelect.value,
-      fajrAdjustment: readInteger(elements.adjustFajr.value),
-      sunriseAdjustment: readInteger(elements.adjustSunrise.value),
-      dhuhrAdjustment: readInteger(elements.adjustDhuhr.value),
-      asrAdjustment: readInteger(elements.adjustAsr.value),
-      maghribAdjustment: readInteger(elements.adjustMaghrib.value),
-      ishaAdjustment: readInteger(elements.adjustIsha.value)
+      prayer: {
+        country: elements.countryInput.value.trim(),
+        city: elements.cityInput.value.trim(),
+        latitude: Number(elements.latitudeInput.value),
+        longitude: Number(elements.longitudeInput.value),
+        timeZoneId: elements.timeZoneInput.value.trim(),
+        methodKey: elements.methodSelect.value,
+        fajrAngle: Number(elements.fajrAngleInput.value),
+        ishaAngle: Number(elements.ishaAngleInput.value),
+        asrMadhab: elements.asrSelect.value,
+        fajrAdjustment: readInteger(elements.adjustFajr.value),
+        sunriseAdjustment: readInteger(elements.adjustSunrise.value),
+        dhuhrAdjustment: readInteger(elements.adjustDhuhr.value),
+        asrAdjustment: readInteger(elements.adjustAsr.value),
+        maghribAdjustment: readInteger(elements.adjustMaghrib.value),
+        ishaAdjustment: readInteger(elements.adjustIsha.value)
+      },
+      timetable: timetableChanged ? timetable : null,
+      alerts: state.draftAlerts
     };
 
     elements.saveSettingsButton.disabled = true;
-    elements.settingsErrors.hidden = true;
+    elements.settingsDirty.textContent = 'Saving…';
 
     try {
-      const response = await request('/api/prayer/settings', {
+      const response = await request('/api/settings', {
         method: 'PUT',
         body: JSON.stringify(payload)
       });
-      if (response?.settings) {
-        state.data.settings = response.settings;
-      }
 
+      // The page-only preferences are kept once the server has accepted everything.
+      saveAmbientPrefs();
+      saveFlashPreference();
+      saveTheme();
+      state.settingsDraft = null;
+      state.alertPrefs = window.JamaatState.normalizeAlertPrefs(response?.alerts || state.draftAlerts);
       state.settingsConflicts = response?.conflicts || [];
-      renderConflictPanel(state.settingsConflicts);
+      elements.settingsDialog.close();
       await loadToday();
+      requestNotificationPermission();
 
-      if (state.settingsConflicts.length > 0) {
-        const count = state.settingsConflicts.length;
-        showToast(`Settings saved. ${count} Jamaat time${count === 1 ? '' : 's'} need review.`);
-        await refreshTimetableLimits();
-        elements.conflictPanel.scrollIntoView({ block: 'nearest' });
-      } else {
-        elements.settingsDialog.close();
-        showToast('Settings saved.');
-      }
+      const count = state.settingsConflicts.length;
+      showToast(count > 0
+        ? `Saved. ${count} Jamaat time${count === 1 ? '' : 's'} need review in Settings → Jamaat.`
+        : 'Settings saved.');
     } catch (error) {
+      elements.settingsDirty.textContent = 'Not saved';
       showFormErrors(elements.settingsErrors, error);
+      markTabErrors(Object.keys(error?.payload?.errors || {}));
     } finally {
       elements.saveSettingsButton.disabled = false;
-    }
-  }
-
-  async function saveTimetable() {
-    const effectiveFrom = elements.timetableEffectiveFrom.value;
-    if (!effectiveFrom) {
-      showFormErrors(elements.timetableErrors, { message: 'Choose the date this Jamaat timetable becomes effective.' });
-      return;
-    }
-
-    const clientErrors = validateTimetableInputs();
-    if (Object.keys(clientErrors).length > 0) {
-      showFormErrors(elements.timetableErrors, { payload: { errors: clientErrors } });
-      elements.timetableStatus.textContent = '';
-      return;
-    }
-
-    const payload = {
-      effectiveFrom,
-      fajr: elements.jamaatFajr.value || null,
-      dhuhr: elements.jamaatDhuhr.value || null,
-      asr: elements.jamaatAsr.value || null,
-      maghrib: elements.jamaatMaghrib.value || null,
-      isha: elements.jamaatIsha.value || null,
-      note: elements.jamaatNote.value.trim() || null
-    };
-
-    elements.saveTimetableButton.disabled = true;
-    elements.timetableErrors.hidden = true;
-    elements.timetableStatus.textContent = 'Saving…';
-
-    try {
-      await request('/api/prayer/timetable', {
-        method: 'PUT',
-        body: JSON.stringify(payload)
-      });
-      elements.timetableStatus.textContent = 'Saved.';
-      showToast('Jamaat timetable saved.');
-      await loadSettingsConflicts();
-      await loadToday();
-    } catch (error) {
-      elements.timetableStatus.textContent = '';
-      showFormErrors(elements.timetableErrors, error);
-    } finally {
-      elements.saveTimetableButton.disabled = false;
     }
   }
 
@@ -1268,17 +1580,18 @@
     applyFlashPreference();
   }
 
+  // Applies at once (preview); kept only when the settings are saved.
   function handleFlashChange() {
     state.flashWarning = elements.flashWarningInput.checked;
+    applyFlashPreference();
+  }
+
+  function saveFlashPreference() {
     try {
       window.localStorage.setItem(FLASH_STORAGE_KEY, state.flashWarning ? '1' : '0');
     } catch {
       // The preference applies for this session even when storage is blocked.
     }
-    applyFlashPreference();
-    showToast(state.flashWarning
-      ? 'Warning blinking on.'
-      : 'Warning blinking off. The red warning stays without blinking.');
   }
 
   function applyFlashPreference() {
@@ -1286,25 +1599,49 @@
   }
 
   // ---------------------------------------------------------------------------------------------
-  // Jamaat alerts: warning minutes and notifications per prayer
+  // Jamaat alerts: warning minutes and notifications per prayer. Stored in the database, so the phone
+  // plans its notifications without this page (see JamaatAlertPlanner in Core).
   // ---------------------------------------------------------------------------------------------
 
-  function loadAlertPrefs() {
-    let raw = null;
+  // Copies alert preferences from before 0.2.0 (kept in this page) into the database, once.
+  function migrateLegacyAlertPrefs(data) {
+    let legacy = null;
     try {
-      raw = JSON.parse(window.localStorage.getItem(ALERT_PREFS_KEY) || 'null');
+      legacy = window.localStorage.getItem(LEGACY_ALERT_PREFS_KEY);
     } catch {
-      raw = null;
+      return;
     }
-    state.alertPrefs = window.JamaatState.normalizeAlertPrefs(raw);
-  }
-
-  function saveAlertPrefs() {
+    if (!legacy || state.migratingAlerts) {
+      return;
+    }
+    state.migratingAlerts = true;
+    let prefs;
     try {
-      window.localStorage.setItem(ALERT_PREFS_KEY, JSON.stringify(state.alertPrefs));
+      prefs = window.JamaatState.normalizeAlertPrefs(JSON.parse(legacy));
     } catch {
-      // Applies for this session even when storage is blocked.
+      prefs = null;
     }
+    const done = () => {
+      try {
+        window.localStorage.removeItem(LEGACY_ALERT_PREFS_KEY);
+      } catch {
+        // Nothing more to do.
+      }
+    };
+    if (!prefs) {
+      done();
+      return;
+    }
+    request('/api/settings', {
+      method: 'PUT',
+      body: JSON.stringify({ prayer: data.settings, timetable: null, alerts: prefs })
+    })
+      .then(() => {
+        done();
+        state.alertPrefs = prefs;
+      })
+      .catch((error) => console.warn('Could not move the alert preferences.', error))
+      .finally(() => { state.migratingAlerts = false; });
   }
 
   // Today's Waqt-to-Jamaat time for a prayer, in whole minutes, or null without a valid Jamaat.
@@ -1322,11 +1659,12 @@
     for (const row of table.querySelectorAll('.alert-entry')) {
       row.remove();
     }
+    const prefsAll = state.draftAlerts || state.alertPrefs;
     const timeZone = (state.data && state.data.timeZoneId) || Intl.DateTimeFormat().resolvedOptions().timeZone;
-    for (const key of window.JamaatState.PRAYER_KEYS) {
-      const prefs = state.alertPrefs[key];
+    for (const key of PRAYER_KEYS) {
+      const prefs = prefsAll[key];
       const time = state.data && state.data.times.find((item) => item.key === key);
-      const name = (time && time.name) || key.charAt(0).toUpperCase() + key.slice(1);
+      const name = (time && time.name) || PRAYER_NAMES[key];
       const gap = jamaatGapMinutes(key);
 
       const row = document.createElement('div');
@@ -1357,7 +1695,7 @@
       const minutes = document.createElement('input');
       minutes.type = 'number';
       minutes.min = '1';
-      minutes.max = String(Math.min(120, gap || 120));
+      minutes.max = '120';
       minutes.step = '1';
       minutes.inputMode = 'numeric';
       minutes.dataset.field = 'minutes';
@@ -1368,9 +1706,9 @@
       if (gap && time) {
         const waqt = formatClockTime(new Date(time.at), timeZone);
         const jamaat = formatClockTime(new Date(time.jamaatAt), timeZone);
-        hint.textContent = `Up to ${Math.min(gap, 120)} min today (Waqt ${waqt.time} → Jamaat ${jamaat.time})`;
+        hint.textContent = `Today: Waqt ${waqt.time} → Jamaat ${jamaat.time} (${gap} min)`;
         if (prefs.minutes > gap) {
-          hint.textContent += `. The warning starts at the Waqt, ${gap} min before.`;
+          hint.textContent += `. Starts at the Waqt today.`;
         }
       } else {
         hint.textContent = 'No Jamaat time set';
@@ -1388,43 +1726,125 @@
       return;
     }
     const key = row.dataset.prayerKey;
-    const next = { ...state.alertPrefs };
+    const next = { ...state.draftAlerts };
     next[key] = {
       notify: row.querySelector('[data-field="notify"]').checked,
       minutes: Number(row.querySelector('[data-field="minutes"]').value)
     };
-    state.alertPrefs = window.JamaatState.normalizeAlertPrefs(next);
-    saveAlertPrefs();
+    state.draftAlerts = window.JamaatState.normalizeAlertPrefs(next);
     renderAlertRows();
-    applyCountdownView();
-    scheduleNativeAlerts();
   }
 
-  // Phone notifications (and the notification light) for the upcoming Jamaat warnings. Android
-  // schedules them, so they also arrive while the app is in the background.
-  function scheduleNativeAlerts() {
-    if (!isNativeHost || !state.data || !state.alertPrefs) {
+  // Android 13+ asks once before an app may show notifications.
+  function requestNotificationPermission() {
+    if (!isNativeHost || !PRAYER_KEYS.some((key) => state.alertPrefs?.[key]?.notify)) {
       return;
     }
-    const timeZone = state.data.timeZoneId;
-    const schedule = window.JamaatState.alertSchedule(entriesFor(state.data), state.alertPrefs, nowMs())
-      .map((item) => {
-        const jamaat = formatClockTime(new Date(item.jamaatAt), timeZone);
-        return { ...item, jamaatLabel: `${jamaat.time} ${jamaat.meridiem}` };
-      });
-    const key = JSON.stringify(schedule);
-    if (key === state.alertScheduleKey) {
-      return;
-    }
-    state.alertScheduleKey = key;
     loadNativeBridge()
-      .then((bridge) => bridge.InvokeDotNet('ScheduleJamaatAlerts', [key]))
-      .catch((error) => {
-        state.alertScheduleKey = '';
-        console.warn('Scheduling Jamaat notifications failed.', error);
-      });
+      .then((bridge) => bridge.InvokeDotNet('EnsureNotificationPermission', []))
+      .catch((error) => console.warn('Could not ask for the notification permission.', error));
   }
 
+  // ---------------------------------------------------------------------------------------------
+  // Appearance: clock font and accent colour (ThemeState)
+  // ---------------------------------------------------------------------------------------------
+
+  function loadTheme() {
+    let raw = null;
+    try {
+      raw = JSON.parse(window.localStorage.getItem(THEME_STORAGE_KEY) || 'null');
+    } catch {
+      raw = null;
+    }
+    state.theme = window.ThemeState.normalize(raw);
+    applyTheme(state.theme);
+  }
+
+  function saveTheme() {
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(state.theme));
+    } catch {
+      // Applies for this session.
+    }
+  }
+
+  function applyTheme(theme) {
+    const root = document.documentElement.style;
+    const vars = window.ThemeState.palette(theme.accent);
+    for (const name of Object.keys(vars)) {
+      root.setProperty(name, vars[name]);
+    }
+    const font = window.ThemeState.fontFor(theme.font);
+    root.setProperty('--clock-font', font.family);
+    root.setProperty('--clock-weight', String(font.weight));
+    document.documentElement.dataset.clockFont = font.key;
+    // Element sizes can change with the font: measure the ambient content again.
+    state.fitCache = new Map();
+  }
+
+  function renderThemeChoices() {
+    const theme = state.theme;
+    elements.fontChoices.replaceChildren();
+    for (const font of window.ThemeState.FONTS) {
+      const label = document.createElement('label');
+      label.className = 'font-choice';
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'clockFont';
+      input.value = font.key;
+      input.checked = font.key === theme.font;
+      const sample = document.createElement('span');
+      sample.className = 'font-sample';
+      sample.style.fontFamily = font.family;
+      sample.style.fontWeight = String(font.weight);
+      sample.textContent = '4:35';
+      const name = document.createElement('small');
+      name.textContent = font.label;
+      label.append(input, sample, name);
+      elements.fontChoices.append(label);
+    }
+
+    elements.accentChoices.replaceChildren();
+    const preset = window.ThemeState.ACCENTS.find((item) => item.hex === theme.accent);
+    for (const accent of window.ThemeState.ACCENTS) {
+      const label = document.createElement('label');
+      label.className = 'accent-choice';
+      label.title = accent.label;
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'accent';
+      input.value = accent.hex;
+      input.checked = accent.hex === theme.accent;
+      input.setAttribute('aria-label', accent.label);
+      const swatch = document.createElement('span');
+      swatch.className = 'accent-swatch';
+      swatch.style.background = accent.hex;
+      label.append(input, swatch);
+      elements.accentChoices.append(label);
+    }
+    elements.accentCustomInput.value = theme.accent;
+    elements.accentCustomInput.closest('.accent-custom').classList.toggle('is-active', !preset);
+  }
+
+  function handleThemeInput(event) {
+    const next = { ...state.theme };
+    if (event.target.name === 'clockFont') {
+      next.font = event.target.value;
+    } else if (event.target.name === 'accent' || event.target === elements.accentCustomInput) {
+      next.accent = event.target.value;
+    }
+    state.theme = window.ThemeState.normalize(next);
+    applyTheme(state.theme);
+    if (event.target === elements.accentCustomInput) {
+      for (const input of elements.accentChoices.querySelectorAll('input')) {
+        input.checked = input.value === state.theme.accent;
+      }
+      elements.accentCustomInput.closest('.accent-custom').classList.add('is-active');
+    } else if (event.target.name === 'accent') {
+      elements.accentCustomInput.value = state.theme.accent;
+      elements.accentCustomInput.closest('.accent-custom').classList.remove('is-active');
+    }
+  }
 
   function showToast(message) {
     elements.toast.textContent = message;
@@ -1588,7 +2008,6 @@
       }, { passive: true, capture: true });
     }
 
-    elements.settingsButton.addEventListener('click', fillAmbientInputs);
     elements.settingsDialog.addEventListener('close', () => {
       state.wakeUntil = nowMs() + WAKE_MS;
       updateDisplayMode();
@@ -1610,11 +2029,14 @@
     }
 
     elements.previewAmbientButton.addEventListener('click', () => {
+      // Shows the draft (not yet saved) display settings; Settings comes back afterwards, unchanged.
+      state.previewFromSettings = Boolean(state.settingsDraft);
       elements.settingsDialog.close();
       state.wakeUntil = 0;
       state.previewUntil = Date.now() + PREVIEW_MS;
       updateDisplayMode();
-      showToast('Ambient preview for 20 seconds. Tap to return.');
+      showToast('Always-on preview for 20 seconds. Tap to return to Settings.');
+      window.setTimeout(returnFromPreview, PREVIEW_MS + 200);
     });
 
     window.addEventListener('resize', () => {
@@ -1631,7 +2053,6 @@
     elements.hadithButton.addEventListener('click', () => openLibrary('hadith'));
     bindLibraryEvents();
     elements.contentRefreshButton.addEventListener('click', startContentRefresh);
-    elements.settingsButton.addEventListener('click', () => loadContentStatus());
     watchAmbientSize();
   }
 
@@ -1639,6 +2060,14 @@
     state.aod = null;
     state.wakeUntil = nowMs() + WAKE_MS;
     updateDisplayMode();
+    returnFromPreview();
+  }
+
+  function returnFromPreview() {
+    if (state.previewFromSettings && state.settingsDraft) {
+      state.previewUntil = 0;
+      openSettings();
+    }
   }
 
   function fillAmbientInputs() {
@@ -1677,7 +2106,6 @@
     state.contentKey = null;
     state.contentPick = null;
     state.ambientSlot = null;
-    saveAmbientPrefs();
     fillAmbientInputs();
     state.mode = null; // re-apply brightness with the new values
     updateDisplayMode();
@@ -2238,7 +2666,15 @@
     const meta = document.createElement('span');
     meta.className = 'library-meta';
     meta.textContent = shownLabel(item.lastShownAt);
-    top.append(ref, meta);
+    const copy = document.createElement('button');
+    copy.type = 'button';
+    copy.className = 'icon-button library-copy';
+    const reference = window.ContentRef.format(item);
+    copy.setAttribute('aria-label', `Copy reference ${reference}`);
+    copy.title = `Copy ${reference}`;
+    copy.innerHTML = COPY_ICON;
+    copy.addEventListener('click', () => copyReference(reference, copy));
+    top.append(ref, meta, copy);
 
     const arabic = document.createElement('p');
     arabic.className = 'library-arabic';
@@ -2258,6 +2694,56 @@
 
     card.append(top, arabic, english, button);
     return card;
+  }
+
+  const COPY_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">' +
+    '<path fill="currentColor" d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1Zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16h-9V7h9v14Z"/></svg>';
+  const CHECK_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">' +
+    '<path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2Z"/></svg>';
+
+  /** Copies only the reference, e.g. "Quran (9:10)" or "Hadis (Bukhari: 2/1)". */
+  async function copyReference(text, button) {
+    try {
+      if (isNativeHost) {
+        // The app's clipboard is more reliable than the WebView's.
+        const bridge = await loadNativeBridge();
+        await bridge.InvokeDotNet('CopyText', [text]);
+      } else {
+        let copied = false;
+        if (navigator.clipboard && window.isSecureContext) {
+          try {
+            await navigator.clipboard.writeText(text);
+            copied = true;
+          } catch {
+            // Refused (no permission or focus): try the older way below.
+          }
+        }
+        if (!copied) {
+          const area = document.createElement('textarea');
+          area.value = text;
+          area.setAttribute('readonly', '');
+          area.style.position = 'fixed';
+          area.style.opacity = '0';
+          elements.libraryDialog.append(area);
+          area.select();
+          copied = document.execCommand('copy');
+          area.remove();
+        }
+        if (!copied) {
+          throw new Error('Copy is not available here.');
+        }
+      }
+      button.innerHTML = CHECK_ICON;
+      button.classList.add('is-done');
+      elements.libraryHint.textContent = `Copied: ${text}`;
+      window.setTimeout(() => {
+        button.innerHTML = COPY_ICON;
+        button.classList.remove('is-done');
+      }, 1500);
+    } catch (error) {
+      console.warn('Copy failed.', error);
+      elements.libraryHint.textContent = `Could not copy. The reference is ${text}.`;
+    }
   }
 
   function shownLabel(ms) {

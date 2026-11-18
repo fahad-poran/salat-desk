@@ -21,7 +21,10 @@ public sealed record ContentItemDto(
     long AddedAt,
     long? LastShownAt,
     int ShowCount,
-    bool Hidden);
+    bool Hidden,
+    string Key = "",
+    int? RefBook = null,
+    int? RefNumber = null);
 
 /// <summary>Compact item for ambient rotation.</summary>
 public sealed record ActiveContentDto(
@@ -56,4 +59,6 @@ public sealed record ContentCandidate(
     string Source,
     string? Grade,
     string Arabic,
-    string English);
+    string English,
+    int? RefBook = null,
+    int? RefNumber = null);

@@ -15,6 +15,10 @@ public sealed class ContentItem
     public string Ref { get; set; } = "";
 
     public string Source { get; set; } = "";
+
+    /// <summary>Hadith in-book reference: book (chapter) number and hadith number in it, e.g. 2 and 1 for Bukhari 8.</summary>
+    public int? RefBook { get; set; }
+    public int? RefNumber { get; set; }
     public string? Grade { get; set; }
     public string Arabic { get; set; } = "";
     public string English { get; set; } = "";

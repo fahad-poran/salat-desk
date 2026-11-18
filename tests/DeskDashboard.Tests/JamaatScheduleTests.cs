@@ -183,7 +183,8 @@ public class JamaatScheduleTests
         var timetable = new MosqueTimetable
         {
             EffectiveFrom = date,
-            Dhuhr = dhuhrStart
+            Dhuhr = dhuhrStart,
+            DhuhrRule = WarnRule
         };
 
         settings.DhuhrAdjustment = 15;
@@ -237,7 +238,8 @@ public class JamaatScheduleTests
         var timetable = new MosqueTimetable
         {
             EffectiveFrom = date,
-            Fajr = fajrStart
+            Fajr = fajrStart,
+            FajrRule = WarnRule
         };
 
         settings.FajrAdjustment = 60;
@@ -251,6 +253,26 @@ public class JamaatScheduleTests
         var conflict = Assert.Single(conflicts);
         Assert.Equal("fajr", conflict.PrayerKey);
         Assert.Equal(date, conflict.OnDate);
+    }
+
+    // "Keep my time and warn me": an out-of-window fixed time stays and is reported as a conflict.
+    private static readonly string WarnRule =
+        JamaatRule.Serialize(new JamaatRule(JamaatRule.Fixed, Fallback: new JamaatRule(JamaatRule.Warn)))!;
+
+    [Fact]
+    public void ConflictScan_DoesNotReportAutoAdjustedTimes()
+    {
+        var date = new DateOnly(2026, 11, 4);
+        var settings = CreateDhakaSettings();
+        var day = _calculator.Calculate(settings, date, Now);
+        var timetable = new MosqueTimetable
+        {
+            EffectiveFrom = date,
+            Fajr = ToTime(JamaatSchedule.Build(day, _timeZone)["fajr"].Start) // default rule: Waqt + 10 when passed
+        };
+
+        settings.FajrAdjustment = 60;
+        Assert.Empty(JamaatSchedule.FindConflicts(settings, _calculator, [timetable], _timeZone, date));
     }
 
     private JamaatWindow GetWindow(string key)

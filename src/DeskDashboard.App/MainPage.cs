@@ -47,29 +47,31 @@ public sealed class MainPage : ContentPage
         }
 
         /// <summary>
-        /// Schedules the Jamaat warning notifications (replacing earlier ones). JSON array from
-        /// jamaat-state.js alertSchedule. Returns how many were scheduled.
+        /// Asks once (Android 13+) whether Salat Desk may show notifications. The notifications themselves are
+        /// planned natively (JamaatAlerts), from the saved settings.
         /// </summary>
-        public async Task<int> ScheduleJamaatAlerts(string json)
+        public async Task<bool> EnsureNotificationPermission()
         {
 #if ANDROID
-            if (OperatingSystem.IsAndroidVersionAtLeast(33) && json.Length > 2)
+            if (!OperatingSystem.IsAndroidVersionAtLeast(33))
             {
-                // Android 13+ asks the user once before notifications can be shown.
-                await MainThread.InvokeOnMainThreadAsync(async () =>
-                {
-                    if (await Permissions.CheckStatusAsync<Permissions.PostNotifications>() != PermissionStatus.Granted)
-                    {
-                        await Permissions.RequestAsync<Permissions.PostNotifications>();
-                    }
-                });
+                return true;
             }
 
-            return JamaatAlerts.Schedule(json);
+            return await MainThread.InvokeOnMainThreadAsync(async () =>
+                await Permissions.CheckStatusAsync<Permissions.PostNotifications>() == PermissionStatus.Granted ||
+                await Permissions.RequestAsync<Permissions.PostNotifications>() == PermissionStatus.Granted);
 #else
             await Task.CompletedTask;
-            return 0;
+            return true;
 #endif
+        }
+
+        /// <summary>Copies text (a Library reference) to the phone's clipboard.</summary>
+        public async Task<bool> CopyText(string text)
+        {
+            await MainThread.InvokeOnMainThreadAsync(() => Clipboard.Default.SetTextAsync(text));
+            return true;
         }
 
         /// <summary>

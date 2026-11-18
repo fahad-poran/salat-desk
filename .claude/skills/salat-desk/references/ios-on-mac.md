@@ -87,9 +87,6 @@ if present) to `src/DeskDashboard.App/Platforms/iOS/`. Then change the namespace
 Set `NSPrivacyTracking` false and no collected data types. Check Microsoft's current ".NET MAUI privacy manifest"
 page in case the list has changed.
 
-**`JamaatAlert` record:** move it from `Platforms/Android/JamaatAlerts.cs` to a shared file (for example
-`src/DeskDashboard.App/JamaatAlert.cs`) so both platforms use it.
-
 ## 3. iOS platform code
 
 ### Keep the screen on
@@ -136,16 +133,23 @@ builder.ConfigureLifecycleEvents(events =>
 Expect a few small bugs here: Auto-Brightness can fight the value. Test with Auto-Brightness on and off.
 
 ### Jamaat notifications (`Platforms/iOS/JamaatAlerts.cs`)
-These are local notifications only; no push server or Apple Push certificate is needed.
+These are local notifications only; no push server or Apple Push certificate is needed. The planning is already
+shared: `PrayerService.PlanAlertsAsync` (Core, `JamaatAlertPlanner`) gives the warnings for the next 7 days from
+the stored data. Copy the shape of `Platforms/Android/JamaatAlerts.cs` (`RescheduleAsync`): open the database,
+plan, then schedule.
 
 - **Permission:** once, `UNUserNotificationCenter.Current.RequestAuthorizationAsync(Alert | Sound | Badge)`. Do it
-  in `ScheduleJamaatAlerts` when the list is not empty, as the Android code does for Android 13+.
+  in `MainPage.Bridge.EnsureNotificationPermission` under `#elif IOS` (the page calls it after a save with a
+  notification on).
 - **Schedule:**
   1. Remove the old ones: get `GetPendingNotificationRequestsAsync()` and remove the IDs starting with `jamaat|`.
-  2. Add one `UNNotificationRequest` per alert, with ID `"jamaat|" + alert.Id`.
+  2. Add one `UNNotificationRequest` per `PlannedAlert`, with ID `"jamaat|" + alert.Id`.
   3. Give each a `UNTimeIntervalNotificationTrigger.CreateTrigger((WarnAt - now) / 1000.0, false)`.
   4. Use `UNMutableNotificationContent` with the same title and text as Android, and `Sound = UNNotificationSound.Default`.
-- **Limit:** iOS keeps at most 64 pending notifications. The page sends about 6, so this is fine.
+- **When:** at app start and on `LocalApi.AlertsChanged`, as in `MauiProgram`'s `#if ANDROID` block. iOS has no
+  boot or alarm receivers: the 7 days are planned again whenever the app is open (it normally is, on a desk), and
+  `BGAppRefreshTask` can top them up in the background.
+- **Limit:** iOS keeps at most 64 pending notifications. A week is at most 35, so this is fine.
 - **Showing it while the app is open:** this matters for an always-on app. iOS does not show a notification while
   the app is in front unless a delegate allows it. Set `UNUserNotificationCenter.Current.Delegate` to a class whose
   `WillPresentNotification` calls `completionHandler(Banner | List | Sound)`. Do it in `AppDelegate.FinishedLaunching`,
@@ -157,8 +161,6 @@ These are local notifications only; no push server or Apple Push certificate is 
   are the alert. Users who want a flash can turn on Settings → Accessibility → Audio/Visual → LED Flash for Alerts;
   the app can't control it.
 
-Then, in `MainPage.Bridge.ScheduleJamaatAlerts`, change `#else` into `#elif IOS` and call the iOS scheduler,
-keeping a final `#else return 0;`.
 
 ## 4. Running on your own iPhone/iPad
 

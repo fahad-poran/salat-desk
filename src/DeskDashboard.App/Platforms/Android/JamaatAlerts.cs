@@ -1,43 +1,86 @@
-using System.Text.Json;
 using Android.App;
 using Android.Content;
-using Color = Android.Graphics.Color;
 using Android.OS;
 using AndroidX.Core.App;
+using DeskDashboard.Core.Data;
+using DeskDashboard.Core.Prayer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
+using Color = Android.Graphics.Color;
 
 namespace DeskDashboard.App;
 
-/// <summary>One upcoming Jamaat warning, as sent by the page (jamaat-state.js alertSchedule).</summary>
-public sealed record JamaatAlert(
-    string Id,
-    string Key,
-    string Name,
-    long JamaatAt,
-    long WarnAt,
-    int Minutes,
-    string? JamaatLabel);
-
 /// <summary>
-/// Schedules the Jamaat warning notifications with AlarmManager, so they arrive even when the app is
-/// in the background. The notification channel asks for the red notification light and vibration;
-/// whether the light blinks depends on the phone (most only light it while the screen is off).
+/// Schedules the Jamaat warning notifications with AlarmManager, so they arrive even when the app is closed.
+/// The warnings for the next 7 days are planned in C# (JamaatAlertPlanner) from the stored settings, so no page
+/// is needed. They are planned again when the app starts, after a save, whenever one fires, after a reboot or
+/// time change, and by a daily alarm, so the 7 days keep rolling forward without opening the app.
+/// The channel asks for the red notification light and vibration; whether the light blinks depends on the
+/// phone (most only light it while the screen is off).
 /// </summary>
 public static class JamaatAlerts
 {
     public const string ChannelId = "jamaat_alerts";
     private const string CodesKey = "jamaat_alert_codes";
+    private const int DailyCode = 1;
 
-    private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web);
+    private static readonly SemaphoreSlim Gate = new(1, 1);
 
-    public static int Schedule(string json)
+    /// <summary>Plans and schedules in the background; safe to call often.</summary>
+    public static void RescheduleInBackground(Context? context = null)
     {
-        var context = Android.App.Application.Context;
-        EnsureChannel(context);
+        var appContext = context?.ApplicationContext ?? Android.App.Application.Context;
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await RescheduleAsync(appContext);
+            }
+            catch (Exception ex)
+            {
+                Android.Util.Log.Warn("SalatDesk", $"Scheduling Jamaat alerts failed: {ex}");
+            }
+        });
+    }
 
+    public static async Task<int> RescheduleAsync(Context context)
+    {
+        await Gate.WaitAsync();
+        try
+        {
+            // Same file as MauiProgram (FileSystem.AppDataDirectory is the app's files folder on Android).
+            var dbPath = Path.Combine(context.FilesDir!.AbsolutePath, "dashboard.db");
+            if (!File.Exists(dbPath))
+            {
+                return 0; // never opened: nothing set up yet
+            }
+
+            var options = new DbContextOptionsBuilder<DashboardDbContext>().UseSqlite($"Data Source={dbPath}").Options;
+            IReadOnlyList<PlannedAlert> alerts;
+            await using (var db = new DashboardDbContext(options))
+            {
+                // Can run after an update before the app is opened: bring the schema up to date first.
+                DashboardDatabase.EnsureCreatedAndSeeded(db, null);
+                var service = new PrayerService(db, new PrayerTimeCalculator(), NullLogger<PrayerService>.Instance);
+                alerts = await service.PlanAlertsAsync(DateTimeOffset.UtcNow);
+            }
+
+            var count = Schedule(context, alerts);
+            ScheduleDaily(context);
+            return count;
+        }
+        finally
+        {
+            Gate.Release();
+        }
+    }
+
+    private static int Schedule(Context context, IReadOnlyList<PlannedAlert> alerts)
+    {
+        EnsureChannel(context);
         var alarms = (AlarmManager)context.GetSystemService(Context.AlarmService)!;
         CancelAll(context, alarms);
 
-        var alerts = JsonSerializer.Deserialize<List<JamaatAlert>>(json, Json) ?? [];
         var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         var exact = Build.VERSION.SdkInt < BuildVersionCodes.S || alarms.CanScheduleExactAlarms();
         var codes = new List<int>();
@@ -47,9 +90,7 @@ public static class JamaatAlerts
             var code = RequestCode(alert.Id);
             var intent = new Intent(context, typeof(JamaatAlertReceiver));
             intent.PutExtra(JamaatAlertReceiver.ExtraTitle, $"{alert.Name} Jamaat in {alert.Minutes} minute{(alert.Minutes == 1 ? "" : "s")}");
-            intent.PutExtra(JamaatAlertReceiver.ExtraText, alert.JamaatLabel is { Length: > 0 } label
-                ? $"Jamaat at {label}. Prepare for prayer."
-                : "Prepare for prayer.");
+            intent.PutExtra(JamaatAlertReceiver.ExtraText, $"Jamaat at {alert.JamaatLabel}. Prepare for prayer.");
             intent.PutExtra(JamaatAlertReceiver.ExtraId, code);
 
             var pending = PendingIntent.GetBroadcast(
@@ -70,6 +111,22 @@ public static class JamaatAlerts
 
         Preferences.Default.Set(CodesKey, string.Join(',', codes));
         return codes.Count;
+    }
+
+    // A daily check shortly after midnight keeps the 7-day window filled even if no alert fires
+    // (for example when every notification is switched off for a while, then on again).
+    private static void ScheduleDaily(Context context)
+    {
+        var alarms = (AlarmManager)context.GetSystemService(Context.AlarmService)!;
+        var intent = new Intent(context, typeof(JamaatRescheduleReceiver));
+        var pending = PendingIntent.GetBroadcast(
+            context, DailyCode, intent, PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Immutable)!;
+        var next = DateTimeOffset.Now.Date.AddDays(1).AddMinutes(10);
+        alarms.SetInexactRepeating(
+            AlarmType.Rtc,
+            new DateTimeOffset(next).ToUnixTimeMilliseconds(),
+            AlarmManager.IntervalDay,
+            pending);
     }
 
     public static void EnsureChannel(Context context)
@@ -132,7 +189,7 @@ public static class JamaatAlerts
     }
 }
 
-/// <summary>Posts the Jamaat warning notification when its alarm fires.</summary>
+/// <summary>Posts the Jamaat warning notification when its alarm fires, then plans the next days.</summary>
 [BroadcastReceiver(Enabled = true, Exported = false)]
 public sealed class JamaatAlertReceiver : BroadcastReceiver
 {
@@ -169,5 +226,51 @@ public sealed class JamaatAlertReceiver : BroadcastReceiver
             .Build();
 
         NotificationManagerCompat.From(context).Notify(intent.GetIntExtra(ExtraId, 1), notification);
+
+        RescheduleFromReceiver(this, context);
+    }
+
+    /// <summary>Plans again without letting Android stop the process half-way (goAsync).</summary>
+    internal static void RescheduleFromReceiver(BroadcastReceiver receiver, Context context)
+    {
+        var pending = receiver.GoAsync();
+        var appContext = context.ApplicationContext ?? context;
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await JamaatAlerts.RescheduleAsync(appContext);
+            }
+            catch (Exception ex)
+            {
+                Android.Util.Log.Warn("SalatDesk", $"Rescheduling Jamaat alerts failed: {ex}");
+            }
+            finally
+            {
+                pending?.Finish();
+            }
+        });
+    }
+}
+
+/// <summary>
+/// Plans the Jamaat notifications again after a restart, an app update, a clock or time-zone change, and
+/// once a day. Android clears scheduled alarms on reboot.
+/// </summary>
+[BroadcastReceiver(Enabled = true, Exported = true)]
+[IntentFilter([
+    Intent.ActionBootCompleted,
+    Intent.ActionMyPackageReplaced,
+    Intent.ActionTimeChanged,
+    Intent.ActionTimezoneChanged,
+    "android.intent.action.QUICKBOOT_POWERON"])]
+public sealed class JamaatRescheduleReceiver : BroadcastReceiver
+{
+    public override void OnReceive(Context? context, Intent? intent)
+    {
+        if (context is not null)
+        {
+            JamaatAlertReceiver.RescheduleFromReceiver(this, context);
+        }
     }
 }

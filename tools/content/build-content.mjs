@@ -232,7 +232,11 @@ async function buildHadith(report) {
         en,
         ref: `${source.name} ${referenceNumber(hadith)}`,
         source: source.name,
-        ...(source.grade ? { grade: source.grade } : {})
+        ...(source.grade ? { grade: source.grade } : {}),
+        // In-book reference (book/chapter number, hadith number in it), used for "Hadis (Bukhari: 2/1)".
+        ...(Number.isInteger(hadith.reference?.book) && Number.isInteger(hadith.reference?.hadith)
+          ? { book: hadith.reference.book, num: hadith.reference.hadith }
+          : {})
       });
     }
 

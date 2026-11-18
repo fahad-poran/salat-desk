@@ -133,48 +133,32 @@ public static class JamaatSchedule
                 var day = calculator.Calculate(settings, date);
                 var windows = Build(day, timeZone);
 
-                foreach (var (key, time) in Entries(timetable))
+                foreach (var key in PrayerService.PrayerKeys)
                 {
-                    if (time is null)
-                    {
-                        continue;
-                    }
-
+                    // Auto-adjusted days are not conflicts: only a time kept on purpose ("warn") or a rule
+                    // that cannot fit the window is.
                     var window = windows[key];
-                    var validation = Validate(key, time, date, window, timeZone);
-                    if (validation.IsValid)
+                    var resolution = JamaatResolver.Resolve(timetable, key, date, window, timeZone);
+                    if (resolution is null || resolution.Valid || !seen.Add(key))
                     {
                         continue;
                     }
 
-                    if (!seen.Add(key))
-                    {
-                        continue;
-                    }
-
-                    var range = DescribeRange(window, timeZone);
+                    var time = JamaatResolver.TimeFor(timetable, key);
+                    var label = time is { } fixedTime ? FormatTime(fixedTime) : "—";
                     conflicts.Add(new JamaatConflictDto(
                         timetable.EffectiveFrom,
                         date,
                         key,
                         window.Name,
-                        FormatTime(time.Value),
-                        range,
-                        $"{window.Name} Jamaat {FormatTime(time.Value)} is outside the allowed window. Correct this Jamaat time in the timetable."));
+                        label,
+                        DescribeRange(window, timeZone),
+                        $"{window.Name} Jamaat {label} is outside the allowed window. Correct this Jamaat time in the timetable."));
                 }
             }
         }
 
         return conflicts;
-    }
-
-    private static IEnumerable<(string Key, TimeOnly? Time)> Entries(MosqueTimetable timetable)
-    {
-        yield return ("fajr", timetable.Fajr);
-        yield return ("dhuhr", timetable.Dhuhr);
-        yield return ("asr", timetable.Asr);
-        yield return ("maghrib", timetable.Maghrib);
-        yield return ("isha", timetable.Isha);
     }
 
     private static JamaatWindow Create(

@@ -42,6 +42,9 @@ Project and namespace names keep the original `DeskDashboard.*` prefix; the prod
 
 | File | Role |
 | --- | --- |
+| `jamaat-rules.js` | Pure: Jamaat methods for the Settings preview (mirrors `JamaatResolver`). |
+| `theme-state.js` | Pure: accent palette and clock fonts (Appearance). Also loaded in `<head>` to apply the theme before the first paint. |
+| `content-ref.js` | Pure: the copied Library reference, e.g. `Quran (9:10)`, `Hadis (Bukhari: 2/1)`. |
 | `jamaat-state.js` | Pure: countdown phase for the current prayer (upcoming, waiting, approaching ≤10 min, reached, passed, missing, invalid). |
 | `ambient-state.js` | Pure: display-mode rules (focus / ambient / night), the AOD override, block position per minute, which Ayah/Hadith comes next. |
 | `app.js` | DOM, API calls, the native bridge, rendering, Settings, Library, ambient rendering and fitting. |
@@ -83,30 +86,56 @@ Brightness per mode is set for the app window only (`WindowBrightness`, no permi
 - `placeAmbient()` fits and positions the block inside the screen; a `ResizeObserver` and `document.fonts.ready`
   re-fit and re-place it if its size changes after placement (for example when the Arabic font finishes loading).
 
+## Jamaat times: methods and auto-adjust
+
+Each prayer in a timetable has a rule (`JamaatRule`, stored as JSON in `MosqueTimetables.FajrRule` … `IshaRule`; null
+means the default) next to its fixed time:
+
+| Mode | Jamaat on a date |
+| --- | --- |
+| `fixed` | The stored time. If it is outside that day's window (the Waqt moved past it), the `fallback` decides: `offset` (Waqt + N min), `slot` (next rounded time) or `warn` (keep it, report a conflict). Default fallback: Waqt + 10. |
+| `offset` | Waqt + `minutes` (0–120), capped at the window's last minute. |
+| `slot` | The first multiple of `slot` minutes (5/10/15/20/30/60, counted from midnight) that is at least `gap` minutes after the Waqt, capped likewise. |
+
+`JamaatResolver.Resolve` (Core, `Prayer/JamaatRules.cs`) is the only place that decides a Jamaat time: the dashboard
+(`PrayerService.MapMoment`), the conflict scan (only `warn` and rules that cannot fit are conflicts) and the alert planner
+all use it. `wwwroot/js/jamaat-rules.js` mirrors it for the Settings preview only. `PrayerTimeDto` carries
+`jamaatMode`, `jamaatRuleText`, `jamaatAdjusted` and `jamaatNote`; adjusted days show an "auto" flag.
+
+Saving checks a fixed time against the effective date's window (as before); offset and slot rules only need valid
+numbers.
+
+## Settings: one save
+
+The Settings dialog has tabs and one Save. `PUT /api/settings` (`SettingsSaveInput { prayer, timetable?, alerts? }`,
+handled by `PrayerService.SaveAllAsync`) validates everything first, the timetable against the new settings, and
+writes in one `SaveChanges`. Error keys are the settings fields, `timetable.*` and `alerts.*`; the page marks the
+tab. The page sends the timetable only when it changed. Page-only preferences (display, blink, theme) preview live
+and are written to localStorage only after a successful save; Cancel, ×, Escape or a tap outside restores them.
+The old `PUT /api/prayer/settings` and `PUT /api/prayer/timetable` still work.
+
 ## Jamaat alerts
 
-- **Warning length** is per prayer (`deskDashboard.jamaatAlertPrefs` in localStorage:
-  `{ fajr: { notify, minutes }, … }`, normalised by `JamaatState.normalizeAlertPrefs`). `JamaatState.evaluate(entries,
-  now, { warningMinutes })` starts the `approaching` phase at `jamaatAt − min(minutes, jamaatAt − waqtAt)`, so the
-  warning never starts before the Waqt. Default 10 minutes.
-- **On screen** while `approaching`: the next-prayer panel and its countdown blink (`jamaat-warning-pulse`), a fixed
-  full-screen red frame (`#warningFrame`) blinks above every mode, and in ambient/night the block gets `is-warning`
-  with a red `Asr Jamaat in mm:ss` line. "Blink the warning" off keeps everything red but still; reduced motion
-  disables the animation.
-- **Notifications (Android)**: `scheduleNativeAlerts()` sends `JamaatState.alertSchedule()` (upcoming warnings for
-  prayers with Notify on: today and tomorrow's Fajr) to `MainPage.Bridge.ScheduleJamaatAlerts(json)` after each data
-  load and Settings change. `Platforms/Android/JamaatAlerts.cs` cancels the previous alarms and sets
-  `AlarmManager.SetExactAndAllowWhileIdle` per warning (inexact `SetAndAllowWhileIdle` on Android 12+ without the
-  exact-alarm permission). `JamaatAlertReceiver` posts the notification on channel `jamaat_alerts` (high importance,
-  red light, vibration). Android 13+ asks for `POST_NOTIFICATIONS` the first time alerts are scheduled. Alarms do not
-  survive a reboot; the app reschedules them when it opens.
+- **Preferences** (`AlertPreferences` table: `Key`, `Notify`, `Minutes`) come with `GET /api/prayer/today` (`alerts`)
+  and are saved by `PUT /api/settings`. Values from before 0.2.0 (`deskDashboard.jamaatAlertPrefs` in localStorage)
+  are copied to the database once by the page. The warning starts `min(minutes, jamaatAt − waqtAt)` before the Jamaat.
+- **On screen** while `approaching`: the next-prayer panel and its countdown blink, a full-screen red frame
+  (`#warningFrame`) blinks above every mode, and in ambient/night the block gets `is-warning` with a red
+  `Asr Jamaat in mm:ss` line. "Blink the warning" off keeps everything red but still.
+- **Notifications (Android)** are planned natively, without the page: `JamaatAlertPlanner.Plan` (Core) gives the
+  warnings for the next 7 days from the stored settings, timetables and preferences. `Platforms/Android/JamaatAlerts.cs`
+  `RescheduleAsync` replaces the alarms (`SetExactAndAllowWhileIdle`, or inexact without the exact-alarm permission)
+  and sets a daily inexact alarm at 00:10. It runs at app start, after every save (`LocalApi.AlertsChanged`), when
+  an alert fires (`JamaatAlertReceiver`), and on boot, app update, time and time-zone changes
+  (`JamaatRescheduleReceiver`, `RECEIVE_BOOT_COMPLETED`). Receivers use `goAsync`. Android 13+ asks for
+  `POST_NOTIFICATIONS` after the first save with a notification on (`Bridge.EnsureNotificationPermission`).
 - Check on a device: `adb shell dumpsys alarm | grep -A3 salatdesk` and `adb shell dumpsys notification --noredact`.
 
 ## Content (Ayat and Hadith)
 
 ### Data model (SQLite)
 
-`ContentItems`: `Type` (quran/hadith), `SourceKey` (unique: `quran:2:45`, `quran:94:5-8`, `bukhari:6168`,
+`ContentItems`: `Type` (quran/hadith), `RefBook` / `RefNumber` (hadith in-book reference, from hadith-api `reference`), `SourceKey` (unique: `quran:2:45`, `quran:94:5-8`, `bukhari:6168`,
 `muslim:2609a`), `Ref`, `Source`, `Grade`, `Arabic`, `English`, `Batch` (`seed` or ISO week `2026-W46`),
 `AddedAtMs`, `LastShownAtMs`, `ShowCount`, `Hidden`, `HiddenAtMs`.
 

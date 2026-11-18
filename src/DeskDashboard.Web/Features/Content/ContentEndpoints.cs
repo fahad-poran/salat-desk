@@ -13,6 +13,10 @@ public static class ContentEndpoints
     {
         app.MapMethods("/api/content/{**rest}", ["GET", "POST", "PUT"], ForwardAsync).WithTags("Content");
         app.MapGet("/api/content", ForwardAsync).WithTags("Content");
+
+        // The Settings dialog's single save, and the alert preferences: also LocalApi, so both hosts match.
+        app.MapPut("/api/settings", ForwardAsync).WithTags("Settings");
+        app.MapGet("/api/alerts", ForwardAsync).WithTags("Settings");
         return app;
     }
 

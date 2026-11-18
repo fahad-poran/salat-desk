@@ -25,6 +25,12 @@ public sealed partial class LocalApi(
 
     private readonly ILogger logger = loggerFactory.CreateLogger<LocalApi>();
 
+    /// <summary>
+    /// Raised after a save that can change the Jamaat warnings (settings, timetable, alert preferences), so the
+    /// app can schedule the phone's notifications again.
+    /// </summary>
+    public event Action? AlertsChanged;
+
     public async Task<LocalApiResponse> HandleAsync(
         string method,
         string url,
@@ -55,6 +61,10 @@ public sealed partial class LocalApi(
                     Ok(await service.GetTimetableAsync(ParseDate(query), ct)),
 
                 ("PUT", "/api/prayer/timetable") => await PutTimetableAsync(service, body, ct),
+
+                ("PUT", "/api/settings") => await PutAllSettingsAsync(service, body, ct),
+
+                ("GET", "/api/alerts") => Ok(await service.GetAlertPreferencesAsync(ct)),
 
                 ("GET", "/api/location/search") => await SearchLocationAsync(query, ct),
 
@@ -152,28 +162,64 @@ public sealed partial class LocalApi(
             await service.GetConflictsAsync(ct),
             PrayerService.Disclaimer);
 
-    private static async Task<LocalApiResponse> PutSettingsAsync(
+    private async Task<LocalApiResponse> PutAllSettingsAsync(
+        PrayerService service,
+        string? body,
+        CancellationToken ct)
+    {
+        var input = Deserialize<SettingsSaveInput>(body);
+        var result = await service.SaveAllAsync(input, ct);
+        if (!result.Ok)
+        {
+            return ValidationProblem(result.Errors);
+        }
+
+        RaiseAlertsChanged();
+        return Ok(result.Result);
+    }
+
+    private void RaiseAlertsChanged()
+    {
+        try
+        {
+            AlertsChanged?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Rescheduling Jamaat alerts failed.");
+        }
+    }
+
+    private async Task<LocalApiResponse> PutSettingsAsync(
         PrayerService service,
         string? body,
         CancellationToken ct)
     {
         var input = Deserialize<PrayerSettingsDto>(body);
         var result = await service.UpdateSettingsAsync(input, ct);
-        return result.Ok
-            ? Ok(await SettingsResponseAsync(service, result.Settings!, ct))
-            : ValidationProblem(result.Errors);
+        if (!result.Ok)
+        {
+            return ValidationProblem(result.Errors);
+        }
+
+        RaiseAlertsChanged();
+        return Ok(await SettingsResponseAsync(service, result.Settings!, ct));
     }
 
-    private static async Task<LocalApiResponse> PutTimetableAsync(
+    private async Task<LocalApiResponse> PutTimetableAsync(
         PrayerService service,
         string? body,
         CancellationToken ct)
     {
         var input = Deserialize<MosqueTimetableInput>(body);
         var result = await service.UpsertTimetableAsync(input, ct);
-        return result.Ok
-            ? Ok(service.ToDto(result.Timetable!))
-            : ValidationProblem(result.Errors);
+        if (!result.Ok)
+        {
+            return ValidationProblem(result.Errors);
+        }
+
+        RaiseAlertsChanged();
+        return Ok(service.ToDto(result.Timetable!));
     }
 
     private async Task<LocalApiResponse> SearchLocationAsync(

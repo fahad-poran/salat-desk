@@ -671,7 +671,9 @@
    "ar": "عَنْ أَبِي رُقَيَّةَ تَمِيمِ بْنِ أَوْسٍ الدَّارِيِّ رَضِيَ اللهُ عَنْهُ أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ: \"الدِّينُ النَّصِيحَةُ.\" قُلْنَا: لِمَنْ؟ قَالَ: \"لِلَّهِ، وَلِكِتَابِهِ، وَلِرَسُولِهِ، وَلِأَئِمَّةِ الْمُسْلِمِينَ وَعَامَّتِهِمْ.\" [رَوَاهُ مُسْلِمٌ]",
    "en": "On the authority of Tameem ibn Aus ad-Daree (ra): The Prophet (ﷺ) said, “The deen (religion) is naseehah (advice, sincerity).” We said, “To whom?” He (ﷺ) said, “To Allah, His Book, His Messenger, and to the leaders of the Muslims and their common folk.” [Muslim]",
    "ref": "An-Nawawi's Forty Hadith 7",
-   "source": "An-Nawawi's Forty Hadith"
+   "source": "An-Nawawi's Forty Hadith",
+   "book": 1,
+   "num": 7
   },
   {
    "type": "hadith",
@@ -679,7 +681,9 @@
    "ar": "عَنْ أَبِي هُرَيْرَةَ عَبْدِ الرَّحْمَنِ بْنِ صَخْرٍ رَضِيَ اللهُ عَنْهُ قَالَ: سَمِعْت رَسُولَ اللَّهِ صلى الله عليه و سلم يَقُولُ: مَا نَهَيْتُكُمْ عَنْهُ فَاجْتَنِبُوهُ، وَمَا أَمَرْتُكُمْ بِهِ فَأْتُوا مِنْهُ مَا اسْتَطَعْتُمْ، فَإِنَّمَا أَهْلَكَ الَّذِينَ مِنْ قَبْلِكُمْ كَثْرَةُ مَسَائِلِهِمْ وَاخْتِلَافُهُمْ عَلَى أَنْبِيَائِهِمْ . [رَوَاهُ الْبُخَارِيُّ] ،[وَمُسْلِمٌ]",
    "en": "On the authority of Abu Hurayrah (ra): I heard the Messenger of Allah (ﷺ) say, “What I have forbidden for you, avoid. What I have ordered you [to do], do as much of it as you can. For verily, it was only the excessive questioning and their disagreeing with their Prophets that destroyed [the nations] who were before you.” [Bukhari & Muslim]",
    "ref": "An-Nawawi's Forty Hadith 9",
-   "source": "An-Nawawi's Forty Hadith"
+   "source": "An-Nawawi's Forty Hadith",
+   "book": 1,
+   "num": 9
   },
   {
    "type": "hadith",
@@ -687,7 +691,9 @@
    "ar": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صلى الله عليه و سلم مِنْ حُسْنِ إسْلَامِ الْمَرْءِ تَرْكُهُ مَا لَا يَعْنِيهِ . حَدِيثٌ حَسَنٌ، رَوَاهُ التِّرْمِذِيُّ [رقم: 2318] ، ابن ماجه [رقم:]",
    "en": "On the authority of Abu Hurayrah (may Allah be pleased with him) who said: The Messenger of Allah (peace and blessings of Allah be upon him) said, “Part of the perfection of one’s Islam is his leaving that which does not concern him.” A hasan (good) hadeeth which was related by at-Tirmidhi and others in this fashion",
    "ref": "An-Nawawi's Forty Hadith 12",
-   "source": "An-Nawawi's Forty Hadith"
+   "source": "An-Nawawi's Forty Hadith",
+   "book": 1,
+   "num": 12
   },
   {
    "type": "hadith",
@@ -695,7 +701,9 @@
    "ar": "عَنْ أَبِي حَمْزَةَ أَنَسِ بْنِ مَالِكٍ رَضِيَ اللهُ عَنْهُ خَادِمِ رَسُولِ اللَّهِ صلى الله عليه و سلم عَنْ النَّبِيِّ صلى الله عليه و سلم قَالَ: لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ . رَوَاهُ الْبُخَارِيُّ [رقم:13]، وَمُسْلِمٌ [رقم:45]. [رَوَاهُ الْبُخَارِيُّ] ، [وَمُسْلِمٌ]",
    "en": "On the authority of Abu Hamzah Anas bin Malik (may Allah be pleased with him) — the servant of the Messenger of Allah (peace and blessings of Allah be upon him) — that the Prophet (peace and blessings of Allah be upon him) said: None of you [truly] believes until he loves for his brother that which he loves for himself. [Al-Bukhari] [Muslim]",
    "ref": "An-Nawawi's Forty Hadith 13",
-   "source": "An-Nawawi's Forty Hadith"
+   "source": "An-Nawawi's Forty Hadith",
+   "book": 1,
+   "num": 13
   },
   {
    "type": "hadith",
@@ -703,7 +711,9 @@
    "ar": "عَنْ أَبِي مَسْعُودٍ عُقْبَةَ بْنِ عَمْرٍو الْأَنْصَارِيِّ الْبَدْرِيِّ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صلى الله عليه و سلم إنَّ مِمَّا أَدْرَكَ النَّاسُ مِنْ كَلَامِ النُّبُوَّةِ الْأُولَى: إذَا لَمْ تَسْتَحِ فَاصْنَعْ مَا شِئْت . [رَوَاهُ الْبُخَارِيُّ]",
    "en": "On the authority of Abu Masood Uqbah bin ’Amr al-Ansaree al-Badree (may Allah be pleased with him) who said: The Messenger of Allah (peace and blessings of Allah be upon him) said, “Verily, from what was learnt by the people from the speech of the earliest prophecy is: If you feel no shame, then do as you wish.” [Al-Bukhari]",
    "ref": "An-Nawawi's Forty Hadith 20",
-   "source": "An-Nawawi's Forty Hadith"
+   "source": "An-Nawawi's Forty Hadith",
+   "book": 1,
+   "num": 20
   },
   {
    "type": "hadith",
@@ -711,7 +721,9 @@
    "ar": "عَنْ أَبِي عَمْرٍو وَقِيلَ: أَبِي عَمْرَةَ سُفْيَانَ بْنِ عَبْدِ اللَّهِ رَضِيَ اللهُ عَنْهُ قَالَ: قُلْت: يَا رَسُولَ اللَّهِ! قُلْ لِي فِي الْإِسْلَامِ قَوْلًا لَا أَسْأَلُ عَنْهُ أَحَدًا غَيْرَك؛ قَالَ: قُلْ: آمَنْت بِاَللَّهِ ثُمَّ اسْتَقِمْ . [رَوَاهُ مُسْلِمٌ]",
    "en": "On the authority of Abu `Amr — and he is also called Abu `Amrah — Sufyan bin Abdullah ath- Thaqafee (may Allah be pleased with him) who said: I said, \"O Messenger of Allah, tell me something about al-Islam which I can ask of no one but you.\" He (peace and blessings of Allah be upon him) said, \"Say I believe in Allah — and then be steadfast.\" [Muslim]",
    "ref": "An-Nawawi's Forty Hadith 21",
-   "source": "An-Nawawi's Forty Hadith"
+   "source": "An-Nawawi's Forty Hadith",
+   "book": 1,
+   "num": 21
   },
   {
    "type": "hadith",
@@ -719,7 +731,9 @@
    "ar": "عَنْ أَبِي سَعِيدٍ الْخُدْرِيّ رَضِيَ اللهُ عَنْهُ قَالَ سَمِعْت رَسُولَ اللَّهِ صلى الله عليه و سلم يَقُولُ: مَنْ رَأَى مِنْكُمْ مُنْكَرًا فَلْيُغَيِّرْهُ بِيَدِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِلِسَانِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِقَلْبِهِ، وَذَلِكَ أَضْعَفُ الْإِيمَانِ . [رَوَاهُ مُسْلِمٌ]",
    "en": "On the authority of Abu Sa`eed al-Khudree (may Allah be pleased with him) who said: I heard the Messenger of Allah (ﷺ) say, “Whosoever of you sees an evil, let him change it with his hand; and if he is not able to do so, then [let him change it] with his tongue; and if he is not able to do so, then with his heart — and that is the weakest of faith.” [Muslim]",
    "ref": "An-Nawawi's Forty Hadith 34",
-   "source": "An-Nawawi's Forty Hadith"
+   "source": "An-Nawawi's Forty Hadith",
+   "book": 1,
+   "num": 34
   },
   {
    "type": "hadith",
@@ -727,7 +741,9 @@
    "ar": "عَنْ أَبِي هُرَيْرَةَ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: لَمَّا قَضَى اللَّهُ الْخَلْقَ، كَتَبَ فِي كِتَابِهِ عَلَى نَفْسِهِ، فَهُوَ مَوْضُوعٌ عِنْدَهُ: إِنَّ رَحْمَتِي تَغْلِبُ غَضَبِي رواه مسلم (وكذلك البخاري والنسائي وابن ماجه)",
    "en": "On the authority of Abu Hurayrah (may Allah be pleased with him), who said that the Messenger of Allah (ﷺ) said: When Allah decreed the Creation He pledged Himself by writing in His book which is laid down with Him: My mercy prevails over my wrath. It was related by Muslim (also by al-Bukhari, an-Nasa'i and Ibn Majah)",
    "ref": "Forty Hadith Qudsi 1",
-   "source": "Forty Hadith Qudsi"
+   "source": "Forty Hadith Qudsi",
+   "book": 1,
+   "num": 1
   },
   {
    "type": "hadith",
@@ -735,7 +751,9 @@
    "ar": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: قَالَ اللَّهُ: أَنْفِقْ يَا ابْنَ آدَمَ، أُنْفِقْ عَلَيْكَ",
    "en": "On the authority of Abu Harayrah (may Allah be pleased with him) from the Prophet (ﷺ), who said: Allah (mighty and sublime be He) said: Spend (on charity), O son of Adam, and I shall spend on you. It was related by al-Bukhari (also by Muslim)",
    "ref": "Forty Hadith Qudsi 11",
-   "source": "Forty Hadith Qudsi"
+   "source": "Forty Hadith Qudsi",
+   "book": 1,
+   "num": 11
   },
   {
    "type": "hadith",
@@ -743,7 +761,9 @@
    "ar": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ : إِنَّ اللَّهَ تَبَارَكَ وَتَعَالَى يَقُولُ يَوْمَ الْقِيَامَةِ: أَيْنَ الْمُتَحَابُّونَ بجَلَالِي؟ الْيَوْمَ أُظِلُّهُمْ فِي ظِلِّي يَوْمَ لَا ظِلَّ إِلَّا ظِلِّي رواه البخاري (وكذلك مالك)",
    "en": "On the authority of Abu Hurayrah (may Allah be pleased with him), who said that the Messenger of Allah (ﷺ) said: Allah will say on the Day of Resurrection: Where are those who love one another through My glory? Today I shall give them shade in My shade, it being a day when there is no shade but My shade. It was related by al-Bukhari (also by Malik)",
    "ref": "Forty Hadith Qudsi 23",
-   "source": "Forty Hadith Qudsi"
+   "source": "Forty Hadith Qudsi",
+   "book": 1,
+   "num": 23
   },
   {
    "type": "hadith",
@@ -752,7 +772,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"Faith (Belief) consists of more than sixty branches (i.e. parts). And Haya (This term \"Haya\" covers a large number of concepts which are to be taken together; amongst them are self respect, modesty, bashfulness, and scruple, etc.) is a part of faith",
    "ref": "Sahih al-Bukhari 9",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 2,
+   "num": 2
   },
   {
    "type": "hadith",
@@ -761,7 +783,9 @@
    "en": "Narrated Abu Musa: Some people asked Allah's Messenger (ﷺ), \"Whose Islam is the best? i.e. (Who is a very good Muslim)?\" He replied, \"One who avoids harming the Muslims with his tongue and hands",
    "ref": "Sahih al-Bukhari 11",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 2,
+   "num": 4
   },
   {
    "type": "hadith",
@@ -770,7 +794,9 @@
    "en": "Narrated Anas: The Prophet (ﷺ) said, \"None of you will have faith till he wishes for his (Muslim) brother what he likes for himself",
    "ref": "Sahih al-Bukhari 13",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 2,
+   "num": 6
   },
   {
    "type": "hadith",
@@ -779,7 +805,9 @@
    "en": "Narrated Anas: The Prophet (ﷺ) said \"None of you will have faith till he loves me more than his father, his children and all mankind",
    "ref": "Sahih al-Bukhari 15",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 2,
+   "num": 8
   },
   {
    "type": "hadith",
@@ -788,7 +816,9 @@
    "en": "Narrated Abu Said Al-Khudri: Allah's Messenger (ﷺ) said, \"A time will soon come when the best property of a Muslim will be sheep which he will take on the top of mountains and the places of rainfall (valleys) so as to flee with his religion from afflictions",
    "ref": "Sahih al-Bukhari 19",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 2,
+   "num": 12
   },
   {
    "type": "hadith",
@@ -797,7 +827,9 @@
    "en": "Narrated 'Abdullah bin 'Amr: A person asked Allah's Messenger (ﷺ), \"What (sort of) deeds in or (what qualities of) Islam are good?\" He replied, \"To feed (the poor) and greet those whom you know and those whom you don't know",
    "ref": "Sahih al-Bukhari 28",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 2,
+   "num": 21
   },
   {
    "type": "hadith",
@@ -806,7 +838,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"Whoever establishes the prayers on the night of Qadr out of sincere faith and hoping to attain Allah's rewards (not to show off) then all his past sins will be forgiven",
    "ref": "Sahih al-Bukhari 35",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 2,
+   "num": 28
   },
   {
    "type": "hadith",
@@ -815,7 +849,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"Whoever observes fasts during the month of Ramadan out of sincere faith, and hoping to attain Allah's rewards, then all his past sins will be forgiven",
    "ref": "Sahih al-Bukhari 38",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 2,
+   "num": 31
   },
   {
    "type": "hadith",
@@ -824,7 +860,9 @@
    "en": "Narrated 'Abdullah: The Prophet (ﷺ) said, \"Abusing a Muslim is Fusuq (an evil doing) and killing him is Kufr (disbelief)",
    "ref": "Sahih al-Bukhari 48",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 2,
+   "num": 41
   },
   {
    "type": "hadith",
@@ -833,7 +871,9 @@
    "en": "Narrated Sa'd bin Abi Waqqas: Allah's Messenger (ﷺ) said, \"You will be rewarded for whatever you spend for Allah's sake even if it were a morsel which you put in your wife's mouth",
    "ref": "Sahih al-Bukhari 56",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 2,
+   "num": 49
   },
   {
    "type": "hadith",
@@ -842,7 +882,9 @@
    "en": "Narrated Ibn Mas`ud: The Prophet (ﷺ) used to take care of us in preaching by selecting a suitable time, so that we might not get bored. (He abstained from pestering us with sermons and knowledge all the time)",
    "ref": "Sahih al-Bukhari 68",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 3,
+   "num": 10
   },
   {
    "type": "hadith",
@@ -851,7 +893,9 @@
    "en": "Narrated Ibn `Abbas: Once the Prophet (ﷺ) embraced me and said, \"O Allah! Bestow on him the knowledge of the Book (Qur'an)",
    "ref": "Sahih al-Bukhari 75",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 3,
+   "num": 17
   },
   {
    "type": "hadith",
@@ -860,7 +904,9 @@
    "en": "Narrated Anas: Allah's Messenger (ﷺ) said, \"From among the portents of the Hour are (the following): -1. Religious knowledge will be taken away (by the death of Religious learned men). -2. (Religious) ignorance will prevail. -3. Drinking of Alcoholic drinks (will be very common). -4. There will be prevalence of open illegal sexual intercourse",
    "ref": "Sahih al-Bukhari 80",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 3,
+   "num": 22
   },
   {
    "type": "hadith",
@@ -869,7 +915,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"(Religious) knowledge will be taken away (by the death of religious scholars) ignorance (in religion) and afflictions will appear; and Harj will increase.\" It was asked, \"What is Harj, O Allah's Messenger (ﷺ)?\" He replied by beckoning with his hand indicating \"killing.\" (Fath-al-Bari Page 192, Vol)",
    "ref": "Sahih al-Bukhari 85",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 3,
+   "num": 27
   },
   {
    "type": "hadith",
@@ -878,7 +926,9 @@
    "en": "Narrated Anas: Whenever the Prophet (ﷺ) spoke a sentence (said a thing), he used to repeat it thrice so that the people could understand it properly from him and whenever he asked permission to enter, (he knocked the door) thrice with greeting",
    "ref": "Sahih al-Bukhari 95",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 3,
+   "num": 37
   },
   {
    "type": "hadith",
@@ -887,7 +937,9 @@
    "en": "Narrated `Abdullah bin Az-Zubair: I said to my father, 'I do not hear from you any narration (Hadith) of Allah's Apostle as I hear (his narration) from so and so?\" Az-Zubair replied, 'I was always with him (the Prophet) and I heard him saying, \"Whoever tells a lie against me (intentionally) then (surely) let him occupy, his seat in Hellfire",
    "ref": "Sahih al-Bukhari 107",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 3,
+   "num": 49
   },
   {
    "type": "hadith",
@@ -896,7 +948,9 @@
    "en": "Narrated Salama: I heard the Prophet (ﷺ) saying, \"Whoever (intentionally) ascribes to me what I have not said then (surely) let him occupy his seat in Hell-fire",
    "ref": "Sahih al-Bukhari 109",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 3,
+   "num": 51
   },
   {
    "type": "hadith",
@@ -905,7 +959,9 @@
    "en": "Narrated Abu Huraira: I have memorized two kinds of knowledge from Allah's Messenger (ﷺ) . I have propagated one of them to you and if I propagated the second, then my pharynx (throat) would be cut (i.e. killed)",
    "ref": "Sahih al-Bukhari 120",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 3,
+   "num": 62
   },
   {
    "type": "hadith",
@@ -914,7 +970,9 @@
    "en": "Narrated Anas: I was informed that the Prophet (ﷺ) had said to Mu`adh, \"Whosoever will meet Allah without associating anything in worship with Him will go to Paradise.\" Mu`adh asked the Prophet, \"Should I not inform the people of this good news?\" The Prophet (ﷺ) replied, \"No, I am afraid, lest they should depend upon it (absolutely)",
    "ref": "Sahih al-Bukhari 129",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 3,
+   "num": 71
   },
   {
    "type": "hadith",
@@ -923,7 +981,9 @@
    "en": "Narrated `Abdullah bin `Amr: A man said to the Prophet, \"Shall I participate in Jihad?\" The Prophet (ﷺ) said, \"Are your parents living?\" The man said, \"Yes.\" the Prophet (ﷺ) said, \"Do Jihad for their benefit",
    "ref": "Sahih al-Bukhari 5972",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 3
   },
   {
    "type": "hadith",
@@ -932,7 +992,9 @@
    "en": "Narrated Asma':\"My mother who was a Mushrikah (pagan, etc.), came with her father during the period of peace pact between the Muslims and the Quraish infidels. I went to seek the advice of the Prophet (ﷺ) saying, \"My mother has arrived and she is hoping (for my favor).\" The Prophet (ﷺ) said, \"Yes, be good to your mother",
    "ref": "Sahih al-Bukhari 5979",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 10
   },
   {
    "type": "hadith",
@@ -941,7 +1003,9 @@
    "en": "Narrated Jubair bin Mut`im: That he heard the Prophet (ﷺ) saying, \"The person who severs the bond of kinship will not enter Paradise",
    "ref": "Sahih al-Bukhari 5984",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 15
   },
   {
    "type": "hadith",
@@ -950,7 +1014,9 @@
    "en": "Narrated Anas bin Malik: Allah's Apostle said, \"Whoever loves that he be granted more wealth and that his lease of life be prolonged then he should keep good relations with his Kith and kin",
    "ref": "Sahih al-Bukhari 5986",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 17
   },
   {
    "type": "hadith",
@@ -959,7 +1025,9 @@
    "en": "Narrated `Abdullah bin `Amr: The Prophet (ﷺ) said, \"Al-Wasil is not the one who recompenses the good done to him by his relatives, but Al-Wasil is the one who keeps good relations with those relatives who had severed the bond of kinship with him",
    "ref": "Sahih al-Bukhari 5991",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 22
   },
   {
    "type": "hadith",
@@ -968,7 +1036,9 @@
    "en": "Narrated `Aisha: A bedouin came to the Prophet (ﷺ) and said, \"You (people) kiss the boys! We don't kiss them.\" The Prophet said, \"I cannot put mercy in your heart after Allah has taken it away from it",
    "ref": "Sahih al-Bukhari 5998",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 29
   },
   {
    "type": "hadith",
@@ -977,7 +1047,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"The one who looks after and works for a widow and for a poor person is like a warrior fighting for Allah's Cause.\" (The narrator Al-Qa'nabi is not sure whether he also said \"Like the one who prays all the night without slackness and fasts continuously and never breaks his fast)",
    "ref": "Sahih al-Bukhari 6007",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 38
   },
   {
    "type": "hadith",
@@ -986,7 +1058,9 @@
    "en": "Narrated Anas bin Malik: The Prophet (ﷺ) said, \"If any Muslim plants any plant and a human being or an animal eats of it, he will be rewarded as if he had given that much in charity",
    "ref": "Sahih al-Bukhari 6012",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 43
   },
   {
    "type": "hadith",
@@ -995,7 +1069,9 @@
    "en": "Narrated `Aisha: The Prophet (ﷺ) said \"Gabriel continued to recommend me about treating the neighbors Kindly and politely so much so that I thought he would order me to make them as my heirs",
    "ref": "Sahih al-Bukhari 6014",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 45
   },
   {
    "type": "hadith",
@@ -1004,7 +1080,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) used to say, \"O Muslim ladies! A neighbouress should not look down upon the present of her neighbouress even it were the hooves of a sheep",
    "ref": "Sahih al-Bukhari 6017",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 48
   },
   {
    "type": "hadith",
@@ -1013,7 +1091,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"Anybody who believes in Allah and the Last Day should not harm his neighbor, and anybody who believes in Allah and the Last Day should entertain his guest generously and anybody who believes in Allah and the Last Day should talk what is good or keep quiet. (i.e. abstain from all kinds of evil and dirty talk)",
    "ref": "Sahih al-Bukhari 6018",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 49
   },
   {
    "type": "hadith",
@@ -1022,7 +1102,9 @@
    "en": "Narrated Jabir bin `Abdullah: The Prophet (ﷺ) said, Enjoining, all that is good is a Sadaqa",
    "ref": "Sahih al-Bukhari 6021",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 52
   },
   {
    "type": "hadith",
@@ -1031,7 +1113,9 @@
    "en": "Narrated Abu Musa: Whenever a beggar or a person in need came to the Prophet, the Prophet would say \"Help and recommend him and you will receive the reward for it, and Allah will bring about what he will through His Prophet's tongue",
    "ref": "Sahih al-Bukhari 6028",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 58
   },
   {
    "type": "hadith",
@@ -1040,7 +1124,9 @@
    "en": "Narrated Jabir: Never was the Prophet (ﷺ) asked for a thing to be given for which his answer was 'no",
    "ref": "Sahih al-Bukhari 6034",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 64
   },
   {
    "type": "hadith",
@@ -1049,7 +1135,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"Time will pass rapidly, good deeds will decrease, and miserliness will be thrown (in the hearts of the people), and the Harj (will increase).\" They asked, \"What is the Harj?\" He replied, \"(It is) killing (murdering), (it is) murdering (killing)",
    "ref": "Sahih al-Bukhari 6037",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 67
   },
   {
    "type": "hadith",
@@ -1058,7 +1146,9 @@
    "en": "Narrated Al-Aswad: I asked `Aisha what did the Prophet (ﷺ) use to do at home. She replied. \"He used to keep himself busy serving his family and when it was time for the prayer, he would get up for prayer",
    "ref": "Sahih al-Bukhari 6039",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 69
   },
   {
    "type": "hadith",
@@ -1067,7 +1157,9 @@
    "en": "Narrated `Abdullah: Allah's Messenger (ﷺ) said, \"Abusing a Muslim is Fusuq (i.e., an evil-doing), and killing him is Kufr (disbelief)",
    "ref": "Sahih al-Bukhari 6044",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 74
   },
   {
    "type": "hadith",
@@ -1076,7 +1168,9 @@
    "en": "Narrated Abu Usaid As-Sa`idi: The Prophet (ﷺ) said, \"The best family among the Ansar is the Banu An-Najjar",
    "ref": "Sahih al-Bukhari 6053",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 83
   },
   {
    "type": "hadith",
@@ -1085,7 +1179,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"Whoever does not give up false statements (i.e. telling lies), and evil deeds, and speaking bad words to others, Allah is not in need of his (fasting) leaving his food and drink",
    "ref": "Sahih al-Bukhari 6057",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 87
   },
   {
    "type": "hadith",
@@ -1094,7 +1190,9 @@
    "en": "Narrated Abu Musa: The Prophet (ﷺ) heard a man praising another man and he was exaggerating in his praise. The Prophet (ﷺ) said (to him). \"You have destroyed (or cut) the back of the man",
    "ref": "Sahih al-Bukhari 6060",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 90
   },
   {
    "type": "hadith",
@@ -1103,7 +1201,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"Beware of suspicion, for suspicion is the worst of false tales; and do not look for the others' faults and do not spy, and do not be jealous of one another, and do not desert (cut your relation with) one another, and do not hate one another; and O Allah's worshipers! Be brothers (as Allah has ordered you)",
    "ref": "Sahih al-Bukhari 6064",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 94
   },
   {
    "type": "hadith",
@@ -1112,7 +1212,9 @@
    "en": "Narrated `Aisha: The Prophet (ﷺ) said, \"I do not think that so-and-so and so-and-so know anything of our religion.\" (And Al-Laith said, \"These two persons were among the hypocrites)",
    "ref": "Sahih al-Bukhari 6067",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 97
   },
   {
    "type": "hadith",
@@ -1121,7 +1223,9 @@
    "en": "Anas bin Malik said, \"Any of the female slaves of Medina could take hold of the hand of Allah's Messenger (ﷺ) and take him wherever she wished",
    "ref": "Sahih al-Bukhari 6072",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 102
   },
   {
    "type": "hadith",
@@ -1130,7 +1234,9 @@
    "en": "Narrated Abu Aiyub Al-Ansari: Allah's Messenger (ﷺ) said, \"It is not lawful for a man to desert his brother Muslim for more than three nights. (It is unlawful for them that) when they meet, one of them turns his face away from the other, and the other turns his face from the former, and the better of the two will be the one who greets the other first",
    "ref": "Sahih al-Bukhari 6077",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 105
   },
   {
    "type": "hadith",
@@ -1139,7 +1245,9 @@
    "en": "Narrated Anas: When `Abdur-Rahman came to us, the Prophet (ﷺ) established a bond of brotherhood between him and Sa`d bin Ar-Rabi`. Once the Prophet (ﷺ) said, \"As you (O `Abdur-Rahman) have married, give a wedding banquet even if with one sheep",
    "ref": "Sahih al-Bukhari 6082",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 110
   },
   {
    "type": "hadith",
@@ -1148,7 +1256,9 @@
    "en": "Narrated `Aisha: I never saw the Prophet (ﷺ) laughing to an extent that one could see his palate, but he always used to smile only",
    "ref": "Sahih al-Bukhari 6092",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 119
   },
   {
    "type": "hadith",
@@ -1157,7 +1267,9 @@
    "en": "Narrated Hudhaifa: From among the people, Ibn Um `Abd greatly resembled Allah's Messenger (ﷺ) in solemn gate and good appearance of piety and in calmness and sobriety from the time he goes out of his house till he returns to it. But we do not know how he behaves with his family when he is alone with them",
    "ref": "Sahih al-Bukhari 6097",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 124
   },
   {
    "type": "hadith",
@@ -1166,7 +1278,9 @@
    "en": "Narrated Abu Musa: The Prophet (ﷺ) said: None is more patient than Allah against the harmful saying. He hears from the people they ascribe children to Him, yet He gives them health and (supplies them with) provision",
    "ref": "Sahih al-Bukhari 6099",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 126
   },
   {
    "type": "hadith",
@@ -1175,7 +1289,9 @@
    "en": "Narrated 'Abdullah bin 'Umar: Allah's Messenger (ﷺ) said, 'If anyone says to his brother, 'O misbeliever! Then surely, one of them such",
    "ref": "Sahih al-Bukhari 6104",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 131
   },
   {
    "type": "hadith",
@@ -1184,7 +1300,9 @@
    "en": "Narrated Ibn `Umar:that he found `Umar bin Al-Khattab in a group of people and he was swearing by his father. So Allah's Messenger (ﷺ) called them, saying, \"Verily! Allah forbids you to swear by your fathers. If one has to take an oath, he should swear by Allah or otherwise keep quiet",
    "ref": "Sahih al-Bukhari 6108",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 135
   },
   {
    "type": "hadith",
@@ -1193,7 +1311,9 @@
    "en": "Narrated Abu Huraira: A man said to the Prophet (ﷺ) , \"Advise me! \"The Prophet (ﷺ) said, \"Do not become angry and furious.\" The man asked (the same) again and again, and the Prophet (ﷺ) said in each case, \"Do not become angry and furious",
    "ref": "Sahih al-Bukhari 6116",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 143
   },
   {
    "type": "hadith",
@@ -1202,7 +1322,9 @@
    "en": "Narrated Abu Mas`ud: The Prophet (ﷺ) said, 'One of the sayings of the early Prophets which the people have got is: If you don't feel ashamed (from Haya': pious shyness from committing religeous indiscretions) do whatever you like.\" (See Hadith No 690, 691, Vol)",
    "ref": "Sahih al-Bukhari 6120",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 147
   },
   {
    "type": "hadith",
@@ -1211,7 +1333,9 @@
    "en": "Narrated Thabit:that he heard Anas saying, \"A woman came to the Prophet (ﷺ) offering herself to him in marriage, saying, \"Have you got any interest in me (i.e. would you like to marry me?)\" Anas's daughter said, \"How shameless that woman was!\" On that Anas said, \"She is better than you, for she presented herself to Allah's Messenger (ﷺ) (for marriage)",
    "ref": "Sahih al-Bukhari 6123",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 150
   },
   {
    "type": "hadith",
@@ -1220,7 +1344,9 @@
    "en": "Narrated Anas bin Malik: The Prophet (ﷺ) used to mix with us to the extent that he would say to a younger brother of mine, 'O Aba `Umair! What did the Nughair (a kind of bird) do?",
    "ref": "Sahih al-Bukhari 6129",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 156
   },
   {
    "type": "hadith",
@@ -1229,7 +1355,9 @@
    "en": "Narrated Ubai bin Ka`b: Allah's Messenger (ﷺ) said, \"Some poetry contains wisdom",
    "ref": "Sahih al-Bukhari 6145",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 171
   },
   {
    "type": "hadith",
@@ -1238,7 +1366,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"The most true words said by a poet were the words of Labid. He said, i.e. 'Verily, everything except Allah is perishable and Umaiya bin Abi As-Salt was about to embrace Islam",
    "ref": "Sahih al-Bukhari 6147",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 173
   },
   {
    "type": "hadith",
@@ -1247,7 +1377,9 @@
    "en": "Narrated Ibn `Umar: The Prophet (ﷺ) said, \"It is better for a man to fill the inside of his body with pus than to fill it with poetry",
    "ref": "Sahih al-Bukhari 6154",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 180
   },
   {
    "type": "hadith",
@@ -1256,7 +1388,9 @@
    "en": "Narrated Anas: The Prophet (ﷺ) saw a man driving a Badana (a camel for sacrifice) and said (to him). \"Ride it.\" The man said, \"It is a Badana.\" The Prophet (ﷺ) said, \"Ride on it.\" The man said, \"It is a Badana.\" The Prophet (ﷺ) said, Ride on it, woe to you",
    "ref": "Sahih al-Bukhari 6159",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 185
   },
   {
    "type": "hadith",
@@ -1265,7 +1399,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) saw a man driving a Badana (a camel for sacrifice) and said to him, \"Ride on it.\" The man said, \"O Allah's Messenger (ﷺ)! It is a Badana.\" The Prophet (ﷺ) said, \"Ride on it, woe to you!\" on the second or third time",
    "ref": "Sahih al-Bukhari 6160",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 186
   },
   {
    "type": "hadith",
@@ -1274,7 +1410,9 @@
    "en": "Narrated `Abdullah: The Prophet (ﷺ) said, \"Everyone will be with those whom he loves",
    "ref": "Sahih al-Bukhari 6168",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 194
   },
   {
    "type": "hadith",
@@ -1283,7 +1421,9 @@
    "en": "Narrated Ibn `Abbas: Allah's Messenger (ﷺ) said to Ibn Saiyad \"I have hidden something for you in my mind; What is it?\" He said, \"Ad-Dukh.\" The Prophet (ﷺ) said, \"Ikhsa",
    "ref": "Sahih al-Bukhari 6172",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 198
   },
   {
    "type": "hadith",
@@ -1292,7 +1432,9 @@
    "en": "Narrated Ibn `Umar: Allah's Messenger (ﷺ) said, \"A flag will be fixed on the Day of Resurrection for every betrayer, and it will be announced (publicly in front of everybody), 'This is the betrayal (perfidy) so-and-so, the son of so-and-so",
    "ref": "Sahih al-Bukhari 6178",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 202
   },
   {
    "type": "hadith",
@@ -1301,7 +1443,9 @@
    "en": "Narrated Sal: The Prophet (ﷺ) said, \"None of you should say Khabuthat Nafsi but he is recommended to say 'Laqisat Nafsi (See Hadith No)",
    "ref": "Sahih al-Bukhari 6180",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 204
   },
   {
    "type": "hadith",
@@ -1310,7 +1454,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"Don't call the grapes Al-Karm, and don't say 'Khaibat-ad-Dahri, for Allah is the Dahr. (See Hadith No)",
    "ref": "Sahih al-Bukhari 6182",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 206
   },
   {
    "type": "hadith",
@@ -1319,7 +1465,9 @@
    "en": "Narrated `Ali: I never heard Allah's Messenger (ﷺ) saying, \"Let my father and mother be sacrificed for you,\" except for Sa`d (bin Abi Waqqas). I heard him saying, \"Throw! (arrows), Let my father and mother be sacrificed for you !\" (The sub-narrator added, \"I think that was in the battle of Uhud)",
    "ref": "Sahih al-Bukhari 6184",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 208
   },
   {
    "type": "hadith",
@@ -1328,7 +1476,9 @@
    "en": "Narrated Jabi: A man among us begot a boy whom he named Al-Qasim. The people said, \"We will not call him (i.e., the father) by that Kuniya (Abu-l-Qasim) till we ask the Prophet (ﷺ) about it. The Prophet (ﷺ) said. \"Name yourselves by my name, but do not call (yourselves) by my Kuniya",
    "ref": "Sahih al-Bukhari 6187",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 211
   },
   {
    "type": "hadith",
@@ -1337,7 +1487,9 @@
    "en": "Narrated Jabir bin `Abdullah: A man among us begot a boy whom he named Al-Qasim. The people said (to him), \"We will not call you Abul-l-Qasim, nor will we please you by calling you so.\" The man came to the Prophet (ﷺ) and mentioned that to him. The Prophet (ﷺ) said to him, \"Name your son `Abdur-Rahman",
    "ref": "Sahih al-Bukhari 6189",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 213
   },
   {
    "type": "hadith",
@@ -1346,7 +1498,9 @@
    "en": "Narrated Isma`il: I asked Abi `Aufa, \"Did you see Ibrahim, the son of the Prophet (ﷺ) ?\" He said, \"Yes, but he died in his early childhood. Had there been a Prophet after Muhammad then his son would have lived, but there is no Prophet after him",
    "ref": "Sahih al-Bukhari 6194",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 218
   },
   {
    "type": "hadith",
@@ -1355,7 +1509,9 @@
    "en": "Narrated Jabir bin `Abdullah Al-Ansari: Allah's Messenger (ﷺ) said, \"Name yourselves after me (by my name) but do not call (yourselves) by my Kuniya (1), for I am Al-Qasim (distributor), and I distribute among you Allah's blessings.\" This narration has also come on the authority of Anas that the ! Prophet said so",
    "ref": "Sahih al-Bukhari 6196",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 220
   },
   {
    "type": "hadith",
@@ -1364,7 +1520,9 @@
    "en": "Narrated Abu Musa: I got a son and I took him to the Prophet (ﷺ) who named him Ibrahim, and put in his mouth the juice of a date fruit (which be himself had chewed?, and invoked for Allah's blessing upon him, and then gave him back to me. He was the eldest son of Abu Musa)",
    "ref": "Sahih al-Bukhari 6198",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 222
   },
   {
    "type": "hadith",
@@ -1373,7 +1531,9 @@
    "en": "Narrated `Aisha: (the wife of the Prophet) Allah's Messenger (ﷺ) said, \"O Aisha! This is Gabriel sending his greetings to you.\" I said, \"Peace, and Allah's Mercy be on him.\" `Aisha added: The Prophet (ﷺ) used to see things which we used not to see",
    "ref": "Sahih al-Bukhari 6201",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 225
   },
   {
    "type": "hadith",
@@ -1382,7 +1542,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"The most awful name in Allah's sight on the Day of Resurrection, will be (that of) a man calling himself Malik Al-Amlak (the king of kings)",
    "ref": "Sahih al-Bukhari 6205",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 229
   },
   {
    "type": "hadith",
@@ -1391,7 +1553,9 @@
    "en": "Narrated `Abdullah bin Al-Harith bin Naufal:`Abbas bin `Abdul Muttalib said, \"O Allah's Messenger (ﷺ)! Did you benefit Abu Talib with anything as he used to protect and take care of you, and used to become angry for you?\" The Prophet (ﷺ) said, \"Yes, he is in a shallow place of Fire. Were it not for me, he would have been in the bottom-most depth of the Fire",
    "ref": "Sahih al-Bukhari 6208",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 232
   },
   {
    "type": "hadith",
@@ -1400,7 +1564,9 @@
    "en": "Narrated Anas: The Prophet (ﷺ) was on a journey and a slave named Anjasha was chanting (singing) for the camels to let them go fast (while driving). The Prophet (ﷺ) said, \"O Anjasha, drive slowly (the camels) with the glass vessels!\" Abu Qilaba said, \"By the glass vessels' he meant the women (riding the camels)",
    "ref": "Sahih al-Bukhari 6210",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 234
   },
   {
    "type": "hadith",
@@ -1409,7 +1575,9 @@
    "en": "Narrated Anas bin Malik: There was a state of fear in Medina. Allah's Messenger (ﷺ) rode a horse belonging to Abu Talha (in order to see the matter). The Prophet (ﷺ) said, \"We could not see anything, and we found that horse like a sea (fast in speed)",
    "ref": "Sahih al-Bukhari 6212",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 236
   },
   {
    "type": "hadith",
@@ -1418,7 +1586,9 @@
    "en": "Narrated Anas bin Malik: Two men sneezed before the Prophet. The Prophet (ﷺ) said to one of them, \"May Allah bestow His Mercy on you,\" but he did not say that to the other. On being asked (why), the Prophet (ﷺ) said, \"That one praised Allah (at the time of sneezing), while the other did not praise Allah",
    "ref": "Sahih al-Bukhari 6221",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 78,
+   "num": 245
   },
   {
    "type": "hadith",
@@ -1427,7 +1597,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"For every prophet there is one (special invocation (that will not be rejected) with which he appeals (to Allah), and I want to keep such an invocation for interceding for my followers in the Hereafter",
    "ref": "Sahih al-Bukhari 6304",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 1
   },
   {
    "type": "hadith",
@@ -1436,7 +1608,9 @@
    "en": "Narrated Abu Huraira: I heard Allah's Messenger (ﷺ) saying.\" By Allah! I ask for forgiveness from Allah and turn to Him in repentance more than seventy times a day",
    "ref": "Sahih al-Bukhari 6307",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 4
   },
   {
    "type": "hadith",
@@ -1445,7 +1619,9 @@
    "en": "Narrated Hudhaifa: When the Prophet (ﷺ) went to bed, he would say: \"Bismika amutu wa ahya.\" and when he got up he would say: \" Al-hamdu li l-lahil-ladhi ahyana ba'da ma amatana wa ilaihin-nushur",
    "ref": "Sahih al-Bukhari 6312",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 9
   },
   {
    "type": "hadith",
@@ -1454,7 +1630,9 @@
    "en": "Narrated Anas bin Malik: Whenever the Prophet (ﷺ) went to the lavatory, he used to say: \"Allahumma inni a`udhu bika min al-khubuthi wal khaba'ith",
    "ref": "Sahih al-Bukhari 6322",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 19
   },
   {
    "type": "hadith",
@@ -1463,7 +1641,9 @@
    "en": "Narrated `Aisha: The Verse: 'Neither say your prayer aloud, nor say it in a low tone.' (17.110) was revealed as regards invocation",
    "ref": "Sahih al-Bukhari 6327",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 24
   },
   {
    "type": "hadith",
@@ -1472,7 +1652,9 @@
    "en": "Narrated Anas: Um Sulaim said to the Prophet (ﷺ) \"Anas is your servant.\" The Prophet (ﷺ) said, \"O Allah! increase his wealth and offspring, and bless (for him) what ever you give him",
    "ref": "Sahih al-Bukhari 6334",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 31
   },
   {
    "type": "hadith",
@@ -1481,7 +1663,9 @@
    "en": "Narrated Anas: Allah's Messenger (ﷺ) said, \"When anyone of you appeal to Allah for something, he should ask with determination and should not say, 'O Allah, if You wish, give me.', for nobody can force Allah to do something against His Will",
    "ref": "Sahih al-Bukhari 6338",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 35
   },
   {
    "type": "hadith",
@@ -1490,7 +1674,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"The invocation of anyone of you is granted (by Allah) if he does not show impatience (by saying, \"I invoked Allah but my request has not been granted)",
    "ref": "Sahih al-Bukhari 6340",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 37
   },
   {
    "type": "hadith",
@@ -1499,7 +1685,9 @@
    "en": "Narrated `Abdullah bin Zaid: Allah's Messenger (ﷺ) went out to this Musalla (praying place) to offer the prayer of Istisqa.' He invoked Allah for rain and then faced the Qibla and turned his Rida' (upper garment) inside out",
    "ref": "Sahih al-Bukhari 6343",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 40
   },
   {
    "type": "hadith",
@@ -1508,7 +1696,9 @@
    "en": "Narrated Ibn `Abbas: The Prophet (ﷺ) used to invoke Allah at the time of distress, saying, \"La ilaha illal-lahu Al-`Azim, al- Halim, La ilaha illal-lahu Rabbu-s-samawati wal-ard wa Rabbu-l-arsh il-azim",
    "ref": "Sahih al-Bukhari 6345",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 42
   },
   {
    "type": "hadith",
@@ -1517,7 +1707,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) used to seek refuge with Allah from the difficult moment of a calamity and from being overtaken by destruction and from being destined to an evil end, and from the malicious joy of enemies. Sufyan said, \"This narration contained three items only, but I added one. I do not know which one that was",
    "ref": "Sahih al-Bukhari 6347",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 44
   },
   {
    "type": "hadith",
@@ -1526,7 +1718,9 @@
    "en": "Narrated Qais: I came to Khabbab who had been branded with seven brands over his `Abdomen, and I heard him saying, \"If the Prophet: had not forbidden us to invoke (Allah) for death, I would have invoked Allah for it",
    "ref": "Sahih al-Bukhari 6350",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 47
   },
   {
    "type": "hadith",
@@ -1535,7 +1729,9 @@
    "en": "Narrated `Aisha: The boys used to be brought to the Prophet (ﷺ) and he used to invoke for Allah's blessing upon them. Once an infant was brought to him and it urinated on his clothes. He asked for water and poured it over the place of the urine and did not wash his clothes",
    "ref": "Sahih al-Bukhari 6355",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 52
   },
   {
    "type": "hadith",
@@ -1544,7 +1740,9 @@
    "en": "Narrated Ibn Abi `Aufa: Whenever somebody brought alms to the Prophet (ﷺ) the used to say, \"Allahumma Salli 'Alaihi (O Allah! Send Your Salat (Grace and Honor) on him).\" Once when my father brought his alms to him, he said, \"O Allah! Send Your Salat (Grace and Honor) on the family of Abi `Aufa",
    "ref": "Sahih al-Bukhari 6359",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 56
   },
   {
    "type": "hadith",
@@ -1553,7 +1751,9 @@
    "en": "Narrated Um Khalid bint Khalid: I heard the Prophet (ﷺ) seeking refuge with Allah from the punishment of the grave",
    "ref": "Sahih al-Bukhari 6364",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 61
   },
   {
    "type": "hadith",
@@ -1562,7 +1762,9 @@
    "en": "Narrated Anas bin Malik: The Prophet (ﷺ) used to say, \"O Allah! I seek refuge with You from worry and grief, from incapacity and laziness, from cowardice and miserliness, from being heavily in debt and from being overpowered by (other) men.\" (See Hadith No)",
    "ref": "Sahih al-Bukhari 6369",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 66
   },
   {
    "type": "hadith",
@@ -1571,7 +1773,9 @@
    "en": "Narrated `Aisha: The Prophet (ﷺ) said, \"O Allah! Make us love Medina as You made us love Mecca, or more, and transfer the fever that is in it, to Al-Juhfa. O Allah! Bless our Mudd and our Sam' (kinds of measures)",
    "ref": "Sahih al-Bukhari 6372",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 69
   },
   {
    "type": "hadith",
@@ -1580,7 +1784,9 @@
    "en": "Narrated Anas: Um Sulaim said (to the Prophet), \"Anas is your servant; so please invoke for Allah's blessings for him.\" He said \"O Allah! Increase his wealth and offspring, and Bless (for him) whatever You give him",
    "ref": "Sahih al-Bukhari 6380",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 0,
+   "num": 0
   },
   {
    "type": "hadith",
@@ -1589,7 +1795,9 @@
    "en": "Narrated Anas: The most frequent invocation of The Prophet (ﷺ) was: \"O Allah! Give to us in the world that which is good and in the Hereafter that which is good, and save us from the torment of the Fire",
    "ref": "Sahih al-Bukhari 6389",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 84
   },
   {
    "type": "hadith",
@@ -1598,7 +1806,9 @@
    "en": "Narrated Abu Huraira: Abu-l-Qasim (the Prophet) said, \"On Friday there is a particular time. If a Muslim happens to be praying and invoking Allah for something good during that time, Allah will surely fulfill his request.\" The Prophet (ﷺ) pointed out with his hand. We thought that he wanted to illustrate how short that time was",
    "ref": "Sahih al-Bukhari 6400",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 95
   },
   {
    "type": "hadith",
@@ -1607,7 +1817,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"Whoever says, 'Subhan Allah wa bihamdihi,' one hundred times a day, will be forgiven all his sins even if they were as much as the foam of the sea",
    "ref": "Sahih al-Bukhari 6405",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 100
   },
   {
    "type": "hadith",
@@ -1616,7 +1828,9 @@
    "en": "Narrated Abu Musa: The Prophet (ﷺ) said, \"The example of the one who celebrates the Praises of his Lord (Allah) in comparison to the one who does not celebrate the Praises of his Lord, is that of a living creature compared to a dead one",
    "ref": "Sahih al-Bukhari 6407",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 80,
+   "num": 102
   },
   {
    "type": "hadith",
@@ -1625,7 +1839,9 @@
    "en": "Narrated Anas: The Prophet (ﷺ) said, \"O Allah! There is no life worth living except the life of the Hereafter, so (please) make righteous the Ansar and the Emigrants",
    "ref": "Sahih al-Bukhari 6413",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 2
   },
   {
    "type": "hadith",
@@ -1634,7 +1850,9 @@
    "en": "Narrated Anas bin Malik: The Prophet (ﷺ) drew a few lines and said, \"This is (man's) hope, and this is the instant of his death, and while he is in this state (of hope), the nearer line (death) comes to Him",
    "ref": "Sahih al-Bukhari 6418",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 7
   },
   {
    "type": "hadith",
@@ -1643,7 +1861,9 @@
    "en": "Narrated Anas bin Malik: Allah's Messenger (ﷺ) said, \"The son of Adam (i.e. man) grows old and so also two (desires) grow old with him, i.e., love for wealth and (a wish for) a long life",
    "ref": "Sahih al-Bukhari 6421",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 10
   },
   {
    "type": "hadith",
@@ -1652,7 +1872,9 @@
    "en": "Narrated `Utban bin Malik Al-Ansari:who was one of the men of the tribe of Bani Salim: Allah's Messenger (ﷺ) came to me and said, \"If anybody comes on the Day of Resurrection who has said: La ilaha illal-lah, sincerely, with the intention to win Allah's Pleasure, Allah will make the Hell-Fire forbidden for him",
    "ref": "Sahih al-Bukhari 6423",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 12
   },
   {
    "type": "hadith",
@@ -1661,7 +1883,9 @@
    "en": "Narrated `Abdullah: The Prophet (ﷺ) said, \"The best people are those of my generation, and then those who will come after them (the next generation), and then those who will come after them (i.e. the next generation), and then after them, there will come people whose witness will precede their oaths, and whose oaths will precede their witness",
    "ref": "Sahih al-Bukhari 6429",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 18
   },
   {
    "type": "hadith",
@@ -1670,7 +1894,9 @@
    "en": "Narrated Khabbab: We migrated with the Prophet..(This narration is related in the chapter of migration)",
    "ref": "Sahih al-Bukhari 6432",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 21
   },
   {
    "type": "hadith",
@@ -1679,7 +1905,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"Perish the slave of Dinar, Dirham, Qatifa (thick soft cloth), and Khamisa (a garment), for if he is given, he is pleased; otherwise he is dissatisfied",
    "ref": "Sahih al-Bukhari 6435",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 24
   },
   {
    "type": "hadith",
@@ -1688,7 +1916,9 @@
    "en": "Narrated Anas bin Malik: Allah's Messenger (ﷺ) said, \"If Adam's son had a valley full of gold, he would like to have two valleys, for nothing fills his mouth except dust. And Allah forgives him who repents to Him",
    "ref": "Sahih al-Bukhari 6439",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 28
   },
   {
    "type": "hadith",
@@ -1697,7 +1927,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"Wealth is not in having many possessions, but rather (true) wealth is feeling sufficiency in the soul",
    "ref": "Sahih al-Bukhari 6446",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 35
   },
   {
    "type": "hadith",
@@ -1706,7 +1938,9 @@
    "en": "Narrated `Aisha: When the Prophet (ﷺ) died, nothing which can be eaten by a living creature was left on my shelf except some barley grain. I ate of it for a period and when I measured it, it finished",
    "ref": "Sahih al-Bukhari 6451",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 40
   },
   {
    "type": "hadith",
@@ -1715,7 +1949,9 @@
    "en": "Narrated `Aisha: The family of Muhammad did not eat two meals on one day, but one of the two was of dates",
    "ref": "Sahih al-Bukhari 6455",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 44
   },
   {
    "type": "hadith",
@@ -1724,7 +1960,9 @@
    "en": "Narrated Qatada: We used to go to Anas bin Malik and see his baker standing (preparing the bread). Anas said, \"Eat. I have not known that the Prophet (ﷺ) ever saw a thin well-baked loaf of bread till he died, and he never saw a roasted sheep with his eyes",
    "ref": "Sahih al-Bukhari 6457",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 46
   },
   {
    "type": "hadith",
@@ -1733,7 +1971,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"O Allah! Give food to the family of Muhammad",
    "ref": "Sahih al-Bukhari 6460",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 49
   },
   {
    "type": "hadith",
@@ -1742,7 +1982,9 @@
    "en": "Narrated `Aisha: The most beloved action to Allah's Messenger (ﷺ) was that whose doer did it continuously and regularly",
    "ref": "Sahih al-Bukhari 6462",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 51
   },
   {
    "type": "hadith",
@@ -1751,7 +1993,9 @@
    "en": "Narrated `Aisha: The Prophet (ﷺ) was asked, \"What deeds are loved most by Allah?\" He said, \"The most regular constant deeds even though they may be few.\" He added, 'Don't take upon yourselves, except the deeds which are within your ability",
    "ref": "Sahih al-Bukhari 6465",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 54
   },
   {
    "type": "hadith",
@@ -1760,7 +2004,9 @@
    "en": "Narrated Al-Mughira bin Shu`ba: The Prophet (ﷺ) used to pray so much that his feet used to become edematous or swollen, and when he was asked as to why he prays so much, he would say, \"Shall I not be a thankful slave (to Allah)?",
    "ref": "Sahih al-Bukhari 6471",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 60
   },
   {
    "type": "hadith",
@@ -1769,7 +2015,9 @@
    "en": "Narrated Sahl bin Sa`d: Allah's Messenger (ﷺ) said, \"Whoever can guarantee (the chastity of) what is between his two jaw-bones and what is between his two legs (i.e. his tongue and his private parts), I guarantee Paradise for him",
    "ref": "Sahih al-Bukhari 6474",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 63
   },
   {
    "type": "hadith",
@@ -1778,7 +2026,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said Allah will give shade to seven (types of people) under His Shade (on the Day of Resurrection). (one of them will be) a person who remembers Allah and his eyes are then flooded with tears",
    "ref": "Sahih al-Bukhari 6479",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 68
   },
   {
    "type": "hadith",
@@ -1787,7 +2037,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"If you knew that which I know you would laugh little and weep much",
    "ref": "Sahih al-Bukhari 6485",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 74
   },
   {
    "type": "hadith",
@@ -1796,7 +2048,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"The (Hell) Fire is surrounded by all kinds of desires and passions, while Paradise is surrounded by all kinds of disliked undesirable things",
    "ref": "Sahih al-Bukhari 6487",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 76
   },
   {
    "type": "hadith",
@@ -1805,7 +2059,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"The truest poetic verse ever said by a poet, is: Indeed! Everything except Allah, is perishable",
    "ref": "Sahih al-Bukhari 6489",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 78
   },
   {
    "type": "hadith",
@@ -1814,7 +2070,9 @@
    "en": "Narrated Ghailan: Anas said \"You people do (bad) deeds (commit sins) which seem in your eyes as tiny (minute) than hair while we used to consider those (very deeds) during the life-time of the Prophet (ﷺ) as destructive sins",
    "ref": "Sahih al-Bukhari 6492",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 81
   },
   {
    "type": "hadith",
@@ -1823,7 +2081,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"When honesty is lost, then wait for the Hour.\" It was asked, \"How will honesty be lost, O Allah's Messenger (ﷺ)?\" He said, \"When authority is given to those who do not deserve it, then wait for the Hour",
    "ref": "Sahih al-Bukhari 6496",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 85
   },
   {
    "type": "hadith",
@@ -1832,7 +2092,9 @@
    "en": "Narrated Sahl: Allah's Messenger (ﷺ) said, \"I have been sent and the Hour (is at hand) as these two,\" showing his two fingers and sticking (separating) them out",
    "ref": "Sahih al-Bukhari 6503",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 92
   },
   {
    "type": "hadith",
@@ -1841,7 +2103,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"I have been sent and the Hour (is at hand) as these two (fingers)",
    "ref": "Sahih al-Bukhari 6505",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 94
   },
   {
    "type": "hadith",
@@ -1850,7 +2114,9 @@
    "en": "Narrated `Aisha: Some rough bedouins used to visit the Prophet (ﷺ) and ask him, \"When will the Hour be?\" He would look at the youngest of all of them and say, \"If this should live till he is very old, your Hour (the death of the people addressed) will take place.\" Hisham said that he meant (by the Hour), their death",
    "ref": "Sahih al-Bukhari 6511",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 100
   },
   {
    "type": "hadith",
@@ -1859,7 +2125,9 @@
    "en": "Narrated Anas bin Malik: Allah's Messenger (ﷺ) said, \"When carried to his grave, a dead person is followed by three, two of which return (after his burial) and one remains with him: his relative, his property, and his deeds follow him; relatives and his property go back while his deeds remain with him",
    "ref": "Sahih al-Bukhari 6514",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 103
   },
   {
    "type": "hadith",
@@ -1868,7 +2136,9 @@
    "en": "Narrated `Aisha: The Prophet (ﷺ) said, \"Do not abuse the dead, for they have reached the result of what they have done",
    "ref": "Sahih al-Bukhari 6516",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 105
   },
   {
    "type": "hadith",
@@ -1877,7 +2147,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"Allah will take the whole earth (in His Hand) and will roll up the Heaven in His right Hand, and then He will say, \"I am King! Where are the kings of the earth ?",
    "ref": "Sahih al-Bukhari 6519",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 108
   },
   {
    "type": "hadith",
@@ -1886,7 +2158,9 @@
    "en": "Narrated Ibn `Abbas: The Prophet (ﷺ) said, \"You will meet Allah barefooted, naked, walking on feet, and uncircumcised",
    "ref": "Sahih al-Bukhari 6524",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 113
   },
   {
    "type": "hadith",
@@ -1895,7 +2169,9 @@
    "en": "Narrated Ibn `Umar: The Prophet (ﷺ) said (regarding the Verse), \"A Day when all mankind will stand before the Lord of the Worlds,' (that day) they will stand, drowned in their sweat up to the middle of their ears",
    "ref": "Sahih al-Bukhari 6531",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 120
   },
   {
    "type": "hadith",
@@ -1904,7 +2180,9 @@
    "en": "Narrated `Abdullah: The Prophet (ﷺ) said, \"The cases which will be decided first (on the Day of Resurrection) will be the cases of blood-shedding",
    "ref": "Sahih al-Bukhari 6533",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 122
   },
   {
    "type": "hadith",
@@ -1913,7 +2191,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \" It will be said to the people of Paradise, 'O people of Paradise! Eternity (for you) and no death,' and to the people of the Fire, 'O people of the Fire, eternity (for you) and no death",
    "ref": "Sahih al-Bukhari 6545",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 134
   },
   {
    "type": "hadith",
@@ -1922,7 +2202,9 @@
    "en": "Narrated Abu Huraira: The Prophet (ﷺ) said, \"The width between the two shoulders of a Kafir (disbeliever) will be equal to the distance covered by a fast rider in three days",
    "ref": "Sahih al-Bukhari 6551",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 140
   },
   {
    "type": "hadith",
@@ -1931,7 +2213,9 @@
    "en": "Narrated Abu Sa'id: The Prophet (ﷺ) said: There is a tree in Paradise (so huge) that a fast (or a trained) rider may travel: for one hundred years without being able to cross it",
    "ref": "Sahih al-Bukhari 6553",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 142
   },
   {
    "type": "hadith",
@@ -1940,7 +2224,9 @@
    "en": "Abu Sa`id added: \"As you see a glittering star remaining in the eastern horizon and the western horizon",
    "ref": "Sahih al-Bukhari 6556",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 145
   },
   {
    "type": "hadith",
@@ -1949,7 +2235,9 @@
    "en": "Narrated An-Nu`man: I heard the Prophet (ﷺ) saying, \"The person who will have the least punishment from amongst the Hell Fire people on the Day of Resurrection, will be a man under whose arch of the feet a smoldering ember will be placed so that his brain will boil because of it",
    "ref": "Sahih al-Bukhari 6561",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 150
   },
   {
    "type": "hadith",
@@ -1958,7 +2246,9 @@
    "en": "Narrated `Imran bin Husain: The Prophet (ﷺ) said, \"Some people will be taken out of the Fire through the intercession of Muhammad they will enter Paradise and will be called Al-Jahannamiyin (the Hell Fire people)",
    "ref": "Sahih al-Bukhari 6566",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 155
   },
   {
    "type": "hadith",
@@ -1967,7 +2257,9 @@
    "en": "Narrated `Abbas:that he said to the Prophet (ﷺ) \"Did you benefit Abu Talib with anything?",
    "ref": "Sahih al-Bukhari 6572",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 160
   },
   {
    "type": "hadith",
@@ -1976,7 +2268,9 @@
    "en": "Narrated Ibn `Umar: The Prophet (ﷺ) said, \"There will be a tank (Lake-Fount) in front of you as large as the distance between Jarba and Adhruh (two towns in Sham)",
    "ref": "Sahih al-Bukhari 6577",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 165
   },
   {
    "type": "hadith",
@@ -1985,7 +2279,9 @@
    "en": "Narrated Anas bin Malik: Allah's Messenger (ﷺ) said, \"The width of my Lake-Fount is equal to the distance between Aila (a town in Sham) and Sana' (the capital of Yemen) and it has as many (numerous) jugs as the number of stars of the sky",
    "ref": "Sahih al-Bukhari 6580",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 168
   },
   {
    "type": "hadith",
@@ -1994,7 +2290,9 @@
    "en": "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"Between my house and my pulpit there is a garden from amongst the gardens of Paradise, and my pulpit is over my Lake-Fount",
    "ref": "Sahih al-Bukhari 6588",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 176
   },
   {
    "type": "hadith",
@@ -2003,7 +2301,9 @@
    "en": "Narrated Haritha bin Wahb: I heard the Prophet (ﷺ) mentioning the Lake-Fount (Al-Kauthar), saying, \"(The width of the Lake-Fount) is equal to the distance between Medina and Sana' (capital of Yemen)",
    "ref": "Sahih al-Bukhari 6591",
    "source": "Sahih al-Bukhari",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 81,
+   "num": 179
   },
   {
    "type": "hadith",
@@ -2012,7 +2312,9 @@
    "en": "Abu Huraira reported that a person said: Allah's Messenger, who amongst the people is most deserving of my good treatment? He said: Your mother, again your mother, again your mother, then your father, then your nearest relatives according to the order (of nearness)",
    "ref": "Sahih Muslim 2548b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 2
   },
   {
    "type": "hadith",
@@ -2021,7 +2323,9 @@
    "en": "Abu Huraira reported Allah's Apostle (ﷺ) as saying: Let him be humbled into dust; let him be humbled into dust. It was said: Allah's Messenger, who is he? He said: He who sees either of his parents during their old age or he sees both of them, but he does not enter Paradise",
    "ref": "Sahih Muslim 2551a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 10
   },
   {
    "type": "hadith",
@@ -2030,7 +2334,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: Let him be humbled, let him be humbled. It was said: Allah's Messenger, who is he? He said. He who finds his parents in old age, either one or both of them, and does not enter Paradise",
    "ref": "Sahih Muslim 2551b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 11
   },
   {
    "type": "hadith",
@@ -2039,7 +2345,9 @@
    "en": "Abdullah b. Umar reported Allah's Apostle (ﷺ) as saying: The finest act of goodness is that a person should treat kindly the loved ones of his father",
    "ref": "Sahih Muslim 2552b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 14
   },
   {
    "type": "hadith",
@@ -2048,7 +2356,9 @@
    "en": "A'isha reported Allah's Messenger (ﷺ) as saying: The tie of kinship is suspended to the Throne and says: He who unites me Allah would unite him and he who severed me Allah would sever him",
    "ref": "Sahih Muslim 2555",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 19
   },
   {
    "type": "hadith",
@@ -2057,7 +2367,9 @@
    "en": "Jubair b. Mut'im reported on the authority of his father that Allah's Messenger (ﷺ) said: The severer would not enter Paradise. Ibn Umar said that Sufyan (explained it as): One who severs the tie of kinship would not enter Paradise",
    "ref": "Sahih Muslim 2556a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 20
   },
   {
    "type": "hadith",
@@ -2066,7 +2378,9 @@
    "en": "Jubair b. Mutlim reported that his father narrated to him that Allah's Messenger (ﷺ) said: The severer of the tie of kinship would not get into Paradise",
    "ref": "Sahih Muslim 2556b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 21
   },
   {
    "type": "hadith",
@@ -2075,7 +2389,9 @@
    "en": "Anas b. Malik reported: I heard Allah's Messenger (ﷺ) as saying: He who is desirous that his means of sustenance should be expanded for him or his age may be lengthened, should join the tie of relationship",
    "ref": "Sahih Muslim 2557a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 23
   },
   {
    "type": "hadith",
@@ -2084,7 +2400,9 @@
    "en": "Anas b. Malik reported that Allah's Messenger (ﷺ) said: He who likes that his sustenance should be expanded and his age may be lengthened should join the tie of kinship",
    "ref": "Sahih Muslim 2557b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 24
   },
   {
    "type": "hadith",
@@ -2093,7 +2411,9 @@
    "en": "Anas b. Malik reported Allah's Messenger (ﷺ) as saying: Neither nurse mutual hatred, nor jealousy, nor enmity, and become as fellow brothers and servants of Allah. It is not lawful for a Muslim that he should keep his relations estranged with his brother beyond three days",
    "ref": "Sahih Muslim 2558b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 26
   },
   {
    "type": "hadith",
@@ -2102,7 +2422,9 @@
    "en": "Abu Ayyub Ansiri reported Allah's Messenger (ﷺ) as saying: It is not permissible for a Muslim to have estranged relations with his brother beyond three nights, the one turning one way and the other turning the other way when they meet; the better of the two is one who is the first to give a greeting",
    "ref": "Sahih Muslim 2560a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 31
   },
   {
    "type": "hadith",
@@ -2111,7 +2433,9 @@
    "en": "Abdullah b. 'Umar reported Allah's Messenger (ﷺ) as saying: It is not permissible for a Muslim to have estranged relations with his brother beyond three days",
    "ref": "Sahih Muslim 2561",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 33
   },
   {
    "type": "hadith",
@@ -2120,7 +2444,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: There should be no estranged relations beyond three days",
    "ref": "Sahih Muslim 2562",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 34
   },
   {
    "type": "hadith",
@@ -2129,7 +2455,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: Avoid suspicion, for suspicion is the gravest lie in talk and do not be inquisitive about one another and do not spy upon one another and do not feel envy with the other, and nurse no malice, and nurse no aversion and hostility against one another. And be fellow-brothers and servants of Allah",
    "ref": "Sahih Muslim 2563a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 35
   },
   {
    "type": "hadith",
@@ -2138,7 +2466,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: Don't have estranged relations (with the others) and don't nurse enmity and don't enter into a transaction when the other (has already entered) and be fellow-brothers and servants of Allah",
    "ref": "Sahih Muslim 2563b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 36
   },
   {
    "type": "hadith",
@@ -2147,7 +2477,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying. Don't nurse malice against one another, don't nurse aversion against one another and don't be inquisitive about one another and don't outbid one another (with a view to raising the price) and be fellow-brothers and servants of Allah",
    "ref": "Sahih Muslim 2563c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 37
   },
   {
    "type": "hadith",
@@ -2156,7 +2488,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: Don't bear aversion against one another and don't be jealous of one another and be servants of Allah",
    "ref": "Sahih Muslim 2563e",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 39
   },
   {
    "type": "hadith",
@@ -2165,7 +2499,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: Verily Allah does not look to your faces and your wealth but He looks to your heart and to your deeds",
    "ref": "Sahih Muslim 2564c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 42
   },
   {
    "type": "hadith",
@@ -2174,7 +2510,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: Verily. Allah would say on the Day of Resurrection: Where are those who have mutual love for My Glory's sake? Today I shall shelter them in My shadow when there is no other shadow but the shadow of Mine",
    "ref": "Sahih Muslim 2566",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 46
   },
   {
    "type": "hadith",
@@ -2183,7 +2521,9 @@
    "en": "Abu Rabi' reported directly from Allah's Apostle (may peace upon him) as saying: The one who visits the sick is in fact like one who is in the fruit garden of Paradise so long as he does not return",
    "ref": "Sahih Muslim 2568a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 49
   },
   {
    "type": "hadith",
@@ -2192,7 +2532,9 @@
    "en": "Thauban, the freed slave of Allah's Messenger (ﷺ), reported that Allah's Messenger (ﷺ) said: He who visits the sick continues to remain in the fruit garden of Paradise until he returns",
    "ref": "Sahih Muslim 2568b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 50
   },
   {
    "type": "hadith",
@@ -2201,7 +2543,9 @@
    "en": "Thauban reported Allah's Apostle (ﷺ) as saying: Verily, when a Muslim visits his brother in Islam he is supposed to remain in the fruit garden of Paradise until he returns",
    "ref": "Sahih Muslim 2568c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 51
   },
   {
    "type": "hadith",
@@ -2210,7 +2554,9 @@
    "en": "A'isha reported Allah's Messenger (ﷺ) as saying: A believer does not undergo (the trouble) of running a thorn or more than that when Allah effaces his sins",
    "ref": "Sahih Muslim 2572c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 61
   },
   {
    "type": "hadith",
@@ -2219,7 +2565,9 @@
    "en": "The above hadith has been transmitted by Hisham with the same chain",
    "ref": "Sahih Muslim 2572d",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 62
   },
   {
    "type": "hadith",
@@ -2228,7 +2576,9 @@
    "en": "A'isha reported: Allah's Messenger (ﷺ) said: There is no trouble that comes to a believer except that it obliterates from his sins, even if it is the pricking of a thorn",
    "ref": "Sahih Muslim 2572e",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 63
   },
   {
    "type": "hadith",
@@ -2237,7 +2587,9 @@
    "en": "A'isha reported: I heard Allah's Messenger (ﷺ) as saying: There is nothing (in the form of trouble) that comes to a believer even if it is the pricking of a thorn that there is decreed for him by Allah good or his sins are obliterated",
    "ref": "Sahih Muslim 2572g",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 65
   },
   {
    "type": "hadith",
@@ -2246,7 +2598,9 @@
    "en": "Ibu 'Umar reported Allah's Messenger (ﷺ) as saying: Oppression is the darkness on the Day of Resurrection",
    "ref": "Sahih Muslim 2579",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 75
   },
   {
    "type": "hadith",
@@ -2255,7 +2609,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: “Rights will certainly be restored to those entitled to them on the Day of Resurrection, (to the point that) even the hornless sheep will lay claim upon the horned one.”",
    "ref": "Sahih Muslim 2582",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 78
   },
   {
    "type": "hadith",
@@ -2264,7 +2620,9 @@
    "en": "Nu'man b. Bashir reported Allah's Messenger (ﷺ) as saying: The similitude of believers in regard to mutual love, affection, fellow-feeling is that of one body; when any limb of it aches, the whole body aches, because of sleeplessness and fever",
    "ref": "Sahih Muslim 2586a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 84
   },
   {
    "type": "hadith",
@@ -2273,7 +2631,9 @@
    "en": "Nu'man b. Bashir reported Allah's Messenger (ﷺ) as saying: The believers are like one person; if his head aches, the whole body aches with fever and sleeplessness",
    "ref": "Sahih Muslim 2586c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 86
   },
   {
    "type": "hadith",
@@ -2282,7 +2642,9 @@
    "en": "Nu'man b. Bashir reported that Muslims are like one body of a person; if the eye is sore, the whole body aches, and if the head aches, the whole body aches",
    "ref": "Sahih Muslim 2586d",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 87
   },
   {
    "type": "hadith",
@@ -2291,7 +2653,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: When two persons indulge in hurling (abuses) upon one another, it would be the first one who would be the sinner so long as the oppressed does not transgress the limits",
    "ref": "Sahih Muslim 2587",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 89
   },
   {
    "type": "hadith",
@@ -2300,7 +2664,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: Charity does not decrease wealth, no one forgives another except that Allah increases his honor, and no one humbles himself for the sake of Allah except that Allah raises his status",
    "ref": "Sahih Muslim 2588",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 90
   },
   {
    "type": "hadith",
@@ -2309,7 +2675,9 @@
    "en": "Abu Huraira reported Allah's Apostle (ﷺ) as saying: The servant (whose fault) Allah conceals in this world, Allah would also conceal (his faults) on the Day of Resurrection",
    "ref": "Sahih Muslim 2590a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 92
   },
   {
    "type": "hadith",
@@ -2318,7 +2686,9 @@
    "en": "Abu Huraira reported Allah's Apostle (ﷺ) as saying: The servant (who conceals) the faults of others in this world, Allah would conceal his faults on the Day of Resurrection",
    "ref": "Sahih Muslim 2590b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 93
   },
   {
    "type": "hadith",
@@ -2327,7 +2697,9 @@
    "en": "Jarir reported from Allah's Messenger (ﷺ): He who is deprived of tenderly feelings is in fact deprived of good",
    "ref": "Sahih Muslim 2592a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 96
   },
   {
    "type": "hadith",
@@ -2336,7 +2708,9 @@
    "en": "Jarir b. 'Abdullah reported Allah's Apostle (ﷺ) as saying: He who is deprived of tenderly feelings is in fact deprived of good and he who is deprived of tenderly feelings is in fact deprived of good",
    "ref": "Sahih Muslim 2592c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 98
   },
   {
    "type": "hadith",
@@ -2345,7 +2719,9 @@
    "en": "A'isha, the wife of Allah's Apostle (ﷺ), reported Allah's Apostle (ﷺ) as saying: Kindness is not to be found in anything but that it adds to its beauty and it is not withdrawn from anything but it makes it defective",
    "ref": "Sahih Muslim 2594a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 100
   },
   {
    "type": "hadith",
@@ -2354,7 +2730,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: It does not seem proper for a Siddiq that he should be an invoker of curse",
    "ref": "Sahih Muslim 2597a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 106
   },
   {
    "type": "hadith",
@@ -2363,7 +2741,9 @@
    "en": "Umm Darda' reported on the authority of Abu Darda' as saying: I heard Allah's Messenger (ﷺ) as saying: The invoker of curse would neither be witness nor intercessor on the Day of Resurrection",
    "ref": "Sahih Muslim 2598c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 110
   },
   {
    "type": "hadith",
@@ -2372,7 +2752,9 @@
    "en": "Abu Huraira reported it was said to Allah's Messenger (ﷺ): Invoke curse upon the polytheists, whereupon he said: I have not been sent as the invoker of curse, but I have been sent as mercy",
    "ref": "Sahih Muslim 2599",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 111
   },
   {
    "type": "hadith",
@@ -2381,7 +2763,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: O Allah, I am a human being and for any person amongst Muslims upon whom I hurl malediction or invoke curse or give him whipping make it a source of purity and mercy",
    "ref": "Sahih Muslim 2601a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 114
   },
   {
    "type": "hadith",
@@ -2390,7 +2774,9 @@
    "en": "Abu Huraira reported that he heard Allah's Messenger (ﷺ) as saying: O Allah, for any believing servant whom I curse make that as a source of nearness to Thee on the Day of Resurrection",
    "ref": "Sahih Muslim 2601f",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 121
   },
   {
    "type": "hadith",
@@ -2399,7 +2785,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: The worst amongst the people is the double-faced one; he comes to some people with one face and to others with the other face",
    "ref": "Sahih Muslim 2526c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 127
   },
   {
    "type": "hadith",
@@ -2408,7 +2796,9 @@
    "en": "Abu Huraira reported that he heard Allah's Messenger (ﷺ) as saying: The worst amongst people is one with the double face. He comes to some people with one face and to others with the other face",
    "ref": "Sahih Muslim 2526d",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 128
   },
   {
    "type": "hadith",
@@ -2417,7 +2807,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: The strong-man is not one who wrestles well but the strong man is one who controls himself when he is in a fit of rage",
    "ref": "Sahih Muslim 2609a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 140
   },
   {
    "type": "hadith",
@@ -2426,7 +2818,9 @@
    "en": "Abu Huraira reported: I heard Allah's Messenger (ﷺ) as saying: One is not strong because of one's wrestling skillfully. They said: Allah's Messenger, then who is strong? He said: He who controls his anger when he is in a fit of rage",
    "ref": "Sahih Muslim 2609b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 141
   },
   {
    "type": "hadith",
@@ -2435,7 +2829,9 @@
    "en": "Anas reported Allah's Messenger (ﷺ) as saying: When Allah fashioned Adam in Paradise, He left him as He liked him to leave. Then Iblis roamed round him to see what actually that was and when he found him hollow from within, he recognised that he had been created with a disposition that he would not have control over himself",
    "ref": "Sahih Muslim 2611a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 146
   },
   {
    "type": "hadith",
@@ -2444,7 +2840,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: When any one of you fights with his brother he should avoid striking at the face",
    "ref": "Sahih Muslim 2612a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 148
   },
   {
    "type": "hadith",
@@ -2453,7 +2851,9 @@
    "en": "Abu Huraira reported Allah's Apostle (ﷺ) as saying: When any one of you fights with his brother, he should spare his face",
    "ref": "Sahih Muslim 2612c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 150
   },
   {
    "type": "hadith",
@@ -2462,7 +2862,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: When any one of you fights with his brother, he should not slap at the face",
    "ref": "Sahih Muslim 2612d",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 151
   },
   {
    "type": "hadith",
@@ -2471,7 +2873,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: When any one of you fights with his brother, he should avoid the face",
    "ref": "Sahih Muslim 2612f",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 153
   },
   {
    "type": "hadith",
@@ -2480,7 +2884,9 @@
    "en": "Urwa b. Zubair reported that Hisham b. Hakim found a person (the ruler of Hims) who had been detaining some Nabateans in connection with the dues of Jizya. He said: What is this? I heard Allah's Messenger (ﷺ) as saying: Allah would torment those persons who torment people in the world",
    "ref": "Sahih Muslim 2613d",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 157
   },
   {
    "type": "hadith",
@@ -2489,7 +2895,9 @@
    "en": "Amr heard Jabir as saying: A person happened to come to the mosque with an arrow; thereupon Allah's Messenger (ﷺ) said to him: Take hold of its pointed head",
    "ref": "Sahih Muslim 2614a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 158
   },
   {
    "type": "hadith",
@@ -2498,7 +2906,9 @@
    "en": "Jabir b. Abdullah reported that a person happened to come to the mosque with arrows and their iron-ends were exposed, so he was commanded that he should grasp the pointed heads so that these might not do any harm to a Muslim",
    "ref": "Sahih Muslim 2614b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 159
   },
   {
    "type": "hadith",
@@ -2507,7 +2917,9 @@
    "en": "Abu Huraira reported: Abu'l-Qasim (the kunya of Allah's Messenger, may peace be upon him), said: He who pointed a weapon towards his brother the angels invoke curse upon him even if he is his real brother so long as he does not abandon it (the pointing of weapon towards one's brother Muslim)",
    "ref": "Sahih Muslim 2616a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 163
   },
   {
    "type": "hadith",
@@ -2516,7 +2928,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: While a person was going along the path he found a thorny branch upon it. He pushed it to a side and Allah approved (this action) of his and (as a mark of appreciation) granted him pardon",
    "ref": "Sahih Muslim 1914b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 166
   },
   {
    "type": "hadith",
@@ -2525,7 +2939,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: A person while walking along the path saw the branches of a tree lying there. He said: By Allah, I shall remove these from this so that these may not do harm to the Muslims, and he was admitted to Paradise",
    "ref": "Sahih Muslim 1914c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 167
   },
   {
    "type": "hadith",
@@ -2534,7 +2950,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying that he saw a person enjoying himself in Paradise because of the tree that he cut from the path which was a source of inconvenience to the people",
    "ref": "Sahih Muslim 1914d",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 168
   },
   {
    "type": "hadith",
@@ -2543,7 +2961,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying that there was a tree which caused inconvenience to the Muslims; a person came there and cut that (tree) (and thus entered ) Paradise",
    "ref": "Sahih Muslim 1914e",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 169
   },
   {
    "type": "hadith",
@@ -2552,7 +2972,9 @@
    "en": "Abu Barza reported: I said: Allah's Messenger, teach me something so that I may derive benefit from it. He said: Remove the troublesome thing from the paths of the Muslims",
    "ref": "Sahih Muslim 2618a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 170
   },
   {
    "type": "hadith",
@@ -2561,7 +2983,9 @@
    "en": "Abu Sa'id Khudri and Abu Huraira reported Allah's Messenger (ﷺ) as saying: Allah, the Exalted and Glorious, said: Glory is His lower garment and Majesty is His cloak and (Allah says, ) He who contends with Me in regard to them I shall torment him",
    "ref": "Sahih Muslim 2620",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 177
   },
   {
    "type": "hadith",
@@ -2570,7 +2994,9 @@
    "en": "Abu Huraira reported Allah's Messenger (may peace he upon him) as saying: Many a person with disheveled hair and covered with dust is turned away from the doors (whereas he is held in such a high esteem by Allah) that if he were to adjure in the name of Allah (about anything) Allah would fulfil that",
    "ref": "Sahih Muslim 2622",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 179
   },
   {
    "type": "hadith",
@@ -2579,7 +3005,9 @@
    "en": "Ibn Umar reported Allah's Messenger (ﷺ) as saying: Gabriel impressed upon me (the kind treatment) towards the neighbour (so much) that I thought as if he would soon confer upon him the (right) of inheritance",
    "ref": "Sahih Muslim 2625a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 184
   },
   {
    "type": "hadith",
@@ -2588,7 +3016,9 @@
    "en": "Abu Dharr reported: Allah's Apostle (ﷺ) said to me: Don't consider anything insignificant out of good things even if it is that you meet your brother with a cheerful countenance",
    "ref": "Sahih Muslim 2626",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 187
   },
   {
    "type": "hadith",
@@ -2597,7 +3027,9 @@
    "en": "Abu Musa reported that when any needy (person) came to Allah's Messenger (ﷺ) with a need he commanded him to his Companions, saying: Make a recommendation for him, and you would get the reward. Allah, however, gives the verdict through the tongue of His Apostle what He likes most",
    "ref": "Sahih Muslim 2627",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 188
   },
   {
    "type": "hadith",
@@ -2606,7 +3038,9 @@
    "en": "Malik reported Allah's Messenger (ﷺ) as saying: He, who brought up two girls properly till they grew up, he and I would come (together) (very closely) on the Day of Resurrection, and he interlaced his fingers (for explaining the point of nearness between him and that person)",
    "ref": "Sahih Muslim 2631",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 192
   },
   {
    "type": "hadith",
@@ -2615,7 +3049,9 @@
    "en": "Abu Huraira reported Allah's Apostle (ﷺ) as saying: Anyone amongst the Muslims, three of whose children die, and he resigns himself calmly to the will of God, Fire will not touch him but for the fulfilment of the oath",
    "ref": "Sahih Muslim 2632a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 193
   },
   {
    "type": "hadith",
@@ -2624,7 +3060,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) Saying: Souls are troops collected together and those who familiarised with each other (in the heaven from where these come) would have affinity, with one another (in the world) and those amongst them who opposed each other (in the Heaven) would also be divergent (in the world)",
    "ref": "Sahih Muslim 2638a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 45,
+   "num": 204
   },
   {
    "type": "hadith",
@@ -2633,7 +3071,9 @@
    "en": "Anas reported Allah's Messenger (ﷺ) as saying: When one of you makes supplication, he should supplicate with a will and should not say: O Allah, confer upon me if Thou likest, for there is none to coerce Allah",
    "ref": "Sahih Muslim 2678",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 7
   },
   {
    "type": "hadith",
@@ -2642,7 +3082,9 @@
    "en": "Anas (b. Malik) reported Allah's Messenger (ﷺ) as saying. None of you should make a request for death because of the trouble in which he is involved, but if there is no other help to it, then say: O Allah, keep me alive as long as there is goodness in life for me and bring death to me when there is goodness in death for me",
    "ref": "Sahih Muslim 2680a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 10
   },
   {
    "type": "hadith",
@@ -2651,7 +3093,9 @@
    "en": "Nadr b. Anas reported, as when Anas was alive, that he said: Had Allah's Messenger (ﷺ) not stated this..\" None should make a request for death,\" I would have definitely done that",
    "ref": "Sahih Muslim 2680c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 12
   },
   {
    "type": "hadith",
@@ -2660,7 +3104,9 @@
    "en": "Abu Hazim reported: I visited Khabbab who had seven cauteries on his stomach and he said: Had Allah's Messenger (ﷺ) not forbidden us to call for death, I would have done so",
    "ref": "Sahih Muslim 2681a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 13
   },
   {
    "type": "hadith",
@@ -2669,7 +3115,9 @@
    "en": "Ubida b. Samit reported Allah's Messenger (ﷺ) as saying: He who loves to meet Allah, Allah also loves to meet him, and he who dislikes to meet Allah, Allah also abhors to meet him",
    "ref": "Sahih Muslim 2683a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 16
   },
   {
    "type": "hadith",
@@ -2678,7 +3126,9 @@
    "en": "A'isha reported Allah's Messenger (ﷺ) as saying: He who loves to meet Allah, Allah also loves to meet him, and who dislikes to meet Allah, Allah abhors to meet him. There is death before (one is able to) meet Allah",
    "ref": "Sahih Muslim 2684c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 20
   },
   {
    "type": "hadith",
@@ -2687,7 +3137,9 @@
    "en": "Abu Musa reported Allah's Apostle (ﷺ) as saying: He who loves to meet Allah, Allah too loves to meet him, and he who dislikes to meet Allah, Allah abhors to meet him",
    "ref": "Sahih Muslim 2686",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 24
   },
   {
    "type": "hadith",
@@ -2696,7 +3148,9 @@
    "en": "Abu Huraira reported Allah's Messenger (may peace be upon him as saying that Allah thus stated: I live in the thought of My servant as he thinks of Me and with him as he calls Me)",
    "ref": "Sahih Muslim 2675d",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 25
   },
   {
    "type": "hadith",
@@ -2705,7 +3159,9 @@
    "en": "Anas reported that Allah's Messenger (ﷺ) used to supplicate (in these words): \" Our Lord, grant us the good in this world and the good in the Hereafter and save us from the torment of Hell Fire",
    "ref": "Sahih Muslim 2690b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 37
   },
   {
    "type": "hadith",
@@ -2714,7 +3170,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: The uttering of (these words): \" Hallowed be Allah; all praise is due to Allah, there is no god but Allah and Allah is the Greatest,\" is dearer to me than anything over which the sun rises",
    "ref": "Sahih Muslim 2695",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 42
   },
   {
    "type": "hadith",
@@ -2723,7 +3181,9 @@
    "en": "Abu Malik Ashaja'i reported on the authority of his father that whenever a person embraced Islam, Allah's Messenger (ﷺ) instructed him to recilte: \" O Allah, grant me pardon, have mercy upon me, direct me to the path of righteousness and provide me sustenance",
    "ref": "Sahih Muslim 2697a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 44
   },
   {
    "type": "hadith",
@@ -2732,7 +3192,9 @@
    "en": "Abu Malik reported on the authority of his father that when a person embraced Islam, Allah's Messenger (ﷺ) used to teach him how to observe prayer and then commanded him to supplicate in these words: \" O Allah, grant me pardon, have mercy upon me, direct me to the path of righteousness, grant me protection and provide me sustenance",
    "ref": "Sahih Muslim 2697b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 45
   },
   {
    "type": "hadith",
@@ -2741,7 +3203,9 @@
    "en": "Al-Agharr al-Muzani, who was one amongst the Companions (of the Holy Prophet) reported that Allah's Messenger (ﷺ) said: There is (at times) some sort of shade upon my heart, and I seek forgiveness from Allah a hundred times a day",
    "ref": "Sahih Muslim 2702a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 52
   },
   {
    "type": "hadith",
@@ -2750,7 +3214,9 @@
    "en": "Al-Agharr al-Muzani who was from amongst the Companions of Allah's Apostle (ﷺ) reported that Ibn 'Umar stated to him that Allah's Messenger (may peace 'be upon him) said: O people, seek repentance from Allah. Verily, I seek repentance from Him a hundred times a day",
    "ref": "Sahih Muslim 2702b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 53
   },
   {
    "type": "hadith",
@@ -2759,7 +3225,9 @@
    "en": "Anas b. Malik reported that Allah's Messenger (ﷺ) used to say: \" O Allah, I seek refuge in Thee from incapacity, from indolence, from cowardice, from senility, from miserliness, and I seek refuge in Thee from the torment of the grave and from trial of the life and death",
    "ref": "Sahih Muslim 2706a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 67
   },
   {
    "type": "hadith",
@@ -2768,7 +3236,9 @@
    "en": "Anas reported that Allah's Messenger (may peace he upon him) wed to make this supplication: \" O Allah, I seek refuge in Thee from miserliness, from sloth and from decrepitude",
    "ref": "Sahih Muslim 2706d",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 70
   },
   {
    "type": "hadith",
@@ -2777,7 +3247,9 @@
    "en": "It was narrated from Abu Huraira that: Allah's Apostle (ﷺ) used to seek refuge (in Allah) from the evil of what has been decreed, from misery, from the mockery of (triumphant) enemies, and from severe calamity. `Amr (one of the narrators) said in his narration: \"Sufyan said: 'I fear I may have added one of them (the phrases)",
    "ref": "Sahih Muslim 2707",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 71
   },
   {
    "type": "hadith",
@@ -2786,7 +3258,9 @@
    "en": "Anas reported Allah's Messenger (ﷺ) as saying: When you go to bed, say: \" Praise is due to Allah Who fed us, provided us drink, sufficed us and provided us with shelter, for many a people there is none to suffice and none to provide shelter",
    "ref": "Sahih Muslim 2715",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 87
   },
   {
    "type": "hadith",
@@ -2795,7 +3269,9 @@
    "en": "Farwa' b. Naufal Ashja'i reported: I asked: 'A'isha, in what words did Allah's Messenger (ﷺ) supplicate Allah? She said that he used to utter: \" I seek refuge in Thee from the evil of what I did and from the evil of what I did not",
    "ref": "Sahih Muslim 2716a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 88
   },
   {
    "type": "hadith",
@@ -2804,7 +3280,9 @@
    "en": "Farwa' b. Naufal reported: I asked 'A'isha about the supplication that Allah's Messenger (ﷺ) made. She said that he used to say: \" O Allah, I seek refuge in Thee from the evil of what I have done and from the evil of what I have not done",
    "ref": "Sahih Muslim 2716b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 89
   },
   {
    "type": "hadith",
@@ -2813,7 +3291,9 @@
    "en": "Farwa' b. Naufal reported on the authority of 'A'isha that Allah's Messenger (ﷺ) used to supplicate (in these words): \" O Allah, I seek refuge in Thee from the evil of what I did and from the evil of what I did not",
    "ref": "Sahih Muslim 2716d",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 91
   },
   {
    "type": "hadith",
@@ -2822,7 +3302,9 @@
    "en": "Abu Huraira reported that when Allah's Messenger (ﷺ) set out on a journey in the morning, he used to say: \" A listener listened to our praising Allah (for) His goodly trial of us. Our Lord! acompany us, guard us and bestow upon us Thy grace. I am seeker of refuge in Allah from the Fire",
    "ref": "Sahih Muslim 2718",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 93
   },
   {
    "type": "hadith",
@@ -2831,7 +3313,9 @@
    "en": "Abdullah reported that Allah's Messenger (ﷺ) used to supplicate (in these words): \" O Allah. I beg of Thee the right guidance, safeguard against evils, chastity and freedom from want",
    "ref": "Sahih Muslim 2721a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 97
   },
   {
    "type": "hadith",
@@ -2840,7 +3324,9 @@
    "en": "Ali reported that Allah's Messenger (ﷺ) said to him: Say,\" O Allah, direct me to the right path and make me adhere to the straight path,\" and when you make a mention of right guidance, keep in mind the right path and when you consider of the straight (path), keep in mind the straightness of the arrow",
    "ref": "Sahih Muslim 2725a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 104
   },
   {
    "type": "hadith",
@@ -2849,7 +3335,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying. When you listen to the crowing of the cock, ask Allah for His favour as it sees Angels and when you listen to the braying of the donkey, seek refuge in Allah from the Satan for it sees Satan",
    "ref": "Sahih Muslim 2729",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 112
   },
   {
    "type": "hadith",
@@ -2858,7 +3346,9 @@
    "en": "Abu Dharr reported that Allah's Messenger (ﷺ) was asked as to which words were the best. He said: Those for which Allah made a choice for His Angels and His servants (and the words are): \" Hallowed be Allah and praise is due to Him",
    "ref": "Sahih Muslim 2731a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 117
   },
   {
    "type": "hadith",
@@ -2867,7 +3357,9 @@
    "en": "Abu Dharr reported that Allah's Messenger (ﷺ) said: There is no believing servant who supplicates for his brother behind his back (in his absence) that the Angels do not say: The same be for you too",
    "ref": "Sahih Muslim 2732a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 119
   },
   {
    "type": "hadith",
@@ -2876,7 +3368,9 @@
    "en": "Umm Darda' reported: My husband reported that he heard Allah's Messenger (ﷺ) as saying: He who supplicates for his brother behind his back (in his absence), the Angel commissioned (for carrying supplication to his Lord) says: Amen, and it is for you also",
    "ref": "Sahih Muslim 2732b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 120
   },
   {
    "type": "hadith",
@@ -2885,7 +3379,9 @@
    "en": "Abu Huraira reported that Allah's Messenger (ﷺ) said: The supplication of every one of you is granted if he does not grow impatient and says: I supplicated but it was not granted",
    "ref": "Sahih Muslim 2735a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 48,
+   "num": 125
   },
   {
    "type": "hadith",
@@ -2894,7 +3390,9 @@
    "en": "Ibn Abbas reported that Allah's Messenger (ﷺ) said: I had a chance to look into the Paradise and I found that majority of the people was poor and I looked into the Fire and there I found the majority constituted by women",
    "ref": "Sahih Muslim 2737a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 49,
+   "num": 2
   },
   {
    "type": "hadith",
@@ -2903,7 +3401,9 @@
    "en": "Imran b. Husain reported that Allah's Messenger (ﷺ) said: Amongst the inmates of Paradise the women would form a minority",
    "ref": "Sahih Muslim 2738a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 49,
+   "num": 6
   },
   {
    "type": "hadith",
@@ -2912,7 +3412,9 @@
    "en": "Usama b. Zaid reported Allah's Messenger (ﷺ) as saying: I have not left after me any (chance) of turmoil more injurious to men than the harm done to the men because of women",
    "ref": "Sahih Muslim 2740",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 49,
+   "num": 9
   },
   {
    "type": "hadith",
@@ -2921,7 +3423,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: Allah is more pleased with the repentance of His servant when he turns penitently towards Him than one of you would be on finding the lost camel",
    "ref": "Sahih Muslim 2675i",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 2
   },
   {
    "type": "hadith",
@@ -2930,7 +3434,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) having said: By Him in Whose Hand is my life, if you were not to commit sin, Allah would sweep you out of existence and He would replace (you by) those people who would commit sin and seek forgiveness from Allah, and He would have pardoned them",
    "ref": "Sahih Muslim 2749",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 13
   },
   {
    "type": "hadith",
@@ -2939,7 +3445,9 @@
    "en": "Abu Huraira reported that Allah's Messenger (ﷺ) said: When Allah created the creation as He was upon the Throne, He put down in His Book: Verily, My mercy predominates My wrath",
    "ref": "Sahih Muslim 2751a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 17
   },
   {
    "type": "hadith",
@@ -2948,7 +3456,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: Allah, the Exalted and Glorious, said: My mercy excels My wrath",
    "ref": "Sahih Muslim 2751b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 18
   },
   {
    "type": "hadith",
@@ -2957,7 +3467,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: When Allah created the creation, He ordained for Himself and this document is with Him: Verily, My mercy predominates Mv wrath",
    "ref": "Sahih Muslim 2751c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 19
   },
   {
    "type": "hadith",
@@ -2966,7 +3478,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: Allah created one hundred (parts of mercy) and He distributed one amongst His creation and kept this one hundred excepting one with Himself (for the Day of Resurrection)",
    "ref": "Sahih Muslim 2752b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 21
   },
   {
    "type": "hadith",
@@ -2975,7 +3489,9 @@
    "en": "Salman Farisi reported Allah's Messenger (ﷺ) as saying: Verily, there are one hundred (parts of) mercy for Allah, and it is one part of this mercy by virtue of which there is mutual love between the people and ninety-nine reserved for the Day of Resurrection",
    "ref": "Sahih Muslim 2753a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 23
   },
   {
    "type": "hadith",
@@ -2984,7 +3500,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: Allah is self-respecting and a believer is also self-respecting and the respect of Allah is injured if a believer does what He has forbidden him to do",
    "ref": "Sahih Muslim 2761a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 41
   },
   {
    "type": "hadith",
@@ -2993,7 +3511,9 @@
    "en": "Abu Salama reported from Abu Huraira that he narrated that Allah's Messenger (may peace be upon hin) said: There is none more self-respecting than Allah, the Exalted and Glorious There is no mention of the narration of Asma",
    "ref": "Sahih Muslim 2761b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 43
   },
   {
    "type": "hadith",
@@ -3002,7 +3522,9 @@
    "en": "Asma' reported that Allah's Apostle (ﷺ) said: There is none more self-respecting than Allah, the Exalted and Glorious",
    "ref": "Sahih Muslim 2762b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 44
   },
   {
    "type": "hadith",
@@ -3011,7 +3533,9 @@
    "en": "Abu Huraira reported Allah's Messenger (may peace be upon him ) as saying: A believer is self-respecting and Allah is extremely self-respecting",
    "ref": "Sahih Muslim 2761c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 45
   },
   {
    "type": "hadith",
@@ -3020,7 +3544,9 @@
    "en": "Abu Musa' reported that Allah's Messenger (ﷺ) said: When it will be the Day of Resurrection Allah would deliver to every Muslim a Jew or a Christian and say: That is your rescue from Hell-Fire",
    "ref": "Sahih Muslim 2767a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 50,
+   "num": 57
   },
   {
    "type": "hadith",
@@ -3029,7 +3555,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: The world is a prison-house for a believer and Paradise for a non-believer",
    "ref": "Sahih Muslim 2956",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 1
   },
   {
    "type": "hadith",
@@ -3038,7 +3566,9 @@
    "en": "Khalid b. Umair reported: I heard Uqba b. Ghazwan as saving: I found myself as the seventh amongst the seven who had been along with Allah's Messenger (ﷺ). We had nothing to eat but the leaves of hubla (a wild tree) until the corners of our mouths were injured",
    "ref": "Sahih Muslim 2967c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 21
   },
   {
    "type": "hadith",
@@ -3047,7 +3577,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: O Allah, make for the family of Muhammad the provision which is a bare subsistence",
    "ref": "Sahih Muslim 1055b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 24
   },
   {
    "type": "hadith",
@@ -3056,7 +3588,9 @@
    "en": "A'isha reported: Never had the family of Muhammad (ﷺ) eaten to the fill since their, arrival in Medina with the bread of wheat for three successive nights until his (Holy Prophet's) death",
    "ref": "Sahih Muslim 2970a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 27
   },
   {
    "type": "hadith",
@@ -3065,7 +3599,9 @@
    "en": "A'isha reported Allah's Messenger (ﷺ) as saying: Never did Allah's Messenger (ﷺ) eat to his fill the bread of wheat for three successive days until he had run the course of his life",
    "ref": "Sahih Muslim 2970b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 28
   },
   {
    "type": "hadith",
@@ -3074,7 +3610,9 @@
    "en": "A'isha reported: Never did the family of Muhammad (ﷺ) eat to the fill the bread of barley for two successive days until Allah's Messenger (ﷺ) died",
    "ref": "Sahih Muslim 2970c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 29
   },
   {
    "type": "hadith",
@@ -3083,7 +3621,9 @@
    "en": "A'isha reported: Never could the family of Muhammad (ﷺ) (afford to eat to the fill) the bread of wheat beyond three days (successively)",
    "ref": "Sahih Muslim 2970d",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 30
   },
   {
    "type": "hadith",
@@ -3092,7 +3632,9 @@
    "en": "Abu Huraira reported that Allah's Messenger (ﷺ) said: One who makes efforts (for earning to be spent) on a widow and the destitute is like a striver in the cause of Allah, and I think he also said: He is like one who constantly stands for prayer and observes fast without breaking it",
    "ref": "Sahih Muslim 2982",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 51
   },
   {
    "type": "hadith",
@@ -3101,7 +3643,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as stating that Allah the Most High and Exalted said: I am the One, One Who does not stand in need of a partner. If anyone does anything in which he associates anyone else with Me, I shall abandon him with one whom he associates with Allah",
    "ref": "Sahih Muslim 2985",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 58
   },
   {
    "type": "hadith",
@@ -3110,7 +3654,9 @@
    "en": "Ibn Abbas reported Allah's Messenger (ﷺ) as saying: If anyone wants to have his deeds widely publicised, Allah will publicise (his humiliation). And if anyone makes a hypocritical display (of his deeds) Allah will make a display of him",
    "ref": "Sahih Muslim 2986",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 59
   },
   {
    "type": "hadith",
@@ -3119,7 +3665,9 @@
    "en": "Jundub reported Allah's Messenger (ﷺ) as saying: He who wants to publicise (his deeds), Allah will publicise (his humility), and he who makes a hypocritical display (of his deeds), Allah will make a display of him",
    "ref": "Sahih Muslim 2987a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 60
   },
   {
    "type": "hadith",
@@ -3128,7 +3676,9 @@
    "en": "Abu Huraira reported that he heard Allah's Messenger (ﷺ) as saying: The servant speaks words for which he is sent down to the Hell-Fire farther than the distance between the east and the west",
    "ref": "Sahih Muslim 2988a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 64
   },
   {
    "type": "hadith",
@@ -3137,7 +3687,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: The servant speaks words that he does not understand its repercussions but he sinks down in Hell-Fire farther than the distance between the east and the west",
    "ref": "Sahih Muslim 2988b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 65
   },
   {
    "type": "hadith",
@@ -3146,7 +3698,9 @@
    "en": "Abu Huraira reported Allah's Messenger (ﷺ) as saying: The yawning as from the devil. So when one of you yawns he should try to restrain it as far as it lies in his power",
    "ref": "Sahih Muslim 2994",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 73
   },
   {
    "type": "hadith",
@@ -3155,7 +3709,9 @@
    "en": "The son of Abu Said al-Khudri reported on the authority of his father that Allah's Messenger (ﷺ) said: When one of you yawns, he should keep his mouth shut with the help of his hand, for it is the devil that enters therein",
    "ref": "Sahih Muslim 2995a",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 74
   },
   {
    "type": "hadith",
@@ -3164,7 +3720,9 @@
    "en": "The son of Abu Said al-Khudri reported on the authority of his father that Allah's Messenger (ﷺ) said: When one of you yawns, he should try to restrain it with cue help of his hand since it is the Satan that enters therein",
    "ref": "Sahih Muslim 2995b",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 75
   },
   {
    "type": "hadith",
@@ -3173,7 +3731,9 @@
    "en": "The son of Abu Said al-Khudri reported on the authority of his father that Allah's Messenger (ﷺ) said. When one of you yawns while engaged in prayer, he should try to restrain so far as it lies in his power, since it is the Satan that enter therein",
    "ref": "Sahih Muslim 2995c",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 76
   },
   {
    "type": "hadith",
@@ -3182,7 +3742,9 @@
    "en": "A'isha reported that Allah's Messenger (ﷺ) said: The Angels were born out of light and the Jinns were born out of the spark of fire and Adam was born as he has been defined (in the Qur'an) for you (i. e. he is fashioned out of clay)",
    "ref": "Sahih Muslim 2996",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 78
   },
   {
    "type": "hadith",
@@ -3191,7 +3753,9 @@
    "en": "Abu Musa reported Allah's Messenger (ﷺ) saw a person lauding another person or praising him too much. Thereupon he said: You killed him, or you sliced the back of a person",
    "ref": "Sahih Muslim 3001",
    "source": "Sahih Muslim",
-   "grade": "Sahih"
+   "grade": "Sahih",
+   "book": 55,
+   "num": 86
   }
  ]
 }

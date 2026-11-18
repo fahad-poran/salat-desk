@@ -8,7 +8,14 @@
   --muted: #8b949e;
   --faint: #5b636b;
   --accent: #5eead4;
-  --accent-soft: rgba(94, 234, 212, 0.12);
+  /* Shades of the accent; app.js / ThemeState.palette() replaces them all when the user picks a colour. */
+  --accent-rgb: 94, 234, 212;
+  --accent-hover: #7ff0dd;
+  --accent-ink: #04231d;
+  --accent-bg: #0b1f1a;
+  --clock-font: var(--font);
+  --clock-weight: 300;
+  --accent-soft: rgba(var(--accent-rgb), 0.12);
   --warn: #fbbf24;
   --warn-soft: rgba(251, 191, 36, 0.12);
   --danger: #f87171;
@@ -153,13 +160,13 @@ select:focus-visible {
 .primary-button {
   background: var(--accent);
   border-color: var(--accent);
-  color: #04231d;
+  color: var(--accent-ink);
   font-weight: 600;
 }
 
 .primary-button:hover {
-  background: #7ff0dd;
-  border-color: #7ff0dd;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 .icon-button {
@@ -310,7 +317,7 @@ select:focus-visible {
 }
 
 .next-panel.is-reached {
-  border-color: rgba(94, 234, 212, 0.38);
+  border-color: rgba(var(--accent-rgb), 0.38);
 }
 
 .next-panel.is-passed {
@@ -527,7 +534,7 @@ body.no-warning-flash .warning-frame {
 
 .prayer-entry.is-next {
   background: var(--accent-soft);
-  border-color: rgba(94, 234, 212, 0.22);
+  border-color: rgba(var(--accent-rgb), 0.22);
 }
 
 .prayer-entry.is-warning {
@@ -615,7 +622,7 @@ body.no-warning-flash .warning-frame {
 .diff-later {
   color: var(--accent);
   background: var(--accent-soft);
-  border-color: rgba(94, 234, 212, 0.24);
+  border-color: rgba(var(--accent-rgb), 0.24);
 }
 
 .diff-earlier {
@@ -687,8 +694,8 @@ body.no-warning-flash .warning-frame {
   left: 50%;
   bottom: max(18px, env(safe-area-inset-bottom));
   transform: translateX(-50%);
-  background: #0b1f1a;
-  border: 1px solid rgba(94, 234, 212, 0.35);
+  background: var(--accent-bg);
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
   color: var(--accent);
   border-radius: 999px;
   padding: 9px 18px;
@@ -1657,4 +1664,501 @@ body.no-warning-flash .ambient-block.is-warning {
 .alert-minutes .field-hint {
   display: block;
   margin-top: 4px;
+}
+
+/* ---------------------------------------------------------------------------------------------
+   Appearance: clock fonts (bundled, SIL Open Font License; see NOTICE)
+   --------------------------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/nunito-latin-300-normal.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-latin-300-normal.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Serif Display";
+  src: url("/fonts/dm-serif-display-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Orbitron";
+  src: url("/fonts/orbitron-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+.clock-main,
+.ambient-time {
+  font-family: var(--clock-font);
+  font-weight: var(--clock-weight);
+}
+
+html[data-clock-font="mono"] .clock-main,
+html[data-clock-font="digital"] .clock-main {
+  letter-spacing: -0.02em;
+}
+
+/* Orbitron and the mono font are wide: keep the clock inside its panel. */
+html[data-clock-font="digital"] .clock-main {
+  font-size: clamp(3.6rem, 10vw, 9.5rem);
+}
+
+html[data-clock-font="mono"] .clock-main {
+  font-size: clamp(4rem, 11vw, 11rem);
+}
+
+html[data-clock-font="digital"] .ambient-time,
+html[data-clock-font="mono"] .ambient-time {
+  font-size: clamp(48px, 15vw, 104px);
+}
+
+/* ---------------------------------------------------------------------------------------------
+   Settings: icon tabs on the left (a row of icons on narrow screens), one Save
+   --------------------------------------------------------------------------------------------- */
+
+.settings-dialog.settings-tabbed {
+  width: min(980px, 96vw);
+  height: min(880px, 94vh);
+  max-height: 94vh;
+  overflow: hidden;
+}
+
+.settings-tabbed .settings-form {
+  height: 100%;
+  box-sizing: border-box;
+  gap: 14px;
+  padding: clamp(14px, 2.4vw, 24px);
+}
+
+.settings-tabbed .dialog-header h2 {
+  margin-top: 2px;
+}
+
+.settings-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 18px;
+}
+
+.settings-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+}
+
+.settings-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.88rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.settings-tab svg {
+  flex: none;
+}
+
+.settings-tab:hover {
+  color: var(--text);
+  background: var(--panel);
+}
+
+.settings-tab[aria-selected="true"] {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: rgba(var(--accent-rgb), 0.24);
+}
+
+.settings-tab.has-error::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f87171;
+}
+
+.settings-panels {
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 6px;
+}
+
+.settings-panel.form-section {
+  padding-top: 0;
+  border-top: none;
+}
+
+.settings-panel[hidden] {
+  display: none;
+}
+
+.settings-panel h3 {
+  font-size: 1.05rem;
+}
+
+.settings-tabbed .dialog-disclaimer {
+  margin: 0;
+  max-height: 3.2em;
+  overflow: hidden;
+}
+
+.settings-tabbed .dialog-footer {
+  position: static;
+  align-items: center;
+  background: none;
+  padding: 0;
+}
+
+#settingsDirty {
+  margin-right: auto;
+  color: var(--muted);
+}
+
+.advanced-block {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 14px;
+}
+
+.advanced-block summary {
+  cursor: pointer;
+  font-size: 0.86rem;
+  color: var(--muted);
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.advanced-block[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Jamaat cards */
+
+.jamaat-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.jamaat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--panel);
+}
+
+.jamaat-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.jamaat-card-head strong {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.jamaat-preview {
+  font-size: 0.8rem;
+  color: var(--accent);
+  text-align: right;
+}
+
+.jamaat-card .field-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+.jamaat-card .jamaat-sub.field-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.jamaat-card [hidden] {
+  display: none;
+}
+
+.jamaat-note {
+  margin: 0;
+}
+
+.jamaat-note:empty {
+  display: none;
+}
+
+.jamaat-note.is-warning {
+  color: #fca5a5;
+}
+
+.jamaat-flag.is-adjusted {
+  color: var(--accent);
+  border-color: rgba(var(--accent-rgb), 0.4);
+}
+
+/* Appearance */
+
+.theme-preview {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #000;
+}
+
+.theme-preview-time {
+  font-family: var(--clock-font);
+  font-weight: var(--clock-weight);
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  line-height: 1;
+}
+
+.theme-preview-meta {
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.theme-preview-chip {
+  margin-left: auto;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid rgba(var(--accent-rgb), 0.24);
+  font-size: 0.8rem;
+}
+
+.choice-group {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.choice-group legend {
+  padding: 0;
+  margin-bottom: 10px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.font-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 10px;
+}
+
+.font-choice,
+.accent-choice {
+  position: relative;
+  cursor: pointer;
+}
+
+.font-choice input,
+.accent-choice input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.font-choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+}
+
+.font-sample {
+  font-size: 1.9rem;
+  line-height: 1.1;
+}
+
+.font-choice small {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.font-choice:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.font-choice:has(input:focus-visible),
+.accent-choice:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.accent-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.accent-choice {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  display: grid;
+  place-items: center;
+}
+
+.accent-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.accent-choice:has(input:checked) {
+  border-color: var(--text);
+}
+
+.accent-custom {
+  max-width: 220px;
+}
+
+.accent-custom input[type="color"] {
+  width: 100%;
+  height: 44px;
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: var(--panel);
+  cursor: pointer;
+}
+
+.accent-custom.is-active input[type="color"] {
+  border-color: var(--text);
+}
+
+/* Library: copy the reference */
+
+.library-copy {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  display: inline-grid;
+  place-items: center;
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.library-copy:hover,
+.library-copy.is-done {
+  color: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .settings-body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .settings-tabs {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 6px;
+    padding-bottom: 2px;
+  }
+
+  .settings-tab {
+    flex: 0 0 auto;
+    min-width: 48px;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .settings-tab span {
+    display: none;
+  }
+
+  .settings-tab[aria-selected="true"] span {
+    display: inline;
+  }
+}
+
+@media (max-width: 560px) {
+  .settings-dialog.settings-tabbed {
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+
+  .jamaat-card .jamaat-sub.field-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Landscape phones: little height, so a slimmer header and footer. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .settings-dialog.settings-tabbed {
+    height: 96vh;
+    max-height: 96vh;
+  }
+
+  .settings-tabbed .settings-form {
+    gap: 8px;
+    padding: 12px 16px;
+  }
+
+  .settings-tabbed .dialog-header .panel-label,
+  .settings-tabbed .dialog-disclaimer {
+    display: none;
+  }
+
+  .settings-body {
+    grid-template-columns: 170px minmax(0, 1fr);
+  }
+
+  .settings-tab {
+    min-height: 40px;
+    padding: 8px 10px;
+  }
 }

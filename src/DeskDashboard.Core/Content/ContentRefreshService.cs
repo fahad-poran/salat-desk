@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text.Json;
 using DeskDashboard.Core.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeskDashboard.Core.Content;
 
@@ -50,11 +51,67 @@ public sealed class ContentRefreshService(
             var state = await new ContentService(db, time).GetStateAsync(ct);
             if (time.GetUtcNow().ToUnixTimeMilliseconds() < ContentService.NextDueAt(state))
             {
+                await BackfillReferencesIfNeededAsync(ct);
                 return new RefreshOutcome(false, true, 0, 0, "Not due yet.");
             }
         }
 
         return await RefreshAsync(ct);
+    }
+
+    /// <summary>
+    /// Hadith downloaded before 0.2.0 have no book/hadith reference. Reads the English section files once
+    /// (on Wi-Fi) to fill them in, instead of waiting for the next weekly update. Returns how many were filled.
+    /// </summary>
+    public async Task<int> BackfillReferencesIfNeededAsync(CancellationToken ct = default)
+    {
+        await using var db = dbFactory();
+        var books = Books.Select(b => b.Key + ":").ToArray();
+        var missing = await db.ContentItems
+            .Where(x => x.Type == ContentTypes.Hadith && x.RefBook == null)
+            .Select(x => x.SourceKey)
+            .ToListAsync(ct);
+        missing = missing.Where(key => books.Any(key.StartsWith)).ToList();
+        if (missing.Count == 0 || !CanDownload() || Interlocked.Exchange(ref running, 1) == 1)
+        {
+            return 0;
+        }
+
+        try
+        {
+            var wanted = missing.ToHashSet();
+            var references = new List<ContentCandidate>();
+            foreach (var book in Books)
+            {
+                foreach (var section in book.Sections)
+                {
+                    try
+                    {
+                        foreach (var hadith in await FetchSectionAsync($"eng-{book.Key}", section, ct))
+                        {
+                            var key = $"{book.Key}:{ContentText.ReferenceNumber(hadith.ArabicNumber, hadith.HadithNumber)}";
+                            if (hadith.RefBook is not null && hadith.RefNumber is not null && wanted.Contains(key))
+                            {
+                                references.Add(new ContentCandidate(ContentTypes.Hadith, key, "", book.Name, null, "", "",
+                                    hadith.RefBook, hadith.RefNumber));
+                            }
+                        }
+                    }
+                    catch (Exception ex) when (ex is HttpRequestException or JsonException or KeyNotFoundException)
+                    {
+                        logger.LogWarning(ex, "Could not read {Book} section {Section} for references.", book.Key, section);
+                    }
+                }
+            }
+
+            var filled = await new ContentService(db, time).BackfillReferencesAsync(references, ct);
+            logger.LogInformation("Hadith references filled in for {Count} of {Missing} items.", filled, missing.Count);
+            return filled;
+        }
+        finally
+        {
+            Volatile.Write(ref running, 0);
+        }
     }
 
     public async Task<RefreshOutcome> RefreshAsync(CancellationToken ct = default)
@@ -83,8 +140,12 @@ public sealed class ContentRefreshService(
                 addedQuran = await service.AddAsync(quran, batch, ct);
 
                 var hadithKeys = await service.GetSourceKeysAsync(ContentTypes.Hadith, ct);
-                var hadith = await FetchHadithAsync(hadithKeys, batch, errors, ct);
+                var references = new List<ContentCandidate>();
+                var hadith = await FetchHadithAsync(hadithKeys, batch, errors, references, ct);
                 addedHadith = await service.AddAsync(hadith, batch, ct);
+
+                // Items stored before 0.2.0 get their book numbers from the section files read anyway.
+                await service.BackfillReferencesAsync(references, ct);
 
                 // Success when anything arrived, or nothing failed (the pools may simply be used up).
                 var success = addedQuran + addedHadith > 0 || errors.Count == 0;
@@ -207,6 +268,7 @@ public sealed class ContentRefreshService(
         IReadOnlySet<string> existing,
         string batch,
         List<string> errors,
+        List<ContentCandidate> references,
         CancellationToken ct)
     {
         var candidates = new List<ContentCandidate>();
@@ -224,6 +286,13 @@ public sealed class ContentRefreshService(
 
                     foreach (var hadith in english)
                     {
+                        var refKey = $"{book.Key}:{ContentText.ReferenceNumber(hadith.ArabicNumber, hadith.HadithNumber)}";
+                        if (hadith.RefBook is not null && hadith.RefNumber is not null && existing.Contains(refKey))
+                        {
+                            references.Add(new ContentCandidate(ContentTypes.Hadith, refKey, "", book.Name, null, "", "",
+                                hadith.RefBook, hadith.RefNumber));
+                        }
+
                         var en = ContentText.CleanHadithEnglish(hadith.Text);
                         var ar = arabic.TryGetValue(hadith.HadithNumber, out var match) ? ContentText.Clean(match.Text) : "";
                         if (en.Length < ContentText.HadithEnglishMin || ar.Length == 0 ||
@@ -241,7 +310,8 @@ public sealed class ContentRefreshService(
                         }
 
                         candidates.Add(new ContentCandidate(
-                            ContentTypes.Hadith, key, $"{book.Name} {number}", book.Name, book.Grade, ar, en));
+                            ContentTypes.Hadith, key, $"{book.Name} {number}", book.Name, book.Grade, ar, en,
+                            hadith.RefBook, hadith.RefNumber));
                     }
                 }
                 catch (Exception ex) when (ex is HttpRequestException or JsonException or KeyNotFoundException)
@@ -283,7 +353,16 @@ public sealed class ContentRefreshService(
             var grades = item.TryGetProperty("grades", out var g) && g.ValueKind == JsonValueKind.Array
                 ? g.EnumerateArray().Select(x => x.TryGetProperty("grade", out var v) ? v.GetString() ?? "" : "").ToList()
                 : [];
-            list.Add(new RawHadith(number, arabicNumber, item.GetProperty("text").GetString() ?? "", grades));
+            int? refBook = null, refNumber = null;
+            if (item.TryGetProperty("reference", out var reference) && reference.ValueKind == JsonValueKind.Object &&
+                reference.TryGetProperty("book", out var b) && b.ValueKind == JsonValueKind.Number &&
+                reference.TryGetProperty("hadith", out var h) && h.ValueKind == JsonValueKind.Number)
+            {
+                refBook = (int)b.GetDouble();
+                refNumber = (int)h.GetDouble();
+            }
+
+            list.Add(new RawHadith(number, arabicNumber, item.GetProperty("text").GetString() ?? "", grades, refBook, refNumber));
         }
 
         return list;
@@ -302,5 +381,11 @@ public sealed class ContentRefreshService(
 
     public sealed record HadithBook(string Key, string Name, string? Grade, IReadOnlyList<int> Sections);
 
-    private sealed record RawHadith(int HadithNumber, string? ArabicNumber, string Text, IReadOnlyList<string> Grades);
+    private sealed record RawHadith(
+        int HadithNumber,
+        string? ArabicNumber,
+        string Text,
+        IReadOnlyList<string> Grades,
+        int? RefBook,
+        int? RefNumber);
 }

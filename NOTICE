@@ -16,6 +16,11 @@ Prayer time calculation
   NuGet package "Adhan" 0.9.0 (https://github.com/stankovski/adhan-csharp), a .NET port of the
   Adhan prayer-times library by Batoul Apps. See its repository for its license terms.
 
+Clock fonts
+  Nunito, JetBrains Mono, DM Serif Display and Orbitron, bundled in src/DeskDashboard.Web/wwwroot/fonts
+  (Latin subsets, from the Fontsource packages). All are under the SIL Open Font License 1.1
+  (https://openfontlicense.org).
+
 City search
   Open-Meteo Geocoding API (https://open-meteo.com), CC BY 4.0.
 

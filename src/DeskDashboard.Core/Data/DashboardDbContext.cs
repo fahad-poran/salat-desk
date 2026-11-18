@@ -9,6 +9,7 @@ public sealed class DashboardDbContext(DbContextOptions<DashboardDbContext> opti
     public DbSet<MosqueTimetable> MosqueTimetables => Set<MosqueTimetable>();
     public DbSet<ContentItem> ContentItems => Set<ContentItem>();
     public DbSet<ContentState> ContentStates => Set<ContentState>();
+    public DbSet<AlertPreference> AlertPreferences => Set<AlertPreference>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -43,6 +44,13 @@ public sealed class DashboardDbContext(DbContextOptions<DashboardDbContext> opti
         {
             entity.ToTable("ContentStates");
             entity.HasKey(x => x.Id);
+        });
+
+        modelBuilder.Entity<AlertPreference>(entity =>
+        {
+            entity.ToTable("AlertPreferences");
+            entity.HasKey(x => x.Key);
+            entity.Property(x => x.Key).HasMaxLength(20);
         });
     }
 }

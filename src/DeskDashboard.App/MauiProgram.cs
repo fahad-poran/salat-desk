@@ -63,6 +63,13 @@ public static class MauiProgram
 
         var app = builder.Build();
 
+#if ANDROID
+        // Jamaat notifications for the next 7 days: planned now and after every save (also runs when Android
+        // starts the app for a broadcast, e.g. after a reboot).
+        app.Services.GetRequiredService<LocalApi>().AlertsChanged += () => JamaatAlerts.RescheduleInBackground();
+        JamaatAlerts.RescheduleInBackground();
+#endif
+
         // In the background: import the starter Ayat/Hadith on first run, then check the weekly
         // update shortly after start and every few hours.
         var refresh = app.Services.GetRequiredService<ContentRefreshService>();

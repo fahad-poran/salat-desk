@@ -38,7 +38,11 @@ public sealed record PrayerTimeDto(
     string? JamaatEarliest,
     string? JamaatLatest,
     bool? JamaatWithinWindow,
-    string? JamaatValidationError);
+    string? JamaatValidationError,
+    string? JamaatMode = null,
+    string? JamaatRuleText = null,
+    bool JamaatAdjusted = false,
+    string? JamaatNote = null);
 
 public sealed record NextPrayerDto(
     string Key,
@@ -63,7 +67,8 @@ public sealed record MosqueTimetableDto(
     string? Asr,
     string? Maghrib,
     string? Isha,
-    string? Note);
+    string? Note,
+    IReadOnlyDictionary<string, JamaatRule>? Rules = null);
 
 public sealed record MosqueTimetableResponse(
     MosqueTimetableDto? Timetable,
@@ -82,7 +87,8 @@ public sealed record PrayerTodayResponse(
     DateTimeOffset ServerNowUtc,
     MosqueTimetableDto? Timetable,
     IReadOnlyList<JamaatConflictDto> Conflicts,
-    string Disclaimer);
+    string Disclaimer,
+    IReadOnlyDictionary<string, AlertPreferenceDto>? Alerts = null);
 
 public sealed record PrayerSettingsResponse(
     PrayerSettingsDto Settings,
@@ -97,4 +103,20 @@ public sealed record MosqueTimetableInput(
     string? Asr,
     string? Maghrib,
     string? Isha,
-    string? Note);
+    string? Note,
+    IReadOnlyDictionary<string, JamaatRule>? Rules = null);
+
+/// <summary>Jamaat warning settings for one prayer.</summary>
+public sealed record AlertPreferenceDto(bool Notify, int Minutes);
+
+/// <summary>Everything the Settings dialog saves, in one request (PUT /api/settings).</summary>
+public sealed record SettingsSaveInput(
+    PrayerSettingsDto Prayer,
+    MosqueTimetableInput? Timetable,
+    IReadOnlyDictionary<string, AlertPreferenceDto>? Alerts);
+
+public sealed record SettingsSaveResponse(
+    PrayerSettingsDto Settings,
+    MosqueTimetableDto? Timetable,
+    IReadOnlyDictionary<string, AlertPreferenceDto> Alerts,
+    IReadOnlyList<JamaatConflictDto> Conflicts);

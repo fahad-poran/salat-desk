@@ -47,6 +47,154 @@ public sealed class PrayerService(
         }
 
         var settings = await db.PrayerSettings.OrderBy(x => x.Id).FirstAsync(ct);
+        ApplySettings(settings, input);
+
+        await db.SaveChangesAsync(ct);
+        logger.LogInformation("Prayer settings updated for {City}, {Country}.", settings.City, settings.Country);
+
+        return (true, [], settings);
+    }
+
+    /// <summary>
+    /// Saves the whole Settings dialog at once: prayer settings, (optionally) the Jamaat timetable and the alert
+    /// preferences. Everything is validated first, against the new settings, and written in one SaveChanges, so a
+    /// failure leaves nothing half-saved. Error keys: settings fields as-is, "timetable.*" and "alerts.*".
+    /// </summary>
+    public async Task<(bool Ok, Dictionary<string, string[]> Errors, SettingsSaveResponse? Result)> SaveAllAsync(
+        SettingsSaveInput input,
+        CancellationToken ct)
+    {
+        if (input.Prayer is null)
+        {
+            return (false, new Dictionary<string, string[]> { ["prayer"] = ["Prayer settings are required."] }, null);
+        }
+
+        var errors = ValidateSettings(input.Prayer);
+        var settingsValid = errors.Count == 0;
+
+        TimetableValues? timetable = null;
+        if (input.Timetable is not null)
+        {
+            PrayerSettings? candidate = null;
+            if (settingsValid)
+            {
+                candidate = new PrayerSettings();
+                ApplySettings(candidate, input.Prayer);
+            }
+
+            var (timetableErrors, values) = ValidateTimetable(input.Timetable, candidate);
+            foreach (var (key, messages) in timetableErrors)
+            {
+                errors["timetable." + key] = messages;
+            }
+
+            timetable = values;
+        }
+
+        foreach (var (key, messages) in ValidateAlerts(input.Alerts))
+        {
+            errors["alerts." + key] = messages;
+        }
+
+        if (errors.Count > 0)
+        {
+            return (false, errors, null);
+        }
+
+        var settings = await db.PrayerSettings.OrderBy(x => x.Id).FirstAsync(ct);
+        ApplySettings(settings, input.Prayer);
+
+        MosqueTimetable? saved = null;
+        if (input.Timetable is not null && timetable is not null)
+        {
+            saved = await ApplyTimetableAsync(input.Timetable, timetable, ct);
+        }
+
+        if (input.Alerts is not null)
+        {
+            await ApplyAlertsAsync(input.Alerts, ct);
+        }
+
+        await db.SaveChangesAsync(ct);
+        logger.LogInformation("Settings saved for {City}, {Country}.", settings.City, settings.Country);
+
+        saved ??= await GetActiveTimetableAsync(
+            DateOnly.FromDateTime(TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, TimeZoneResolver.Resolve(settings.TimeZoneId)).DateTime),
+            ct);
+
+        return (true, [], new SettingsSaveResponse(
+            ToDto(settings),
+            saved is null ? null : ToDto(saved),
+            await GetAlertPreferencesAsync(ct),
+            await GetConflictsAsync(ct)));
+    }
+
+    public static readonly string[] PrayerKeys = ["fajr", "dhuhr", "asr", "maghrib", "isha"];
+
+    /// <summary>The Jamaat warnings for the coming days, for the phone to schedule (see JamaatAlertPlanner).</summary>
+    public async Task<IReadOnlyList<PlannedAlert>> PlanAlertsAsync(
+        DateTimeOffset nowUtc,
+        int days = JamaatAlertPlanner.DefaultDays,
+        CancellationToken ct = default)
+    {
+        var settings = await GetSettingsAsync(ct);
+        var timetables = await db.MosqueTimetables.AsNoTracking().ToListAsync(ct);
+        var preferences = await GetAlertPreferencesAsync(ct);
+        return JamaatAlertPlanner.Plan(settings, calculator, timetables, preferences, nowUtc, days);
+    }
+
+    public async Task<IReadOnlyDictionary<string, AlertPreferenceDto>> GetAlertPreferencesAsync(CancellationToken ct)
+    {
+        var stored = await db.AlertPreferences.AsNoTracking().ToListAsync(ct);
+        return PrayerKeys.ToDictionary(
+            key => key,
+            key => stored.FirstOrDefault(x => x.Key == key) is { } pref
+                ? new AlertPreferenceDto(pref.Notify, pref.Minutes)
+                : new AlertPreferenceDto(true, 10));
+    }
+
+    private static Dictionary<string, string[]> ValidateAlerts(IReadOnlyDictionary<string, AlertPreferenceDto>? alerts)
+    {
+        var errors = new Dictionary<string, string[]>();
+        if (alerts is null)
+        {
+            return errors;
+        }
+
+        foreach (var (key, pref) in alerts)
+        {
+            if (!PrayerKeys.Contains(key))
+            {
+                errors[key] = ["Unknown prayer."];
+            }
+            else if (pref is null || pref.Minutes is < 1 or > 120)
+            {
+                errors[key] = ["Warning minutes must be between 1 and 120."];
+            }
+        }
+
+        return errors;
+    }
+
+    private async Task ApplyAlertsAsync(IReadOnlyDictionary<string, AlertPreferenceDto> alerts, CancellationToken ct)
+    {
+        var stored = await db.AlertPreferences.ToListAsync(ct);
+        foreach (var (key, pref) in alerts)
+        {
+            var row = stored.FirstOrDefault(x => x.Key == key);
+            if (row is null)
+            {
+                row = new AlertPreference { Key = key };
+                db.AlertPreferences.Add(row);
+            }
+
+            row.Notify = pref.Notify;
+            row.Minutes = pref.Minutes;
+        }
+    }
+
+    private static void ApplySettings(PrayerSettings settings, PrayerSettingsDto input)
+    {
         settings.Country = input.Country.Trim();
         settings.City = input.City.Trim();
         settings.Latitude = input.Latitude;
@@ -65,11 +213,6 @@ public sealed class PrayerService(
         settings.MaghribAdjustment = input.MaghribAdjustment;
         settings.IshaAdjustment = input.IshaAdjustment;
         settings.UpdatedAtUtc = DateTimeOffset.UtcNow;
-
-        await db.SaveChangesAsync(ct);
-        logger.LogInformation("Prayer settings updated for {City}, {Country}.", settings.City, settings.Country);
-
-        return (true, [], settings);
     }
 
     public async Task<PrayerTodayResponse> BuildTodayAsync(DateOnly? requestedDate, CancellationToken ct)
@@ -118,7 +261,8 @@ public sealed class PrayerService(
             day.ServerNowUtc,
             timetable is null ? null : ToDto(timetable),
             ConflictsFrom(times, timetable, targetDate),
-            Disclaimer);
+            Disclaimer,
+            await GetAlertPreferencesAsync(ct));
     }
 
     public Task<MosqueTimetable?> GetActiveTimetableAsync(DateOnly date, CancellationToken ct) =>
@@ -160,12 +304,56 @@ public sealed class PrayerService(
         MosqueTimetableInput input,
         CancellationToken ct)
     {
+        var (errors, values) = ValidateTimetable(input, await GetSettingsAsync(ct));
+        if (errors.Count > 0)
+        {
+            return (false, errors, null);
+        }
+
+        var timetable = await ApplyTimetableAsync(input, values, ct);
+        await db.SaveChangesAsync(ct);
+        logger.LogInformation("Jamaat timetable saved effective {EffectiveFrom}.", timetable.EffectiveFrom);
+
+        return (true, [], timetable);
+    }
+
+    private sealed record TimetableValues(
+        IReadOnlyDictionary<string, TimeOnly?> Times,
+        IReadOnlyDictionary<string, JamaatRule> Rules);
+
+    /// <summary>
+    /// Parses and checks a timetable. Fixed times are checked against the windows of the effective date, using
+    /// <paramref name="settings"/> (null when the settings themselves are invalid: then only the format is checked).
+    /// Error keys: "fajr" … for times, "fajrRule" … for rules.
+    /// </summary>
+    private (Dictionary<string, string[]> Errors, TimetableValues Values) ValidateTimetable(
+        MosqueTimetableInput input,
+        PrayerSettings? settings)
+    {
         var errors = new Dictionary<string, string[]>();
-        var fajr = ParseTime(input.Fajr, "fajr", errors);
-        var dhuhr = ParseTime(input.Dhuhr, "dhuhr", errors);
-        var asr = ParseTime(input.Asr, "asr", errors);
-        var maghrib = ParseTime(input.Maghrib, "maghrib", errors);
-        var isha = ParseTime(input.Isha, "isha", errors);
+        var times = new Dictionary<string, TimeOnly?>
+        {
+            ["fajr"] = ParseTime(input.Fajr, "fajr", errors),
+            ["dhuhr"] = ParseTime(input.Dhuhr, "dhuhr", errors),
+            ["asr"] = ParseTime(input.Asr, "asr", errors),
+            ["maghrib"] = ParseTime(input.Maghrib, "maghrib", errors),
+            ["isha"] = ParseTime(input.Isha, "isha", errors)
+        };
+
+        var rules = new Dictionary<string, JamaatRule>();
+        foreach (var key in PrayerKeys)
+        {
+            var rule = input.Rules is not null && input.Rules.TryGetValue(key, out var given) && given is not null
+                ? given
+                : JamaatRule.Default;
+            var ruleErrors = JamaatRule.Errors(rule).ToArray();
+            if (ruleErrors.Length > 0)
+            {
+                errors[key + "Rule"] = ruleErrors;
+            }
+
+            rules[key] = JamaatRule.Normalize(rule);
+        }
 
         if (input.Note?.Length > 200)
         {
@@ -177,23 +365,16 @@ public sealed class PrayerService(
             errors["effectiveFrom"] = ["Choose the date this timetable becomes effective."];
         }
 
-        if (errors.Count == 0)
+        if (errors.Count == 0 && settings is not null)
         {
-            var settings = await GetSettingsAsync(ct);
             var timeZone = TimeZoneResolver.Resolve(settings.TimeZoneId);
             var day = calculator.Calculate(settings, input.EffectiveFrom);
             var windows = JamaatSchedule.Build(day, timeZone);
 
-            foreach (var (key, time) in new[]
-                     {
-                         ("fajr", fajr),
-                         ("dhuhr", dhuhr),
-                         ("asr", asr),
-                         ("maghrib", maghrib),
-                         ("isha", isha)
-                     })
+            foreach (var key in PrayerKeys)
             {
-                if (time is null)
+                // Only a fixed time is the user's own number to check; the other modes always land in the window.
+                if (rules[key].Mode != JamaatRule.Fixed || times[key] is not { } time)
                 {
                     continue;
                 }
@@ -209,11 +390,14 @@ public sealed class PrayerService(
             }
         }
 
-        if (errors.Count > 0)
-        {
-            return (false, errors, null);
-        }
+        return (errors, new TimetableValues(times, rules));
+    }
 
+    private async Task<MosqueTimetable> ApplyTimetableAsync(
+        MosqueTimetableInput input,
+        TimetableValues values,
+        CancellationToken ct)
+    {
         var timetable = await db.MosqueTimetables
             .FirstOrDefaultAsync(x => x.EffectiveFrom == input.EffectiveFrom, ct);
 
@@ -223,18 +407,19 @@ public sealed class PrayerService(
             db.MosqueTimetables.Add(timetable);
         }
 
-        timetable.Fajr = fajr;
-        timetable.Dhuhr = dhuhr;
-        timetable.Asr = asr;
-        timetable.Maghrib = maghrib;
-        timetable.Isha = isha;
+        timetable.Fajr = values.Times["fajr"];
+        timetable.Dhuhr = values.Times["dhuhr"];
+        timetable.Asr = values.Times["asr"];
+        timetable.Maghrib = values.Times["maghrib"];
+        timetable.Isha = values.Times["isha"];
+        timetable.FajrRule = JamaatRule.Serialize(values.Rules["fajr"]);
+        timetable.DhuhrRule = JamaatRule.Serialize(values.Rules["dhuhr"]);
+        timetable.AsrRule = JamaatRule.Serialize(values.Rules["asr"]);
+        timetable.MaghribRule = JamaatRule.Serialize(values.Rules["maghrib"]);
+        timetable.IshaRule = JamaatRule.Serialize(values.Rules["isha"]);
         timetable.Note = string.IsNullOrWhiteSpace(input.Note) ? null : input.Note.Trim();
         timetable.UpdatedAtUtc = DateTimeOffset.UtcNow;
-
-        await db.SaveChangesAsync(ct);
-        logger.LogInformation("Jamaat timetable saved effective {EffectiveFrom}.", timetable.EffectiveFrom);
-
-        return (true, [], timetable);
+        return timetable;
     }
 
     public MosqueTimetableDto ToDto(MosqueTimetable timetable) => new(
@@ -244,7 +429,8 @@ public sealed class PrayerService(
         FormatTime(timetable.Asr),
         FormatTime(timetable.Maghrib),
         FormatTime(timetable.Isha),
-        timetable.Note);
+        timetable.Note,
+        PrayerKeys.ToDictionary(key => key, key => JamaatResolver.RuleFor(timetable, key)));
 
     private static Dictionary<string, string[]> ValidateSettings(PrayerSettingsDto input)
     {
@@ -344,20 +530,32 @@ public sealed class PrayerService(
         string? status = null;
         bool? withinWindow = null;
         string? validationError = null;
+        string? mode = null;
+        string? ruleText = null;
+        var adjusted = false;
+        string? note = null;
 
-        if (moment.IsPrayer && window is not null)
+        if (moment.IsPrayer && window is not null && timetable is not null)
         {
-            var configured = GetJamaatTime(timetable, moment.Key);
-            if (configured is { } time)
+            var rule = JamaatResolver.RuleFor(timetable, moment.Key);
+            var resolution = JamaatResolver.Resolve(rule, JamaatResolver.TimeFor(timetable, moment.Key), date, window, timeZone);
+            if (resolution is not null)
             {
-                jamaatTime = FormatTime(time);
-                var validation = JamaatSchedule.Validate(moment.Key, time, date, window, timeZone);
-                jamaatAt = validation.JamaatAt;
-                withinWindow = validation.IsValid;
-                validationError = validation.Error;
-                difference = (int)Math.Round(
-                    (validation.JamaatAt - moment.At).TotalMinutes,
-                    MidpointRounding.AwayFromZero);
+                mode = rule.Mode;
+                ruleText = rule.Mode == JamaatRule.Fixed
+                    ? $"fixed time; if the Waqt passes it: {rule.EffectiveFallback.Describe()}"
+                    : rule.Describe();
+                adjusted = resolution.Adjusted;
+                note = resolution.Note;
+                withinWindow = resolution.Valid;
+                validationError = resolution.Error;
+                jamaatAt = resolution.At;
+            }
+
+            if (jamaatAt is { } at)
+            {
+                jamaatTime = JamaatSchedule.ToInputTime(at, timeZone);
+                difference = (int)Math.Round((at - moment.At).TotalMinutes, MidpointRounding.AwayFromZero);
                 status = difference == 0
                     ? "same"
                     : difference > 0
@@ -381,18 +579,12 @@ public sealed class PrayerService(
             window is null ? null : JamaatSchedule.ToInputTime(window.Start, timeZone),
             window is null ? null : JamaatSchedule.ToInputTime(window.End.AddMinutes(-1), timeZone),
             withinWindow,
-            validationError);
+            validationError,
+            mode,
+            ruleText,
+            adjusted,
+            note);
     }
-
-    private static TimeOnly? GetJamaatTime(MosqueTimetable? timetable, string prayerKey) => prayerKey switch
-    {
-        "fajr" => timetable?.Fajr,
-        "dhuhr" => timetable?.Dhuhr,
-        "asr" => timetable?.Asr,
-        "maghrib" => timetable?.Maghrib,
-        "isha" => timetable?.Isha,
-        _ => null
-    };
 
     private static IReadOnlyList<JamaatConflictDto> ConflictsFrom(
         IReadOnlyList<PrayerTimeDto> times,
