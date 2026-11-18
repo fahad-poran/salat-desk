@@ -37,6 +37,12 @@ $env:SALATDESK_KEY_PASS = [Runtime.InteropServices.Marshal]::PtrToStringBSTR(
     [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure))
 
 $started = Get-Date
+# Start from a clean Release build: after a failed signing (e.g. a wrong password) an incremental build
+# reports success without producing a signed package.
+foreach ($folder in 'bin\Release', 'obj\Release') {
+    $path = Join-Path $root "src\DeskDashboard.App\$folder"
+    if (Test-Path $path) { Remove-Item -Recurse -Force $path }
+}
 try {
     Write-Host "Building Salat Desk $version ($Format, Release)..." -ForegroundColor Cyan
     dotnet publish $project -f net10.0-android -c Release `

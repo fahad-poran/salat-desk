@@ -156,6 +156,7 @@
     settingsTab: 'location',
     timetableBaseline: '',
     previewFromSettings: false,
+    settingsOpenedAt: 0,
     contentRefreshRequested: false,
     library: { type: 'quran', hidden: false, items: [], shown: 0, token: 0 },
     contentStatusTimer: 0
@@ -231,7 +232,8 @@
     });
     elements.settingsTabs.addEventListener('click', (event) => {
       const tab = event.target.closest('[data-tab]');
-      if (tab) {
+      // On a phone the tap that opened Settings can arrive again on the tab under the gear button.
+      if (tab && Date.now() - state.settingsOpenedAt > 450) {
         selectSettingsTab(tab.dataset.tab);
       }
     });
@@ -694,6 +696,7 @@
     }
 
     const data = state.data;
+    state.settingsOpenedAt = Date.now();
     state.settingsDraft = {
       ambientPrefs: { ...state.ambientPrefs },
       flashWarning: state.flashWarning,

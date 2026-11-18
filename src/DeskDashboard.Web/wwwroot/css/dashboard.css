@@ -2134,6 +2134,15 @@ html[data-clock-font="mono"] .ambient-time {
   .jamaat-card .jamaat-sub.field-grid {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  /* Narrow portrait: the spaced-out column headings ran into each other. */
+  .prayer-head {
+    letter-spacing: 0.06em;
+  }
+
+  .prayer-head span {
+    overflow-wrap: anywhere;
+  }
 }
 
 /* Landscape phones: little height, so a slimmer header and footer. */
